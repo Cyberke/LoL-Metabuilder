@@ -1,7 +1,7 @@
 LoL-Metabuilder
 ===============
 Project App Development for Android
-
-Manuel Dellisse
-Milan Tocan
-Jelle Vanden Bulcke
+<hr>
+Manuel Dellisse<br />
+Milan Tocan<br />
+Jelle Vanden Bulcke<br />
