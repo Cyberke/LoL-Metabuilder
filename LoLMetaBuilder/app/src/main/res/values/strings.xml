@@ -7,5 +7,9 @@
     <string name="game_patch_notes">Patch notes</string>
     <string name="title_activity_my_champion">Champions</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_my_skin">Skins</string>
+    <string name="title_activity_my_activity_lore">Lore</string>
+    <string name="title_activity_my_activity_generate_build">Generate Build</string>
+    <string name="title_activity_my_activity_stat_priority">MyActivityStatPriority</string>
 
 </resources>

@@ -20,6 +20,22 @@
             android:name=".MyChampionActivity"
             android:label="@string/title_activity_my_champion" >
         </activity>
+        <activity
+            android:name=".MySkinActivity"
+            android:label="@string/title_activity_my_skin" >
+        </activity>
+        <activity
+            android:name=".MyActivityLore"
+            android:label="@string/title_activity_my_activity_lore" >
+        </activity>
+        <activity
+            android:name=".MyActivityGenerateBuild"
+            android:label="@string/title_activity_my_activity_generate_build" >
+        </activity>
+        <activity
+            android:name=".MyActivityStatPriority"
+            android:label="@string/title_activity_my_activity_stat_priority" >
+        </activity>
     </application>
 
 </manifest>
