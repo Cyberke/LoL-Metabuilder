@@ -21,18 +21,19 @@
 
     <GridView
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/gvStatPriority"
+        android:layout_height="380dp"
+        android:id="@+id/gVStatPriority"
         android:layout_below="@+id/textView"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="100dp"/>
+        android:layout_marginTop="20dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Generate"
-        android:id="@+id/button"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
+        android:id="@+id/btnGenerate"
+        android:layout_below="@+id/gVStatPriority"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"/>
 </RelativeLayout>

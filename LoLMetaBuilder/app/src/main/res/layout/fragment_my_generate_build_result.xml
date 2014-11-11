@@ -1,13 +1,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="be.howest.lolmetabuilder.MyActivityGenerateBuild$PlaceholderFragment">
-
+    tools:context="be.howest.lolmetabuilder.MyGenerateBuildResultActivity$PlaceholderFragment">
 
     <ImageView
         android:layout_width="wrap_content"
@@ -89,98 +86,46 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Limit total gold:"
-        android:id="@+id/textView2"
+        android:text="Level"
+        android:id="@+id/textView15"
         android:layout_below="@+id/imgBtnItem4"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"/>
 
-    <EditText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/txtLimitTotalGold"
-        android:layout_alignTop="@+id/textView2"
-        android:layout_alignLeft="@+id/imgBtnItem4"
-        android:layout_alignStart="@+id/imgBtnItem4"
-        android:hint="Limit total gold"
-        android:width="@dimen/editboxes"
-        android:layout_marginTop="-10dp"/>
+    <Spinner
+        android:layout_width="@dimen/large_icons"
+        android:layout_height="40dp"
+        android:id="@+id/spinnerLevel"
+        android:layout_alignTop="@+id/textView15"
+        android:layout_toRightOf="@+id/textView15"
+        android:layout_toEndOf="@+id/textView15"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="-10dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Stats to maximize"
-        android:id="@+id/textView3"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Attack"
-        android:id="@+id/cbAttack"
-        android:layout_below="@+id/textView3"
+        android:text="Stats"
+        android:id="@+id/textView16"
+        android:layout_below="@+id/spinnerLevel"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:layout_marginLeft="5dp"/>
+        android:layout_marginTop="40dp" />
 
-    <CheckBox
+    <GridView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Armor"
-        android:id="@+id/cbArmor"
-        android:layout_alignTop="@+id/cbAttack"
-        android:layout_toRightOf="@+id/cbAttack"
-        android:layout_toEndOf="@+id/cbAttack"
-        android:layout_marginLeft="20dp"/>
+        android:id="@+id/gVResultStats"
+        android:layout_below="@+id/textView16"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginStart="20dp" />
 
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Lifesteal"
-        android:id="@+id/cbLifesteal"
-        android:layout_alignTop="@+id/cbArmor"
-        android:layout_toRightOf="@+id/cbArmor"
-        android:layout_toEndOf="@+id/cbArmor"
-        android:layout_marginLeft="60dp"/>
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ability"
-        android:id="@+id/cbAbility"
-        android:layout_below="@+id/cbAttack"
-        android:layout_alignLeft="@+id/cbAttack"
-        android:layout_alignStart="@+id/cbAttack" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Magic Resist"
-        android:id="@+id/cbMagicResist"
-        android:layout_below="@+id/cbArmor"
-        android:layout_alignLeft="@+id/cbArmor"
-        android:layout_alignStart="@+id/cbArmor" />
-
-    <CheckBox
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Spell Vamp"
-        android:id="@+id/cbSpellVamp"
-        android:layout_below="@+id/cbLifesteal"
-        android:layout_alignLeft="@+id/cbLifesteal"
-        android:layout_alignStart="@+id/cbLifesteal" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Generate Build"
-        android:id="@+id/btnGenerateBuild"
-        android:layout_marginBottom="37dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true" />
 </RelativeLayout>
