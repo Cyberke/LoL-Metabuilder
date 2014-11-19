@@ -4,6 +4,7 @@
     <string name="app_name">LoL-Metabuilder</string>
     <string name="free_champ_rotation">Free Champion Rotation</string>
     <string name="action_settings">Settings</string>
+    <string name="action_add">Add Build</string>
     <string name="game_patch_notes">Patch notes</string>
     <string name="title_activity_my_champion">Champions</string>
     <string name="hello_world">Hello world!</string>
