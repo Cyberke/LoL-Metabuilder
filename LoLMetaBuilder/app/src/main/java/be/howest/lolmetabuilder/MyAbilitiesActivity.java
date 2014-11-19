@@ -12,15 +12,14 @@ import android.view.ViewGroup;
 import android.os.Build;
 
 
-public class MyAbilitiesActivity extends Activity {
+public class MyAbilitiesActivity extends MyActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_abilities);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .replace(R.id.container, new PlaceholderFragment())
                     .commit();
         }
     }

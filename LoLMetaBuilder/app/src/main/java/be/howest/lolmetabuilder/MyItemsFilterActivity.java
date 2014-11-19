@@ -12,15 +12,14 @@ import android.view.ViewGroup;
 import android.os.Build;
 
 
-public class MyItemsFilterActivity extends Activity {
+public class MyItemsFilterActivity extends MyActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_items_filter);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .replace(R.id.container, new PlaceholderFragment())
                     .commit();
         }
     }
