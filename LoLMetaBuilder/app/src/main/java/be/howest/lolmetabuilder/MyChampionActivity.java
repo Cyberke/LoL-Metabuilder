@@ -10,15 +10,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 
-public class MyChampionActivity extends Activity {
+public class MyChampionActivity extends MyActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_champion);
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+                    .replace(R.id.container, new PlaceholderFragment())
                     .commit();
         }
     }

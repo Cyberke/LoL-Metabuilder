@@ -20,5 +20,13 @@
     <string name="title_activity_my_item">MyItemActivity</string>
     <string name="title_activity_my_simulate">Simulate</string>
     <string name="title_activity_my_settings">Settings</string>
+    <string-array name="titles_array">
+        <item>Home</item>
+        <item>Champions</item>
+        <item>Items</item>
+        <item>Builds</item>
+        <item>Simulate</item>
+        <item>Settings</item>
+    </string-array>
 
 </resources>
