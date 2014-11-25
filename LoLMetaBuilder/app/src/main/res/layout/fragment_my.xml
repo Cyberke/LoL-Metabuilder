@@ -12,150 +12,114 @@
         android:text="@string/free_champ_rotation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/textView" />
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <!--TODO: GridLayout omzetten naar GridView??-->
+    <GridLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/imgVChamp1"
-        android:minHeight="@dimen/icons"
-        android:minWidth="@dimen/icons"
-        android:layout_marginLeft="39dp"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/textView"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:src="@drawable/ic_launcher" />
+        android:id="@+id/gLChamps"
+        android:rowCount="2"
+        android:columnCount="5"
+        android:layout_below="@id/textView"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgVChamp2"
-        android:minHeight="@dimen/icons"
-        android:minWidth="@dimen/icons"
-        android:src="@drawable/ic_launcher"
-        android:layout_alignTop="@+id/imgVChamp1"
-        android:layout_toRightOf="@+id/imgVChamp1"
-        android:layout_toEndOf="@+id/imgVChamp1" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgVChamp1"
+            android:minHeight="@dimen/icons"
+            android:minWidth="@dimen/icons"
+            android:src="@drawable/ic_launcher" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgVChamp3"
-        android:minHeight="@dimen/icons"
-        android:minWidth="@dimen/icons"
-        android:src="@drawable/ic_launcher"
-        android:layout_toEndOf="@+id/imgVChamp2"
-        android:layout_alignTop="@+id/imgVChamp2"
-        android:layout_toRightOf="@+id/imgVChamp2" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgVChamp2"
+            android:minHeight="@dimen/icons"
+            android:minWidth="@dimen/icons"
+            android:src="@drawable/ic_launcher" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgVChamp4"
-        android:minHeight="@dimen/icons"
-        android:minWidth="@dimen/icons"
-        android:src="@drawable/ic_launcher"
-        android:layout_alignTop="@+id/imgVChamp3"
-        android:layout_toRightOf="@+id/imgVChamp3"
-        android:layout_toEndOf="@+id/imgVChamp3" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgVChamp3"
+            android:minHeight="@dimen/icons"
+            android:minWidth="@dimen/icons"
+            android:src="@drawable/ic_launcher" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgVChamp5"
-        android:minHeight="@dimen/icons"
-        android:minWidth="@dimen/icons"
-        android:src="@drawable/ic_launcher"
-        android:layout_toEndOf="@+id/imgVChamp4"
-        android:layout_alignTop="@+id/imgVChamp4"
-        android:layout_toRightOf="@+id/imgVChamp4" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgVChamp4"
+            android:minHeight="@dimen/icons"
+            android:minWidth="@dimen/icons"
+            android:src="@drawable/ic_launcher" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgVChamp6"
-        android:minHeight="@dimen/icons"
-        android:minWidth="@dimen/icons"
-        android:src="@drawable/ic_launcher"
-        android:layout_below="@+id/imgVChamp1"
-        android:layout_alignLeft="@+id/imgVChamp1"
-        android:layout_alignStart="@+id/imgVChamp1" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgVChamp5"
+            android:minHeight="@dimen/icons"
+            android:minWidth="@dimen/icons"
+            android:src="@drawable/ic_launcher" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgVChamp7"
-        android:minHeight="@dimen/icons"
-        android:minWidth="@dimen/icons"
-        android:src="@drawable/ic_launcher"
-        android:layout_alignTop="@+id/imgVChamp6"
-        android:layout_alignLeft="@+id/imgVChamp2"
-        android:layout_alignStart="@+id/imgVChamp2" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgVChamp6"
+            android:minHeight="@dimen/icons"
+            android:minWidth="@dimen/icons"
+            android:src="@drawable/ic_launcher" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgVChamp8"
-        android:minHeight="@dimen/icons"
-        android:minWidth="@dimen/icons"
-        android:src="@drawable/ic_launcher"
-        android:layout_toEndOf="@+id/imgVChamp7"
-        android:layout_alignTop="@+id/imgVChamp7"
-        android:layout_toRightOf="@+id/imgVChamp7" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgVChamp7"
+            android:minHeight="@dimen/icons"
+            android:minWidth="@dimen/icons"
+            android:src="@drawable/ic_launcher" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgVChamp9"
-        android:minHeight="@dimen/icons"
-        android:minWidth="@dimen/icons"
-        android:src="@drawable/ic_launcher"
-        android:layout_alignTop="@+id/imgVChamp8"
-        android:layout_toRightOf="@+id/imgVChamp8"
-        android:layout_toEndOf="@+id/imgVChamp8" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgVChamp8"
+            android:minHeight="@dimen/icons"
+            android:minWidth="@dimen/icons"
+            android:src="@drawable/ic_launcher" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgVChamp10"
-        android:minHeight="@dimen/icons"
-        android:minWidth="@dimen/icons"
-        android:src="@drawable/ic_launcher"
-        android:layout_toEndOf="@+id/imgVChamp9"
-        android:layout_alignTop="@+id/imgVChamp9"
-        android:layout_toRightOf="@+id/imgVChamp9" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgVChamp9"
+            android:minHeight="@dimen/icons"
+            android:minWidth="@dimen/icons"
+            android:src="@drawable/ic_launcher" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgVChamp10"
+            android:minHeight="@dimen/icons"
+            android:minWidth="@dimen/icons"
+            android:src="@drawable/ic_launcher" />
+
+    </GridLayout>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/game_patch_notes"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/textView4"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="160dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Patch note CONTAINER"
-        android:id="@+id/txtVPatchNote"
-        android:layout_below="@+id/textView3"
-        android:layout_alignLeft="@+id/imgVChamp6"
-        android:layout_alignStart="@+id/imgVChamp6" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Recent Builds"
+        android:text="@string/recent_builds"
         android:id="@+id/textView4"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/gLChamps"
+        android:layout_marginTop="20dp"/>
 
     <GridView
         android:layout_width="wrap_content"
@@ -166,6 +130,26 @@
         android:layout_alignStart="@+id/txtVPatchNote"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/game_patch_notes"
+        android:id="@+id/textView3"
+        android:layout_below="@+id/gVRecentBuilds"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Patch note CONTAINER"
+        android:id="@+id/txtVPatchNote"
+        android:layout_below="@+id/textView3"
+        android:layout_alignLeft="@+id/gLChamps"
+        android:layout_alignStart="@+id/gLChamps" />
 
 
 </RelativeLayout>

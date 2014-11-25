@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- General -->
+    <item name="actionbar_background" type="color">#27568f</item>
+    <item name="navigation_background" type="color">#f3f3f3</item>
+    <item name="navigation_selected" type="color">#bfbfbf</item>
+    <item name="navigation_pressed" type="color">#787878</item>
+</resources>

@@ -9,5 +9,6 @@
     <dimen name="navigation_drawer_width">240dp</dimen>
     <dimen name="large_icons">120dp</dimen>
     <dimen name="editboxes">220dp</dimen>
+    <dimen name="cancelbtn">100dp</dimen>
 
 </resources>

@@ -91,6 +91,8 @@ public class MyActivity extends Activity {
             public void onDrawerClosed(View view) {
                 // TODO: Titel veranderen naar activity name
                 getActionBar().setTitle(R.string.app_name);
+
+
             }
 
             public void onDrawerOpened(View drawerView) {
@@ -105,36 +107,13 @@ public class MyActivity extends Activity {
 
         layers = getResources().getStringArray(R.array.titles_array);
         drawerList = (ListView) findViewById(R.id.left_drawer);
-        drawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, layers));
-        drawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int pos, long l) {
-                Intent intent = null;
+        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, layers));
+        drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
-                switch (pos) {
-                    case 0: // Home
-                        intent = new Intent(view.getContext(), MyActivity.class);
-                        break;
-                    case 1: // Champions
-                        intent = new Intent(view.getContext(), MyChampionActivity.class);
-                        break;
-                    case 2: // Items
-                        intent = new Intent(view.getContext(), MyItemsActivity.class);
-                        break;
-                    case 3: // Builds
-                        intent = new Intent(view.getContext(), MyBuildsActivity.class);
-                        break;
-                    case 4: // Simulate
-                        intent = new Intent(view.getContext(), MySimulateActivity.class);
-                        break;
-                    case 5: // Settings
-                        intent = new Intent(view.getContext(), MySettingsActivity.class);
-                        break;
-                }
+        int position = getIntent().getIntExtra("position", 0);
 
-                startActivity(intent);
-            }
-        });
+        drawerList.setItemChecked(position, true);
+        drawerList.setSelection(position);
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
@@ -189,5 +168,39 @@ public class MyActivity extends Activity {
             View rootView = inflater.inflate(R.layout.fragment_my, container, false);
             return rootView;
         }
+    }
+
+    public class DrawerItemClickListener implements ListView.OnItemClickListener {
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            Intent intent = null;
+
+            switch (position) {
+                case 0: // Home
+                    intent = new Intent(view.getContext(), MyActivity.class);
+                    break;
+                case 1: // Champions
+                    intent = new Intent(view.getContext(), MyChampionActivity.class);
+                    break;
+                case 2: // Items
+                    intent = new Intent(view.getContext(), MyItemsActivity.class);
+                    break;
+                case 3: // Builds
+                    intent = new Intent(view.getContext(), MyBuildsActivity.class);
+                    break;
+                case 4: // Simulate
+                    intent = new Intent(view.getContext(), MySimulateActivity.class);
+                    break;
+                case 5: // Settings
+                    intent = new Intent(view.getContext(), MySettingsActivity.class);
+                    break;
+            }
+
+            intent.putExtra("position", position);
+            startActivity(intent);
+        }
+
     }
 }
