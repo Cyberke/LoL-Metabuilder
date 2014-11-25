@@ -22,7 +22,7 @@ import android.widget.ListView;
 public class MyActivity extends Activity {
 
     private DrawerLayout drawerLayout;
-    public ListView drawerList;
+    private ListView drawerList;
     private String[] layers;
     private ActionBarDrawerToggle drawerToggle;
 
