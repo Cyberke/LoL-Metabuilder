@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="be.howest.lolmetabuilder" >
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
@@ -84,6 +86,15 @@
             android:name="be.howest.lolmetabuilder.MySettingsActivity"
             android:label="@string/title_activity_my_settings" >
         </activity>
+        <meta-data
+            android:name="webservice.static-data"
+            android:value="https://global.api.pvp.net/api/lol/static-data/euw/v1.2/"/>
+        <meta-data
+            android:name="webservice.freeRotation"
+            android:value="https://euw.api.pvp.net/api/lol/euw/v1.2/champion?freeToPlay=true"/>
+        <meta-data
+            android:name="auth.client_secret"
+            android:value="&amp;api_key=eba44b46-d00c-4c09-843a-95152831e3a6"/>
     </application>
 
 </manifest>
