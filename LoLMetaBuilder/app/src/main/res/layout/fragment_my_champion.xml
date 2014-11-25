@@ -1,108 +1,142 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    tools:context="be.howest.lolmetabuilder.MyChampionActivity$PlaceholderFragment">
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                tools:context="be.howest.lolmetabuilder.MyChampionActivity$PlaceholderFragment">
 
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/champSearch"
+    android:orientation="horizontal">
 
     <EditText
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/txtChampionName"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:width="@dimen/searchboxes"
-        android:hint="champion name"/>
+        android:layout_weight="1"
+        android:hint="Champion name"/>
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="@dimen/cancelbtn"
         android:layout_height="wrap_content"
         android:text="Cancel"
-        android:id="@+id/btnCancel"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:id="@+id/btnCancel" />
+</LinearLayout>
+
+<GridLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/champFilter"
+    android:layout_marginTop="10dp"
+    android:rowCount="3"
+    android:columnCount="3"
+    android:layout_centerInParent="true"
+    android:layout_below="@id/champSearch">
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-5dp"
+        android:paddingStart="30dp"
+        android:paddingLeft="30dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"
+        android:textSize="15sp"
         android:text="Fighter"
-        android:id="@+id/cbFighter"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/btnCancel"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/cbFighter" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-5dp"
+        android:paddingStart="30dp"
+        android:paddingLeft="30dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"
+        android:textSize="15sp"
         android:text="Assassin"
-        android:id="@+id/cbAssassin"
-        android:layout_alignTop="@+id/cbFighter"
-        android:layout_toRightOf="@+id/cbFighter"
-        android:layout_toEndOf="@+id/cbFighter"
-        android:layout_marginLeft="20dp"/>
+        android:id="@+id/cbAssassin"/>
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-5dp"
+        android:paddingStart="30dp"
+        android:paddingLeft="30dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"
+        android:textSize="15sp"
         android:text="Marksman"
-        android:id="@+id/cbMarksman"
-        android:layout_alignTop="@+id/cbAssassin"
-        android:layout_toRightOf="@+id/cbAssassin"
-        android:layout_toEndOf="@+id/cbAssassin"
-        android:layout_marginLeft="20dp"/>
+        android:id="@+id/cbMarksman"/>
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-5dp"
+        android:paddingStart="30dp"
+        android:paddingLeft="30dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"
+        android:textSize="15sp"
         android:text="Mage"
-        android:id="@+id/cbMage"
-        android:layout_below="@+id/cbFighter"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:id="@+id/cbMage" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-5dp"
+        android:paddingStart="30dp"
+        android:paddingLeft="30dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"
+        android:textSize="15sp"
         android:text="Tank"
-        android:id="@+id/cbTank"
-        android:layout_below="@+id/cbAssassin"
-        android:layout_alignLeft="@+id/cbAssassin"
-        android:layout_alignStart="@+id/cbAssassin" />
+        android:id="@+id/cbTank" />
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-5dp"
+        android:paddingStart="30dp"
+        android:paddingLeft="30dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"
+        android:textSize="15sp"
         android:text="Support"
-        android:id="@+id/cbSupport"
-        android:layout_below="@+id/cbMarksman"
-        android:layout_alignLeft="@+id/cbMarksman"
-        android:layout_alignStart="@+id/cbMarksman" />
+        android:id="@+id/cbSupport" />
+
+    <!--Lege textView om free champ 1 grid block op te schuiven-->
+    <TextView></TextView>
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Free champions"
-        android:id="@+id/cbFreeChampions"
-        android:layout_below="@+id/cbTank"
-        android:layout_alignLeft="@+id/cbTank"
-        android:layout_alignStart="@+id/cbTank" />
+        android:layout_marginTop="-5dp"
+        android:paddingStart="30dp"
+        android:paddingLeft="30dp"
+        android:paddingEnd="0dp"
+        android:paddingRight="0dp"
+        android:textSize="15sp"
+        android:text="Free"
+        android:id="@+id/cbFreeChampions" />
 
-    <GridView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/gvChampions"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:layout_below="@+id/cbFreeChampions"
-        android:layout_marginTop="10dp"/>
+</GridLayout>
+
+
+<GridView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/gvChampions"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentEnd="true"
+    android:layout_below="@+id/champFilter"
+    android:layout_marginTop="10dp"/>
 
 </RelativeLayout>

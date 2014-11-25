@@ -36,6 +36,7 @@ public class MyActivity extends Activity {
                 // TODO: Titel veranderen naar activity name
                 getActionBar().setTitle(R.string.app_name);
 
+
             }
 
             public void onDrawerOpened(View drawerView) {
@@ -50,7 +51,7 @@ public class MyActivity extends Activity {
 
         layers = getResources().getStringArray(R.array.titles_array);
         drawerList = (ListView) findViewById(R.id.left_drawer);
-        drawerList.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_activated_1, layers));
+        drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, layers));
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
         int position = getIntent().getIntExtra("position", 0);

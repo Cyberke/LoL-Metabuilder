@@ -1,13 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!--  General -->
     <string name="app_name">LoL-Metabuilder</string>
+
+    <!--  Homepage -->
     <string name="free_champ_rotation">Free Champion Rotation</string>
     <string name="action_settings">Settings</string>
-    <string name="action_add">Add Build</string>
     <string name="game_patch_notes">Patch notes</string>
+
+    <!-- Champ Details -->
+    <string name="action_add">Add Build</string>
+
+    <!--  Fragment titles -->
     <string name="title_activity_my_champion">Champions</string>
-    <string name="hello_world">Hello world!</string>
     <string name="title_activity_my_skin">Skins</string>
     <string name="title_activity_my_activity_lore">Lore</string>
     <string name="title_activity_my_activity_generate_build">Generate Build</string>
@@ -21,6 +27,9 @@
     <string name="title_activity_my_item">MyItemActivity</string>
     <string name="title_activity_my_simulate">Simulate</string>
     <string name="title_activity_my_settings">Settings</string>
+    <string name="recent_builds">Recent Builds</string>
+
+    <!--  Navigation Drawer titles -->
     <string-array name="titles_array">
         <item>Home</item>
         <item>Champions</item>
