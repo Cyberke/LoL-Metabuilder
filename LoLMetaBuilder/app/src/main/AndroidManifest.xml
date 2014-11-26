@@ -23,10 +23,6 @@
             android:label="@string/title_activity_my_champion" >
         </activity>
         <activity
-            android:name="be.howest.lolmetabuilder.MySkinActivity"
-            android:label="@string/title_activity_my_skin" >
-        </activity>
-        <activity
             android:name="be.howest.lolmetabuilder.MyActivityLore"
             android:label="@string/title_activity_my_activity_lore" >
         </activity>
@@ -47,44 +43,8 @@
             android:label="@string/title_activity_my_abilities" >
         </activity>
         <activity
-            android:name="be.howest.lolmetabuilder.MyRuneActivity"
-            android:label="@string/title_activity_my_rune" >
-        </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MyRunesTypeActivity"
-            android:label="@string/title_activity_my_rune" >
-        </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MyMasteriesActivity"
-            android:label="@string/title_activity_my_masteries" >
-        </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MyGenerateBuildResultActivity"
-            android:label="@string/title_activity_my_generate_build_result" >
-        </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MyItemsActivity"
-            android:label="@string/title_activity_my_items" >
-        </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MyItemsFilterActivity"
-            android:label="@string/title_activity_my_items" >
-        </activity>
-        <activity
             android:name="be.howest.lolmetabuilder.MyBuildsActivity"
             android:label="@string/title_activity_my_builds" >
-        </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MyItemActivity"
-            android:label="@string/title_activity_my_item" >
-        </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MySimulateActivity"
-            android:label="@string/title_activity_my_simulate" >
-        </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MySettingsActivity"
-            android:label="@string/title_activity_my_settings" >
         </activity>
         <meta-data
             android:name="webservice.static-data"

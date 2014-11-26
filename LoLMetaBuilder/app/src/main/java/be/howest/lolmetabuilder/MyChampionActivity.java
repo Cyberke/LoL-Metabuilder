@@ -82,7 +82,6 @@ public class MyChampionActivity extends MyActivity {
     class ChampionAdapter extends ArrayAdapter<Champion>
     {
         private ArrayList<Champion> champions = new ArrayList<Champion>();
-
         public ChampionAdapter(){
             super(MyChampionActivity.this, R.layout.cel_champ, R.id.txtChampName);
 

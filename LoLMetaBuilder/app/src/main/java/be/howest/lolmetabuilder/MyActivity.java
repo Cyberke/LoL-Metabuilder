@@ -207,9 +207,10 @@ public class MyActivity extends Activity {
                     break;
             }
 
-            intent.putExtra("position", position);
-            startActivity(intent);
+            if (intent != null) {
+                intent.putExtra("position", position);
+                startActivity(intent);
+            }
         }
-
     }
 }
