@@ -213,6 +213,5 @@ public class MyActivity extends Activity {
                 startActivity(intent);
             }*/
         }
-
     }
 }
