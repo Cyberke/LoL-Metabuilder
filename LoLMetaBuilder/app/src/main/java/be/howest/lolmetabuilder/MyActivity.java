@@ -33,6 +33,8 @@ public class MyActivity extends Activity {
     private ArrayList<String> ao;
     private ProgressDialog pDialog;
 
+    private static Boolean isInGeladen = false;
+
     class GetChampionTask extends AsyncTask<String, Void, List<String>> {
         @Override
         protected void onPreExecute() {
@@ -42,6 +44,7 @@ public class MyActivity extends Activity {
             pDialog.setMessage("Data ophalen...");
             pDialog.setCancelable(false);
             pDialog.show();
+
         }
 
         @Override
@@ -61,6 +64,7 @@ public class MyActivity extends Activity {
         @Override
         protected void onPostExecute(List<String> result) {
             // TODO Auto-generated method stub
+
             if (pDialog.isShowing()) {
                 pDialog.dismiss();
             }
@@ -81,8 +85,13 @@ public class MyActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // TODO: Eenmalig uitvoeren
-        GetChampionTask task = new GetChampionTask();
-        task.execute();
+
+        if(!isInGeladen) {
+            GetChampionTask task = new GetChampionTask();
+            task.execute();
+
+            isInGeladen = true;
+        }
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my);

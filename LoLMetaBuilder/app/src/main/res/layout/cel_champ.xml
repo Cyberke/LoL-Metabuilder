@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgChamp" />
+
+    <TextView
+        android:id="@+id/txtChampName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imgChamp"
+        android:layout_alignStart="@+id/imgChamp"
+        android:layout_alignRight="@+id/imgChamp"
+        android:layout_alignEnd="@+id/imgChamp"
+        android:layout_alignTop="@+id/imgChamp"
+        android:layout_margin="1dp"
+        android:gravity="center"/>
+
+    <TextView
+        android:id="@+id/txtChampPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/imgChamp"
+        android:layout_alignStart="@+id/imgChamp"
+        android:layout_alignRight="@+id/imgChamp"
+        android:layout_alignEnd="@+id/imgChamp"
+        android:layout_alignBottom="@+id/imgChamp"
+        android:layout_margin="1dp"
+        android:gravity="center"/>
+
+</RelativeLayout>
