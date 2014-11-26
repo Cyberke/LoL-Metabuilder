@@ -1,0 +1,252 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="be.howest.lolmetabuilder.ChampionOverviewFragment">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+                    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingBottom="@dimen/activity_vertical_margin">
+
+        <ImageView
+            android:layout_width="@dimen/large_icons"
+            android:layout_height="@dimen/large_icons"
+            android:id="@+id/imgVChampAvatar"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:src="@drawable/ic_launcher" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Champion Name"
+            android:id="@+id/txtVChampionName"
+            android:layout_alignTop="@+id/imgVChampAvatar"
+            android:layout_toRightOf="@+id/imgVChampAvatar"
+            android:layout_toEndOf="@+id/imgVChampAvatar"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Champion Title"
+            android:id="@+id/txtVChampionTitle"
+            android:layout_below="@+id/txtVChampionName"
+            android:layout_alignLeft="@+id/txtVChampionName"
+            android:layout_alignStart="@+id/txtVChampionName" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Categorieen"
+            android:id="@+id/txtVCategorieen"
+            android:layout_below="@+id/txtVChampionTitle"
+            android:layout_alignLeft="@+id/txtVChampionTitle"
+            android:layout_alignStart="@+id/txtVChampionTitle" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="IP: 9999"
+            android:id="@+id/txtVIPCost"
+            android:layout_below="@+id/txtVCategorieen"
+            android:layout_alignLeft="@+id/txtVCategorieen"
+            android:layout_alignStart="@+id/txtVCategorieen"
+            android:layout_marginTop="20dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RP: 9999"
+            android:id="@+id/txtVRPCost"
+            android:layout_toEndOf="@+id/txtVCategorieen"
+            android:layout_alignTop="@+id/txtVIPCost"
+            android:layout_toRightOf="@+id/txtVCategorieen" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Stats"
+            android:id="@+id/textView8"
+            android:layout_below="@+id/imgVChampAvatar"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attack"
+            android:id="@+id/textView9"
+            android:layout_below="@+id/textView8"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Defense"
+            android:id="@+id/textView10"
+            android:layout_below="@+id/textView9"
+            android:layout_alignLeft="@+id/textView9"
+            android:layout_alignStart="@+id/textView9"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spells"
+            android:id="@+id/textView11"
+            android:layout_below="@+id/textView10"
+            android:layout_alignLeft="@+id/textView10"
+            android:layout_alignStart="@+id/textView10"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Difficulty"
+            android:id="@+id/textView12"
+            android:layout_below="@+id/textView11"
+            android:layout_alignLeft="@+id/textView11"
+            android:layout_alignStart="@+id/textView11"
+            android:layout_marginTop="5dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="3"
+            android:id="@+id/txtVAttackStats"
+            android:layout_alignTop="@+id/textView9"
+            android:layout_toRightOf="@+id/textView10"
+            android:layout_toEndOf="@+id/textView10"
+            android:layout_marginLeft="30dp"
+            android:layout_marginStart="30dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="4"
+            android:id="@+id/txtVDefenseStats"
+            android:layout_alignTop="@+id/textView10"
+            android:layout_alignLeft="@+id/txtVAttackStats"
+            android:layout_alignStart="@+id/txtVAttackStats" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="8"
+            android:id="@+id/txtVSpellsStats"
+            android:layout_alignTop="@+id/textView11"
+            android:layout_alignLeft="@+id/txtVDefenseStats"
+            android:layout_alignStart="@+id/txtVDefenseStats" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5"
+            android:id="@+id/txtVDifficultyStats"
+            android:layout_alignTop="@+id/textView12"
+            android:layout_alignLeft="@+id/txtVSpellsStats"
+            android:layout_alignStart="@+id/txtVSpellsStats" />
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:id="@+id/pBAttackStats"
+            android:layout_alignTop="@+id/txtVAttackStats"
+            android:layout_toRightOf="@+id/txtVAttackStats"
+            android:layout_toEndOf="@+id/txtVAttackStats"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:progress="30"/>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:id="@+id/pBDefenseStats"
+            android:layout_alignTop="@+id/txtVDefenseStats"
+            android:layout_toRightOf="@+id/txtVDefenseStats"
+            android:layout_toEndOf="@+id/txtVDefenseStats"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:progress="40"/>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:id="@+id/pBSpellsStats"
+            android:layout_alignTop="@+id/txtVSpellsStats"
+            android:layout_toRightOf="@+id/txtVSpellsStats"
+            android:layout_toEndOf="@+id/txtVSpellsStats"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:progress="80"/>
+
+        <ProgressBar
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="200dp"
+            android:layout_height="20dp"
+            android:id="@+id/pBDifficultyStats"
+            android:layout_alignTop="@+id/txtVDifficultyStats"
+            android:layout_toRightOf="@+id/txtVDifficultyStats"
+            android:layout_toEndOf="@+id/txtVDifficultyStats"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:progress="50"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Ally Tips"
+            android:id="@+id/textView13"
+            android:layout_below="@+id/pBDifficultyStats"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CONTAINER"
+            android:id="@+id/txtVAllyTips"
+            android:layout_below="@+id/textView13"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Enemy Tips"
+            android:id="@+id/textView14"
+            android:layout_below="@+id/txtVAllyTips"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="40dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CONTAINER"
+            android:id="@+id/txtVEnemyTips"
+            android:layout_below="@+id/textView14"
+            android:layout_marginLeft="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"/>
+
+    </RelativeLayout>
+
+
+</FrameLayout>

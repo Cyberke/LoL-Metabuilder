@@ -1,0 +1,193 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="be.howest.lolmetabuilder.GeneratedBuildFragment">
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingLeft="@dimen/activity_horizontal_margin"
+                    android:paddingRight="@dimen/activity_horizontal_margin"
+                    android:paddingTop="@dimen/activity_vertical_margin"
+                    android:paddingBottom="@dimen/activity_vertical_margin">
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgVChampAvatar"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:minWidth="@dimen/large_icons"
+            android:minHeight="@dimen/large_icons"
+            android:src="@drawable/ic_launcher" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBtnItem1"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imgVChampAvatar"
+            android:layout_toEndOf="@+id/imgVChampAvatar"
+            android:minWidth="@dimen/icons"
+            android:minHeight="@dimen/icons"
+            android:src="@drawable/ic_launcher" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBtnItem2"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imgBtnItem1"
+            android:layout_toEndOf="@+id/imgBtnItem1"
+            android:minWidth="@dimen/icons"
+            android:minHeight="@dimen/icons"
+            android:src="@drawable/ic_launcher" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBtnItem3"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/imgBtnItem2"
+            android:layout_toEndOf="@+id/imgBtnItem2"
+            android:minWidth="@dimen/icons"
+            android:minHeight="@dimen/icons"
+            android:src="@drawable/ic_launcher"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBtnItem4"
+            android:minWidth="@dimen/icons"
+            android:minHeight="@dimen/icons"
+            android:src="@drawable/ic_launcher"
+            android:layout_below="@+id/imgBtnItem1"
+            android:layout_toLeftOf="@+id/imgBtnItem5"
+            android:layout_toStartOf="@+id/imgBtnItem5" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBtnItem5"
+            android:minWidth="@dimen/icons"
+            android:minHeight="@dimen/icons"
+            android:src="@drawable/ic_launcher"
+            android:layout_below="@+id/imgBtnItem2"
+            android:layout_alignLeft="@+id/imgBtnItem2"
+            android:layout_alignStart="@+id/imgBtnItem2" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imgBtnItem6"
+            android:layout_toEndOf="@+id/imgBtnItem5"
+            android:minWidth="@dimen/icons"
+            android:minHeight="@dimen/icons"
+            android:src="@drawable/ic_launcher"
+            android:layout_below="@+id/imgBtnItem2"
+            android:layout_toRightOf="@+id/imgBtnItem5" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Limit total gold:"
+            android:id="@+id/textView2"
+            android:layout_below="@+id/imgBtnItem4"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="40dp" />
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtLimitTotalGold"
+            android:layout_alignTop="@+id/textView2"
+            android:layout_alignLeft="@+id/imgBtnItem4"
+            android:layout_alignStart="@+id/imgBtnItem4"
+            android:hint="Limit total gold"
+            android:width="@dimen/editboxes"
+            android:layout_marginTop="-10dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Stats to maximize"
+            android:id="@+id/textView3"
+            android:layout_centerVertical="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Attack"
+            android:id="@+id/cbAttack"
+            android:layout_below="@+id/textView3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="5dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Armor"
+            android:id="@+id/cbArmor"
+            android:layout_alignTop="@+id/cbAttack"
+            android:layout_toRightOf="@+id/cbAttack"
+            android:layout_toEndOf="@+id/cbAttack"
+            android:layout_marginLeft="20dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Lifesteal"
+            android:id="@+id/cbLifesteal"
+            android:layout_alignTop="@+id/cbArmor"
+            android:layout_toRightOf="@+id/cbArmor"
+            android:layout_toEndOf="@+id/cbArmor"
+            android:layout_marginLeft="60dp"/>
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ability"
+            android:id="@+id/cbAbility"
+            android:layout_below="@+id/cbAttack"
+            android:layout_alignLeft="@+id/cbAttack"
+            android:layout_alignStart="@+id/cbAttack" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Magic Resist"
+            android:id="@+id/cbMagicResist"
+            android:layout_below="@+id/cbArmor"
+            android:layout_alignLeft="@+id/cbArmor"
+            android:layout_alignStart="@+id/cbArmor" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spell Vamp"
+            android:id="@+id/cbSpellVamp"
+            android:layout_below="@+id/cbLifesteal"
+            android:layout_alignLeft="@+id/cbLifesteal"
+            android:layout_alignStart="@+id/cbLifesteal" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Generate Build"
+            android:id="@+id/btnGenerateBuild"
+            android:layout_marginBottom="37dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+
+</FrameLayout>

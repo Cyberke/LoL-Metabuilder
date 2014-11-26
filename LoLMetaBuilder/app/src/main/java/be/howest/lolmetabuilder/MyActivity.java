@@ -3,6 +3,7 @@ package be.howest.lolmetabuilder;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -184,7 +185,7 @@ public class MyActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            Intent intent = null;
+            /*Intent intent = null;
 
             switch (position) {
                 case 0: // Home
@@ -207,8 +208,10 @@ public class MyActivity extends Activity {
                     break;
             }
 
-            intent.putExtra("position", position);
-            startActivity(intent);
+            if (intent != null) {
+                intent.putExtra("position", position);
+                startActivity(intent);
+            }*/
         }
 
     }

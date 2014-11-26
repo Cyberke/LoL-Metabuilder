@@ -19,32 +19,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="be.howest.lolmetabuilder.MyChampionActivity"
-            android:label="@string/title_activity_my_champion" >
-        </activity>
-        <activity
             android:name="be.howest.lolmetabuilder.MySkinActivity"
             android:label="@string/title_activity_my_skin" >
-        </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MyActivityLore"
-            android:label="@string/title_activity_my_activity_lore" >
-        </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MyActivityGenerateBuild"
-            android:label="@string/title_activity_my_activity_generate_build" >
-        </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MyActivityStatPriority"
-            android:label="@string/title_activity_my_activity_generate_build" >
-        </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MyChampionOverviewActivity"
-            android:label="@string/title_activity_my_champion_overview" >
-        </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MyAbilitiesActivity"
-            android:label="@string/title_activity_my_abilities" >
         </activity>
         <activity
             android:name="be.howest.lolmetabuilder.MyRuneActivity"
