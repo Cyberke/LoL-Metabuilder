@@ -4,11 +4,13 @@ import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -30,11 +32,24 @@ import java.util.List;
 import be.howest.lolmetabuilder.json.api_ophalen;
 
 
-public class MyActivity extends Activity {
+public class MyActivity extends Activity implements ChampionFragment.OnFragmentInteractionListener,
+                                                    ItemFragment.OnFragmentInteractionListener,
+                                                    BuildsFragment.OnFragmentInteractionListener,
+                                                    SimulateFragment.OnFragmentInteractionListener,
+                                                    SettingsFragment.OnFragmentInteractionListener {
     private ArrayList<String> ao;
     private ProgressDialog pDialog;
-
     private static Boolean isInGeladen = false;
+    private DrawerLayout drawerLayout;
+    private ListView drawerList;
+    private String[] layers;
+    private ActionBarDrawerToggle drawerToggle;
+    private int currentFragment = 0;
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
 
     class GetChampionTask extends AsyncTask<String, Void, List<String>> {
         @Override
@@ -78,10 +93,7 @@ public class MyActivity extends Activity {
         }
     }
 
-    private DrawerLayout drawerLayout;
-    private ListView drawerList;
-    private String[] layers;
-    private ActionBarDrawerToggle drawerToggle;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -120,8 +132,8 @@ public class MyActivity extends Activity {
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, layers));
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
 
+        //TODO: Delete
         int position = getIntent().getIntExtra("position", 0);
-
         drawerList.setItemChecked(position, true);
         drawerList.setSelection(position);
 
@@ -185,33 +197,46 @@ public class MyActivity extends Activity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-            /*Intent intent = null;
+            Fragment fragment = null;
+            currentFragment = position;
 
-            switch (position) {
-                case 0: // Home
-                    intent = new Intent(view.getContext(), MyActivity.class);
+            switch(position)
+            {
+                //TODO fragments opkuisen (param1 & param2)
+                case 0:
+                    fragment = new PlaceholderFragment();
                     break;
-                case 1: // Champions
-                    intent = new Intent(view.getContext(), MyChampionActivity.class);
+                case 1:
+                    fragment = new ChampionFragment().newInstance();
                     break;
-                case 2: // Items
-                    intent = new Intent(view.getContext(), MyItemsActivity.class);
+                case 2:
+                    fragment = new ItemFragment().newInstance("","");
                     break;
-                case 3: // Builds
-                    intent = new Intent(view.getContext(), MyBuildsActivity.class);
+                case 3:
+                    fragment = new BuildsFragment().newInstance("","");
                     break;
-                case 4: // Simulate
-                    intent = new Intent(view.getContext(), MySimulateActivity.class);
+                case 4:
+                    fragment = new SimulateFragment().newInstance("","");
                     break;
-                case 5: // Settings
-                    intent = new Intent(view.getContext(), MySettingsActivity.class);
+                case 5:
+                    fragment = new SettingsFragment().newInstance("","");
+                    break;
+                default:
                     break;
             }
 
-            if (intent != null) {
-                intent.putExtra("position", position);
-                startActivity(intent);
-            }*/
+            if(fragment != null)
+            {
+
+                FragmentManager fragmentManager = getFragmentManager();
+                FragmentTransaction trans = fragmentManager.beginTransaction();
+                trans.replace(R.id.container, fragment);
+                trans.commit();
+                fragmentManager.popBackStack();
+
+                drawerLayout.closeDrawers();
+            }
+
         }
     }
 }

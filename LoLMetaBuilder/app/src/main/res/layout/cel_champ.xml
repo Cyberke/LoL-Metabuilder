@@ -2,8 +2,10 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:padding="0dp"
+              android:layout_margin="0dp" >
 
     <ImageView
         android:layout_width="wrap_content"
@@ -19,8 +21,10 @@
         android:layout_alignRight="@+id/imgChamp"
         android:layout_alignEnd="@+id/imgChamp"
         android:layout_alignTop="@+id/imgChamp"
-        android:layout_margin="1dp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textSize="10sp"
+        android:textColor="@color/champion_grid_label_text"
+        android:background="@color/champion_grid_label_background"/>
 
     <TextView
         android:id="@+id/txtChampPrice"
@@ -31,7 +35,9 @@
         android:layout_alignRight="@+id/imgChamp"
         android:layout_alignEnd="@+id/imgChamp"
         android:layout_alignBottom="@+id/imgChamp"
-        android:layout_margin="1dp"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:textSize="10sp"
+        android:textColor="@color/champion_grid_label_text"
+        android:background="@color/champion_grid_label_background"/>
 
 </RelativeLayout>
