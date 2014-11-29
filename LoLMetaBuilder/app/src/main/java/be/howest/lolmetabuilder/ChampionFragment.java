@@ -110,13 +110,28 @@ public class ChampionFragment extends Fragment {
             map.put("anivia", R.drawable.anivia);
 
             //TODO code voor maken champion is niet correct. Zitten geen prijs & image values meer in!
-            Champion champ1 = new Champion(0, "Gnar","gnar","",6300,0,0,0,0,"", "");
-            Champion champ2 = new Champion(0,"Aatrox", "aatrox","",6300,0,0,0,0,"", "");
-            Champion champ3 = new Champion(0,"Ahri", "ahri", "",6300,0,0,0,0,"", "");
-            Champion champ4 = new Champion(0,"Akali", "akali", "",6300,0,0,0,0,"", "");
-            Champion champ5 = new Champion(0,"Alistar", "alistar", "",6300,0,0,0,0,"", "");
-            Champion champ6 = new Champion(0,"Amumu", "amumu", "",6300,0,0,0,0,"", "");
-            Champion champ7 = new Champion(0,"Anivia", "anivia", "",6300,0,0,0,0,"", "");
+            //Ik heb jouw code wat moeten aanpassen omdat ik iets veranderd heb in de Champion model
+
+            Champion champ1 = new Champion(0, "Gnar", "gnar", "", 0, 0, 0, 0, "", "");
+            champ1.setPriceIP(6300);
+
+            Champion champ2 = new Champion(0, "Aatrox", "aatrox", "", 0, 0, 0, 0, "", "");
+            champ2.setPriceIP(6300);
+
+            Champion champ3 = new Champion(0, "Ahri", "ahri", "", 0, 0, 0, 0, "", "");
+            champ3.setPriceIP(6300);
+
+            Champion champ4 = new Champion(0, "Akali", "akali", "", 0, 0, 0, 0, "", "");
+            champ4.setPriceIP(6300);
+
+            Champion champ5 = new Champion(0, "Alistar", "alistar", "", 0, 0, 0, 0, "", "");
+            champ5.setPriceIP(6300);
+
+            Champion champ6 = new Champion(0, "Amumu", "amumu", "", 0, 0, 0, 0, "", "");
+            champ6.setPriceIP(6300);
+
+            Champion champ7 = new Champion(0, "Anivia", "anivia", "", 0, 0, 0, 0, "", "");
+            champ7.setPriceIP(6300);
 
             champions.add(champ1);
             champions.add(champ2);
@@ -234,16 +249,6 @@ public class ChampionFragment extends Fragment {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-
-            //ene code werkt alleen bij API 16. (of een @ toevoegen bovenaan, of min api veranderen)
-            int sdk = android.os.Build.VERSION.SDK_INT;
-            if(sdk < android.os.Build.VERSION_CODES.JELLY_BEAN)
-            {
-                viewHolder.imgChamp.setBackgroundDrawable(getResources().getDrawable(map.get(champ.getTitle())));
-            }else{
-                viewHolder.imgChamp.setBackground(getResources().getDrawable(map.get(champ.getTitle())));
-            }
-
             viewHolder.txtChampName.setText(champ.getName());
             viewHolder.txtChampPrice.setText("" + champ.getAttack());
 
@@ -251,7 +256,7 @@ public class ChampionFragment extends Fragment {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Champion: " + champ.getName(), Toast.LENGTH_LONG).show();
+                    Toast.makeText(v.getContext(), "Champion: " + champ.getName(), Toast.LENGTH_SHORT).show();
                 }
             });
 

@@ -29,6 +29,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import be.howest.lolmetabuilder.data.Champion;
+import be.howest.lolmetabuilder.data.FreeChamp;
 import be.howest.lolmetabuilder.json.api_ophalen;
 
 
@@ -37,7 +39,7 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
                                                     BuildsFragment.OnFragmentInteractionListener,
                                                     SimulateFragment.OnFragmentInteractionListener,
                                                     SettingsFragment.OnFragmentInteractionListener {
-    private ArrayList<String> ao;
+    private ArrayList<String> ao = new ArrayList<String>();
     private ProgressDialog pDialog;
     private static Boolean isInGeladen = false;
     private DrawerLayout drawerLayout;
@@ -60,7 +62,6 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
             pDialog.setMessage("Data ophalen...");
             pDialog.setCancelable(false);
             pDialog.show();
-
         }
 
         @Override
@@ -69,9 +70,23 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
                 String PACKAGE_NAME = getApplicationContext().getPackageName();
                 ApplicationInfo appInfo = getPackageManager().getApplicationInfo(PACKAGE_NAME, PackageManager.GET_META_DATA);
 
-                return api_ophalen.freechampRotation(appInfo);
+                //ArrayList<FreeChamp> freeChamps = api_ophalen.freechampRotation(appInfo);
+                ArrayList<Champion> champions = api_ophalen.champions(appInfo);
+
+                if (champions == null) {
+                    ao.add("Nothing");
+                }
+                else {
+                    for (Champion champion : champions) {
+                        ao.add(champion.getName());
+                    }
+                }
+
+                return ao;
             }
-            catch (Exception e) {}
+            catch (Exception e) {
+                e.printStackTrace();
+            }
 
             return null;
         }
@@ -87,7 +102,7 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
 
             ao = (ArrayList<String>) result;
 
-            Toast.makeText(getBaseContext(), "Ingeladen champions: " + ao.size(), Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), "Ingeladen champions: " + ao.size(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -128,6 +143,10 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
         drawerList = (ListView) findViewById(R.id.left_drawer);
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, layers));
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
+
+        // Eerste item van navigation default selecteren
+        drawerList.setItemChecked(0, true);
+        drawerList.setSelection(0);
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()

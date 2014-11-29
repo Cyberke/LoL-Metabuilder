@@ -18,10 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name="be.howest.lolmetabuilder.MyBuildsActivity"
-            android:label="@string/title_activity_my_builds" >
-        </activity>
         <meta-data
             android:name="webservice.static-data"
             android:value="https://global.api.pvp.net/api/lol/static-data/euw/v1.2/"/>

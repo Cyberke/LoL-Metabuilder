@@ -22,8 +22,8 @@ public class Champion {
     public Champion(
             int id, String name, String title,
             String lore, int attack, int defense,
-            int magic, int difficulty, int statID,
-            String passiveName, String passiveDesc) {
+            int magic, int difficulty, String passiveName,
+            String passiveDesc) {
         this.id = id;
         this.name = name;
         this.title = title;
@@ -32,9 +32,12 @@ public class Champion {
         this.defense = defense;
         this.magic = magic;
         this.difficulty = difficulty;
-        this.statID = statID;
         this.passiveName = passiveName;
         this.passiveDesc = passiveDesc;
+    }
+
+    public void setStatID(int statID) {
+        this.statID = statID;
     }
 
     public int getPriceIP() {
