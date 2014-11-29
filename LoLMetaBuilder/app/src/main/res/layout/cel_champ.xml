@@ -5,39 +5,28 @@
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:padding="0dp"
-              android:layout_margin="0dp" >
+              android:layout_margin="0dp"
+              android:id="@+id/imgChamp">
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imgChamp" />
 
-    <TextView
-        android:id="@+id/txtChampName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imgChamp"
-        android:layout_alignStart="@+id/imgChamp"
-        android:layout_alignRight="@+id/imgChamp"
-        android:layout_alignEnd="@+id/imgChamp"
-        android:layout_alignTop="@+id/imgChamp"
-        android:gravity="center"
-        android:textSize="10sp"
-        android:textColor="@color/champion_grid_label_text"
-        android:background="@color/champion_grid_label_background"/>
+        <TextView
+            android:id="@+id/txtChampName"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/champion_grid_label_text"
+            android:background="@color/champion_grid_label_background"/>
 
-    <TextView
-        android:id="@+id/txtChampPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/imgChamp"
-        android:layout_alignStart="@+id/imgChamp"
-        android:layout_alignRight="@+id/imgChamp"
-        android:layout_alignEnd="@+id/imgChamp"
-        android:layout_alignBottom="@+id/imgChamp"
-        android:gravity="center"
-        android:textSize="10sp"
-        android:textColor="@color/champion_grid_label_text"
-        android:background="@color/champion_grid_label_background"/>
+        <TextView
+            android:id="@+id/txtChampPrice"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:textSize="12sp"
+            android:textColor="@color/champion_grid_label_text"
+            android:background="@color/champion_grid_label_background"/>
 
 </RelativeLayout>

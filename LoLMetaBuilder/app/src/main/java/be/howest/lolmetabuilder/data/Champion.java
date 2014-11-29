@@ -23,8 +23,7 @@ public class Champion {
             int id, String name, String title,
             String lore, int attack, int defense,
             int magic, int difficulty, int statID,
-            String passiveName, String passiveDesc
-    ) {
+            String passiveName, String passiveDesc) {
         this.id = id;
         this.name = name;
         this.title = title;

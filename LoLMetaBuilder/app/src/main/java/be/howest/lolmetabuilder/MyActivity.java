@@ -65,7 +65,6 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
 
         @Override
         protected List<String> doInBackground(String... params) {
-            // TODO Auto-generated method stub
             try {
                 String PACKAGE_NAME = getApplicationContext().getPackageName();
                 ApplicationInfo appInfo = getPackageManager().getApplicationInfo(PACKAGE_NAME, PackageManager.GET_META_DATA);
@@ -79,7 +78,6 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
 
         @Override
         protected void onPostExecute(List<String> result) {
-            // TODO Auto-generated method stub
 
             if (pDialog.isShowing()) {
                 pDialog.dismiss();
@@ -97,7 +95,6 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        // TODO: Eenmalig uitvoeren
 
         if(!isInGeladen) {
             GetChampionTask task = new GetChampionTask();
@@ -131,11 +128,6 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
         drawerList = (ListView) findViewById(R.id.left_drawer);
         drawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item, layers));
         drawerList.setOnItemClickListener(new DrawerItemClickListener());
-
-        //TODO: Delete
-        int position = getIntent().getIntExtra("position", 0);
-        drawerList.setItemChecked(position, true);
-        drawerList.setSelection(position);
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
@@ -202,7 +194,6 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
 
             switch(position)
             {
-                //TODO fragments opkuisen (param1 & param2)
                 case 0:
                     fragment = new PlaceholderFragment();
                     break;
@@ -210,16 +201,16 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
                     fragment = new ChampionFragment().newInstance();
                     break;
                 case 2:
-                    fragment = new ItemFragment().newInstance("","");
+                    fragment = new ItemFragment().newInstance();
                     break;
                 case 3:
-                    fragment = new BuildsFragment().newInstance("","");
+                    fragment = new BuildsFragment().newInstance();
                     break;
                 case 4:
-                    fragment = new SimulateFragment().newInstance("","");
+                    fragment = new SimulateFragment().newInstance();
                     break;
                 case 5:
-                    fragment = new SettingsFragment().newInstance("","");
+                    fragment = new SettingsFragment().newInstance();
                     break;
                 default:
                     break;
