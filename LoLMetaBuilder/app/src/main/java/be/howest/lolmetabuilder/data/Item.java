@@ -9,14 +9,20 @@ public class Item {
         baseGold = 0,
         depth = 0,
         specialRecipe = 0,
-        map = 10;
+        map = 10,
+        stacks = 0;
     private boolean purchasable = true,
         consumed = false;
+    private String name = "",
+        description = "",
+        group = "";
 
     public Item(
             int id, int totalGold, int baseGold,
             boolean purchasable, boolean consumed,
-            int depth, int specialRecipe, int map
+            int depth, int specialRecipe, int map,
+            String name, String description, String group,
+            int stacks
     ) {
         this.id = id;
         this.totalGold = totalGold;
@@ -26,6 +32,26 @@ public class Item {
         this.depth = depth;
         this.specialRecipe = specialRecipe;
         this.map = map;
+        this.name = name;
+        this.description = description;
+        this.group = group;
+        this.stacks = stacks;
+    }
+
+    public int getStacks() {
+        return stacks;
+    }
+
+    public String getGroup() {
+        return group;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public int getId() {

@@ -7,9 +7,12 @@ public class MasteryTree {
     private int id = 0;
     private String name = "";
 
-    public MasteryTree(int id, String name) {
-        this.id = id;
+    public MasteryTree(String name) {
         this.name = name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

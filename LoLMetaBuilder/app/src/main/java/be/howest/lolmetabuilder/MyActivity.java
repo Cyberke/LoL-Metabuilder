@@ -31,6 +31,10 @@ import java.util.List;
 
 import be.howest.lolmetabuilder.data.Champion;
 import be.howest.lolmetabuilder.data.FreeChamp;
+import be.howest.lolmetabuilder.data.Item;
+import be.howest.lolmetabuilder.data.Leaf;
+import be.howest.lolmetabuilder.data.MasteryTree;
+import be.howest.lolmetabuilder.data.Rune;
 import be.howest.lolmetabuilder.json.api_ophalen;
 
 
@@ -70,15 +74,23 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
                 String PACKAGE_NAME = getApplicationContext().getPackageName();
                 ApplicationInfo appInfo = getPackageManager().getApplicationInfo(PACKAGE_NAME, PackageManager.GET_META_DATA);
 
-                //ArrayList<FreeChamp> freeChamps = api_ophalen.freechampRotation(appInfo);
-                ArrayList<Champion> champions = api_ophalen.champions(appInfo);
+                // Als je ze wilt testen moet je ze 1 per 1 uit commentaar halen
+                // En freeChamps bijvoorbeeld naar collection hernoemen
 
-                if (champions == null) {
+                //ArrayList<FreeChamp> freeChamps = api_ophalen.freechampRotation(appInfo);
+                //ArrayList<Champion> champions = api_ophalen.champions(appInfo);
+                //ArrayList<Item> items = api_ophalen.items(appInfo);
+                //ArrayList<Leaf> leafs = api_ophalen.leafs(appInfo);
+                //ArrayList<Rune> runes = api_ophalen.runes(appInfo);
+                ArrayList<MasteryTree> collection = api_ophalen.masteryTrees(appInfo);
+
+                if (collection == null) {
                     ao.add("Nothing");
                 }
                 else {
-                    for (Champion champion : champions) {
-                        ao.add(champion.getName());
+                    // Aanpassen naargelang het object
+                    for (MasteryTree o : collection) {
+                        ao.add(o.getName());
                     }
                 }
 
@@ -91,6 +103,20 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
             return null;
         }
 
+        // Zoeken van een index van een bepaald object in den array
+        // Om daarna specifiek data van een object te kunnen testen
+        /*private String filterObjects(ArrayList<String> collection, String id) {
+            String result = "Nothing";
+
+            for (String o : collection) {
+                if (o.equals(id)) { //
+                    result = id + " (" + collection.indexOf(o) + ")";
+                }
+            }
+
+            return result;
+        }*/
+
         @Override
         protected void onPostExecute(List<String> result) {
 
@@ -102,7 +128,11 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
 
             ao = (ArrayList<String>) result;
 
-            Toast.makeText(getBaseContext(), "Ingeladen champions: " + ao.size(), Toast.LENGTH_SHORT).show();
+            //String o = filterObjects(ao, "4112"); // Fury -> result: 5
+
+            //System.out.println(ao.get(5));
+
+            Toast.makeText(getBaseContext(), "Ingeladen objecten: " + ao.size(), Toast.LENGTH_SHORT).show();
         }
     }
 

@@ -13,13 +13,16 @@ public class Leaf {
 
     public Leaf(
             int id, String name, String description,
-            int ranks, int prereq, int treeID
+            int ranks, int prereq
     ) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.ranks = ranks;
         this.prereq = prereq;
+    }
+
+    public void setTreeID(int treeID) {
         this.treeID = treeID;
     }
 
