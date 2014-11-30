@@ -94,7 +94,7 @@ public class api_ophalen {
             reader.beginObject(); // {
 
             String championName = reader.nextName(),
-                    title = "", lore = "", passiveName = "", passiveDesc = "";
+                    title = "", lore = "", passiveName = "", passiveDesc = "", image = "";
             int id = 0, attack = 0, defence = 0, magic = 0, difficulty = 0;
 
             while (!championName.equals("data")) {
@@ -120,7 +120,23 @@ public class api_ophalen {
                             championName = reader.nextString();
                         } else if (key.equals("title")) {
                             title = reader.nextString();
-                        } else if (key.equals("lore")) {
+                        }
+                        else if (key.equals("images")) {
+                            reader.beginObject(); // {
+
+                            while (reader.hasNext()) {
+                                key = reader.nextName();
+
+                                if (key.equals("full")) {
+                                    // .png verwijderen voor de drawables
+                                    String[] parts = reader.nextString().split(".");
+                                    image = parts[0];
+                                }
+                            }
+
+                            reader.endObject(); // }
+                        }
+                        else if (key.equals("lore")) {
                             lore = reader.nextString();
                         } else if (key.equals("info")) {
                             reader.beginObject(); // {
@@ -166,7 +182,8 @@ public class api_ophalen {
                     reader.endObject(); // }
 
                     Champion champion = new Champion(id, championName, title,
-                            lore, attack, defence, magic, difficulty, passiveName, passiveDesc);
+                            lore, attack, defence, magic, difficulty, passiveName,
+                            passiveDesc, image);
 
                     champions.add(champion);
                 }

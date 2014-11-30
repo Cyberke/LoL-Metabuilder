@@ -84,7 +84,7 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
                 //ArrayList<Item> items = api_ophalen.items(appInfo);
                 //ArrayList<Leaf> leafs = api_ophalen.leafs(appInfo);
                 //ArrayList<Rune> runes = api_ophalen.runes(appInfo);
-                //ArrayList<MasteryTree> collection = api_ophalen.masteryTrees(appInfo);
+                //ArrayList<MasteryTree> masteryTree = api_ophalen.masteryTrees(appInfo);
 
                 if (champions == null) {
                     ao.add("Nothing");

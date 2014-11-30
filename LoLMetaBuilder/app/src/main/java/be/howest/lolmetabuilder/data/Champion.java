@@ -17,13 +17,14 @@ public class Champion {
         title = "",
         lore = "",
         passiveName = "",
-        passiveDesc = "";
+        passiveDesc = "",
+        image = "";
 
     public Champion(
             int id, String name, String title,
             String lore, int attack, int defense,
             int magic, int difficulty, String passiveName,
-            String passiveDesc) {
+            String passiveDesc, String image) {
         this.id = id;
         this.name = name;
         this.title = title;
@@ -34,6 +35,11 @@ public class Champion {
         this.difficulty = difficulty;
         this.passiveName = passiveName;
         this.passiveDesc = passiveDesc;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public void setStatID(int statID) {
