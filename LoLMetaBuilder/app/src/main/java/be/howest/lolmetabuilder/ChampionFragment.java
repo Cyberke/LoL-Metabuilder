@@ -17,13 +17,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
 import be.howest.lolmetabuilder.data.Champion;
 
 public class ChampionFragment extends Fragment {
@@ -97,7 +94,6 @@ public class ChampionFragment extends Fragment {
 
         public ChampionAdapter(){
             super(getActivity(), R.layout.cel_champ, R.id.txtChampName);
-
 
             //map => link tussen string & drawable image
             map = new HashMap<String, Integer>();
@@ -250,7 +246,8 @@ public class ChampionFragment extends Fragment {
             }
 
             viewHolder.txtChampName.setText(champ.getName());
-            viewHolder.txtChampPrice.setText("" + champ.getAttack());
+            viewHolder.txtChampPrice.setText("" + champ.getPriceIP());
+            viewHolder.imgChamp.setBackground(getResources().getDrawable(map.get(champ.getTitle())));
 
             convertView.setOnClickListener(new View.OnClickListener() {
 
