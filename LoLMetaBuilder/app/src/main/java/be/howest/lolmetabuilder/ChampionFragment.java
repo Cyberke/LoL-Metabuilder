@@ -2,6 +2,7 @@ package be.howest.lolmetabuilder;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
@@ -26,7 +27,6 @@ import be.howest.lolmetabuilder.data.Champion;
 public class ChampionFragment extends Fragment {
 
     public GridView gvChamps;
-    public Map<String, Integer> map;
 
     private OnFragmentInteractionListener mListener;
 
@@ -42,6 +42,7 @@ public class ChampionFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         if (getArguments() != null) {
 
         }
@@ -95,7 +96,12 @@ public class ChampionFragment extends Fragment {
         public ChampionAdapter(){
             super(getActivity(), R.layout.cel_champ, R.id.txtChampName);
 
-            //map => link tussen string & drawable image
+            //champions die op de mainactivity worden opgehaald gebruiken
+            champions = MyActivity.champions;
+
+
+            //hardcoded champion objecten
+            /*//map => link tussen string & drawable image
             map = new HashMap<String, Integer>();
             map.put("gnar", R.drawable.gnar);
             map.put("aatrox", R.drawable.aatrox);
@@ -212,7 +218,7 @@ public class ChampionFragment extends Fragment {
             champions.add(champ4);
             champions.add(champ5);
             champions.add(champ6);
-            champions.add(champ7);
+            champions.add(champ7);*/
 
             this.addAll(champions);
         }
@@ -247,7 +253,8 @@ public class ChampionFragment extends Fragment {
 
             viewHolder.txtChampName.setText(champ.getName());
             viewHolder.txtChampPrice.setText("" + champ.getPriceIP());
-            viewHolder.imgChamp.setBackground(getResources().getDrawable(map.get(champ.getTitle())));
+            //TODO verander resource naar champ.getImage();
+            viewHolder.imgChamp.setBackground(getDrawableResourceByName(champ.getName().toLowerCase()));
 
             convertView.setOnClickListener(new View.OnClickListener() {
 
@@ -258,6 +265,12 @@ public class ChampionFragment extends Fragment {
             });
 
             return convertView;
+        }
+
+        private Drawable getDrawableResourceByName(String name) {
+            String packageName = getActivity().getPackageName();
+            int resId = getResources().getIdentifier( name, "drawable", packageName);
+            return getResources().getDrawable(resId);
         }
     }
 }

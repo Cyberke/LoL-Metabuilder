@@ -52,6 +52,8 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
     private ActionBarDrawerToggle drawerToggle;
     private int currentFragment = 0;
 
+    public static ArrayList<Champion> champions = new ArrayList<Champion>();
+
     @Override
     public void onFragmentInteraction(Uri uri) {
 
@@ -78,18 +80,18 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
                 // En freeChamps bijvoorbeeld naar collection hernoemen
 
                 //ArrayList<FreeChamp> freeChamps = api_ophalen.freechampRotation(appInfo);
-                //ArrayList<Champion> champions = api_ophalen.champions(appInfo);
+                champions = api_ophalen.champions(appInfo);
                 //ArrayList<Item> items = api_ophalen.items(appInfo);
                 //ArrayList<Leaf> leafs = api_ophalen.leafs(appInfo);
                 //ArrayList<Rune> runes = api_ophalen.runes(appInfo);
-                ArrayList<MasteryTree> collection = api_ophalen.masteryTrees(appInfo);
+                //ArrayList<MasteryTree> collection = api_ophalen.masteryTrees(appInfo);
 
-                if (collection == null) {
+                if (champions == null) {
                     ao.add("Nothing");
                 }
                 else {
                     // Aanpassen naargelang het object
-                    for (MasteryTree o : collection) {
+                    for (Champion o : champions) {
                         ao.add(o.getName());
                     }
                 }
