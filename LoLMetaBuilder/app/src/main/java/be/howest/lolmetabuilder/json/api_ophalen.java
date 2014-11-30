@@ -132,6 +132,9 @@ public class api_ophalen {
                                     String[] parts = reader.nextString().split(".");
                                     image = parts[0];
                                 }
+                                else {
+                                    reader.skipValue();
+                                }
                             }
 
                             reader.endObject(); // }
