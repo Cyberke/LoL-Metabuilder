@@ -121,7 +121,7 @@ public class api_ophalen {
                         } else if (key.equals("title")) {
                             title = reader.nextString();
                         }
-                        else if (key.equals("images")) {
+                        else if (key.equals("image")) {
                             reader.beginObject(); // {
 
                             while (reader.hasNext()) {
@@ -129,7 +129,7 @@ public class api_ophalen {
 
                                 if (key.equals("full")) {
                                     // .png verwijderen voor de drawables
-                                    String[] parts = reader.nextString().split(".");
+                                    String[] parts = reader.nextString().split("\\.");
                                     image = parts[0];
                                 }
                                 else {

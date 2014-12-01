@@ -2,6 +2,8 @@ package be.howest.lolmetabuilder;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.net.Uri;
@@ -18,6 +20,9 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.gson.Gson;
+
 import org.w3c.dom.Text;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -253,14 +258,28 @@ public class ChampionFragment extends Fragment {
 
             viewHolder.txtChampName.setText(champ.getName());
             viewHolder.txtChampPrice.setText("" + champ.getPriceIP());
-            //TODO verander resource naar champ.getImage();
-            viewHolder.imgChamp.setBackground(getDrawableResourceByName(champ.getName().toLowerCase()));
+            viewHolder.imgChamp.setBackground(getDrawableResourceByName(champ.getImage().toLowerCase()));
 
             convertView.setOnClickListener(new View.OnClickListener() {
 
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(v.getContext(), "Champion: " + champ.getName(), Toast.LENGTH_SHORT).show();
+                    //Openen champion detail met fragment
+
+                    //gekozen champion met de fragment meesturen
+                    Fragment fragment = new ChampionOverviewFragment();
+                    Bundle args = new Bundle();
+                    args.putString("Champion", new Gson().toJson(champ));
+                    fragment.setArguments(args);
+
+                    //openen fragment
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, fragment)
+                            .addToBackStack(null)
+                            .commit();
+
+                    //Toast.makeText(v.getContext(), "Champion: " + champ.getName(), Toast.LENGTH_SHORT).show();
                 }
             });
 

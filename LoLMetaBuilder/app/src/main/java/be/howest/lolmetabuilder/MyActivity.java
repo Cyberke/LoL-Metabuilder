@@ -42,7 +42,8 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
                                                     ItemFragment.OnFragmentInteractionListener,
                                                     BuildsFragment.OnFragmentInteractionListener,
                                                     SimulateFragment.OnFragmentInteractionListener,
-                                                    SettingsFragment.OnFragmentInteractionListener {
+                                                    SettingsFragment.OnFragmentInteractionListener,
+                                                    ChampionOverviewFragment.OnFragmentInteractionListener{
     private ArrayList<String> ao = new ArrayList<String>();
     private ProgressDialog pDialog;
     private static Boolean isInGeladen = false;
