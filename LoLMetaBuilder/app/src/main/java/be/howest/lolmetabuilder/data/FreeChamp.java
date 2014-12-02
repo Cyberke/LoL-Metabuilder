@@ -1,25 +1,28 @@
 package be.howest.lolmetabuilder.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by manuel on 11/28/14.
  */
 public class FreeChamp {
     private int id = 0;
-    private String name = "";
+    private Champion champion = null;
 
     public FreeChamp(int id) {
         this.id = id;
+    }
+
+    public void setChampion(Champion champion) {
+        this.champion = champion;
     }
 
     public int getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setId(int id) {
-        this.id = id;
+    public Champion getChampion() {
+        return champion;
     }
 }

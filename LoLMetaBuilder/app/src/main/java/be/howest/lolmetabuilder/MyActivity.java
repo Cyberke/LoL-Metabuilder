@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -23,7 +24,11 @@ import android.view.ViewGroup;
 import android.os.Build;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.GridView;
+import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -44,7 +49,6 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
                                                     SimulateFragment.OnFragmentInteractionListener,
                                                     SettingsFragment.OnFragmentInteractionListener,
                                                     ChampionOverviewFragment.OnFragmentInteractionListener{
-    private ArrayList<String> ao = new ArrayList<String>();
     private ProgressDialog pDialog;
     private static Boolean isInGeladen = false;
     private DrawerLayout drawerLayout;
@@ -53,7 +57,13 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
     private ActionBarDrawerToggle drawerToggle;
     private int currentFragment = 0;
 
+    public static ArrayList<FreeChamp> freeChamps = new ArrayList<FreeChamp>();
+
     public static ArrayList<Champion> champions = new ArrayList<Champion>();
+    public static ArrayList<Item> items = new ArrayList<Item>();
+    public static ArrayList<Leaf> leafs = new ArrayList<Leaf>();
+    public static ArrayList<Rune> runes = new ArrayList<Rune>();
+    public static ArrayList<MasteryTree> masteryTrees = new ArrayList<MasteryTree>();
 
     @Override
     public void onFragmentInteraction(Uri uri) {
@@ -66,7 +76,7 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
             super.onPreExecute();
 
             pDialog = new ProgressDialog(MyActivity.this);
-            pDialog.setMessage("Data ophalen...");
+            pDialog.setMessage("Loading data...");
             pDialog.setCancelable(false);
             pDialog.show();
         }
@@ -80,24 +90,37 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
                 // Als je ze wilt testen moet je ze 1 per 1 uit commentaar halen
                 // En freeChamps bijvoorbeeld naar collection hernoemen
 
-                //ArrayList<FreeChamp> freeChamps = api_ophalen.freechampRotation(appInfo);
-                champions = api_ophalen.champions(appInfo);
-                //ArrayList<Item> items = api_ophalen.items(appInfo);
-                //ArrayList<Leaf> leafs = api_ophalen.leafs(appInfo);
-                //ArrayList<Rune> runes = api_ophalen.runes(appInfo);
-                //ArrayList<MasteryTree> masteryTree = api_ophalen.masteryTrees(appInfo);
+                ArrayList<String> dc = new ArrayList<String>();
 
-                if (champions == null) {
-                    ao.add("Nothing");
-                }
-                else {
-                    // Aanpassen naargelang het object
-                    for (Champion o : champions) {
-                        ao.add(o.getName());
+                champions = api_ophalen.champions(appInfo);
+                items = api_ophalen.items(appInfo);
+                leafs = api_ophalen.leafs(appInfo);
+                runes = api_ophalen.runes(appInfo);
+                masteryTrees = api_ophalen.masteryTrees(appInfo);
+
+                ArrayList<FreeChamp> temp = api_ophalen.freechampRotation(appInfo);
+
+                if (champions != null) {
+                    for (Champion c : champions) {
+                        for (FreeChamp fc : temp) {
+                            if (c.getId() == fc.getId()) {
+                                FreeChamp freeChamp = new FreeChamp(fc.getId());
+                                freeChamp.setChampion(c);
+
+                                freeChamps.add(freeChamp);
+                            }
+                        }
                     }
                 }
 
-                return ao;
+                if (freeChamps.size() == 10) {
+                    dc.add("Complete");
+                }
+                else {
+                    dc.add("Fail");
+                }
+
+                return dc;
             }
             catch (Exception e) {
                 e.printStackTrace();
@@ -129,13 +152,13 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
 
             super.onPostExecute(result);
 
-            ao = (ArrayList<String>) result;
+            ArrayList<String> dc = (ArrayList<String>) result;
 
             //String o = filterObjects(ao, "4112"); // Fury -> result: 5
 
             //System.out.println(ao.get(5));
 
-            Toast.makeText(getBaseContext(), "Ingeladen objecten: " + ao.size(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getBaseContext(), "" + dc.get(0), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -224,6 +247,7 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
      * A placeholder fragment containing a simple view.
      */
     public static class PlaceholderFragment extends Fragment {
+        private GridView gvFreeChamps;
 
         public PlaceholderFragment() {
         }
@@ -231,8 +255,61 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_my, container, false);
-            return rootView;
+            View view = inflater.inflate(R.layout.fragment_my, container, false);
+
+            gvFreeChamps = (GridView) view.findViewById(R.id.gvFreeChamps);
+            gvFreeChamps.setAdapter(new FreeChampionAdapter());
+
+            return view;
+        }
+
+        class FreeChampionAdapter extends ArrayAdapter<FreeChamp> {
+            public FreeChampionAdapter() {
+                super(getActivity(), R.layout.cel_champ, R.id.txtChampName);
+
+                this.addAll(MyActivity.freeChamps);
+            }
+
+            class ViewHolder {
+                RelativeLayout imgChamp;
+                TextView txtChampName;
+                TextView txtChampPrice;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                //View row = super.getView(position, convertView, parent);
+                ViewHolder viewHolder = new ViewHolder();
+
+                final Champion champ = freeChamps.get(position).getChampion();
+
+                if(convertView == null)
+                {
+                    LayoutInflater inflater = getActivity().getLayoutInflater();
+                    convertView = inflater.inflate(R.layout.cel_champ, null);
+                    viewHolder = new ViewHolder();
+
+                    viewHolder.imgChamp = (RelativeLayout) convertView.findViewById(R.id.imgChamp);
+                    viewHolder.txtChampName = (TextView) convertView.findViewById(R.id.txtChampName);
+                    viewHolder.txtChampPrice = (TextView) convertView.findViewById(R.id.txtChampPrice);
+
+                    convertView.setTag(viewHolder);
+                }else{
+                    viewHolder = (ViewHolder) convertView.getTag();
+                }
+
+                viewHolder.txtChampName.setText(champ.getName());
+                viewHolder.txtChampPrice.setText("" + champ.getPriceIP());
+                viewHolder.imgChamp.setBackground(getDrawableResourceByName(champ.getImage().toLowerCase()));
+
+                return convertView;
+            }
+
+            private Drawable getDrawableResourceByName(String name) {
+                String packageName = getActivity().getPackageName();
+                int resId = getResources().getIdentifier( name, "drawable", packageName);
+                return getResources().getDrawable(resId);
+            }
         }
     }
 
