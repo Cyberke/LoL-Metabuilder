@@ -160,19 +160,11 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
 
             Toast.makeText(getBaseContext(), "" + dc.get(0), Toast.LENGTH_SHORT).show();
 
+            GridView gvFreeChamps = (GridView) findViewById(R.id.gvFreeChamps);
+            PlaceholderFragment.FreeChampionAdapter adapter = (PlaceholderFragment.FreeChampionAdapter) gvFreeChamps.getAdapter();
 
-            // Dit zal een nieuw instantie maken van de current fragment
-            // Maar nu na dat de data geladen is
-            // Ben niet zeker of dit een goed manier is maar werkt
-            Fragment fragment = new PlaceholderFragment();
-
-            FragmentManager fragmentManager = getFragmentManager();
-            FragmentTransaction trans = fragmentManager.beginTransaction();
-            trans.replace(R.id.container, fragment);
-            trans.commit();
-            fragmentManager.popBackStack();
-
-            drawerLayout.closeDrawers();
+            adapter.addAll(freeChamps);
+            adapter.notifyDataSetChanged();
         }
     }
 
