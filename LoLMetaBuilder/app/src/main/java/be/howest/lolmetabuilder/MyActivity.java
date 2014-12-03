@@ -246,7 +246,7 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
     /**
      * A placeholder fragment containing a simple view.
      */
-    public static class PlaceholderFragment extends Fragment {
+    /*public static class PlaceholderFragment extends Fragment {
         private GridView gvFreeChamps;
 
         public PlaceholderFragment() {
@@ -311,7 +311,7 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
                 return getResources().getDrawable(resId);
             }
         }
-    }
+    }*/
 
     public class DrawerItemClickListener implements ListView.OnItemClickListener {
 
