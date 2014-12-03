@@ -9,4 +9,20 @@
     <item name="champion_grid_label_background" type="color">#86010101</item>
     <item name="champion_grid_label_text" type="color">#ffffffff</item>
 
+    <!-- Progress bar -->
+    <item name="champion_stat_attack" type="color">#ffba0000</item>
+    <item name="champion_stat_attack_dark" type="color">#ff870000</item>
+    <item name="champion_stat_attack_light" type="color">#ffe10000</item>
+
+    <item name="champion_stat_defense" type="color">#ff00b400</item>
+    <item name="champion_stat_defense_dark" type="color">#ff008700</item>
+    <item name="champion_stat_defense_light" type="color">#ff00e100</item>
+
+    <item name="champion_stat_spells" type="color">#ff0000b4</item>
+    <item name="champion_stat_spells_dark" type="color">#ff000087</item>
+    <item name="champion_stat_spells_light" type="color">#ff0000e1</item>
+
+    <item name="champion_stat_difficulty" type="color">#ffb400b4</item>
+    <item name="champion_stat_difficulty_dark" type="color">#ff870087</item>
+    <item name="champion_stat_difficulty_light" type="color">#ffe100e1</item>
 </resources>

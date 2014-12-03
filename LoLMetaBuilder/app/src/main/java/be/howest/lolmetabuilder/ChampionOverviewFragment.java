@@ -1,6 +1,7 @@
 package be.howest.lolmetabuilder;
 
 import android.app.Activity;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
