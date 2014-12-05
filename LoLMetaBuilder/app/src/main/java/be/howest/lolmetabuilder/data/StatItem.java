@@ -8,12 +8,13 @@ public class StatItem {
     private String name = "";
     private double value = 0.0;
 
-    public StatItem(
-            int id, String name, double value
-    ) {
-        this.id = id;
+    public StatItem(String name, double value) {
         this.name = name;
         this.value = value;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

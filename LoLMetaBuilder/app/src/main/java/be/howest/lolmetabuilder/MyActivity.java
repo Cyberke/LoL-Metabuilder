@@ -44,7 +44,7 @@ import be.howest.lolmetabuilder.json.api_ophalen;
 
 
 public class MyActivity extends Activity implements ChampionFragment.OnFragmentInteractionListener,
-                                                    ItemFragment.OnFragmentInteractionListener,
+                                                    ItemsFragment.OnFragmentInteractionListener,
                                                     BuildsFragment.OnFragmentInteractionListener,
                                                     SimulateFragment.OnFragmentInteractionListener,
                                                     SettingsFragment.OnFragmentInteractionListener,
@@ -266,7 +266,7 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
                     fragment = new ChampionFragment().newInstance();
                     break;
                 case 2:
-                    fragment = new ItemFragment().newInstance();
+                    fragment = new ItemsFragment().newInstance();
                     break;
                 case 3:
                     fragment = new BuildsFragment().newInstance();

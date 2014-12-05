@@ -1,5 +1,8 @@
 package be.howest.lolmetabuilder.data;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by manuel on 11/28/14.
  */
@@ -16,6 +19,9 @@ public class Item {
     private String name = "",
         description = "",
         group = "";
+    private ArrayList<StatItem> statItems = new ArrayList<StatItem>();
+    private ArrayList<ItemTag> itemTags = new ArrayList<ItemTag>();
+    private ArrayList<Effect> effects = new ArrayList<Effect>();
 
     public Item(
             int id, int totalGold, int baseGold,
@@ -36,6 +42,30 @@ public class Item {
         this.description = description;
         this.group = group;
         this.stacks = stacks;
+    }
+
+    public void setStatItems(ArrayList<StatItem> statItems) {
+        this.statItems = statItems;
+    }
+
+    public void setItemTags(ArrayList<ItemTag> itemTags) {
+        this.itemTags = itemTags;
+    }
+
+    public void setEffects(ArrayList<Effect> effects) {
+        this.effects = effects;
+    }
+
+    public ArrayList<Effect> getEffects() {
+        return effects;
+    }
+
+    public ArrayList<ItemTag> getItemTags() {
+        return itemTags;
+    }
+
+    public ArrayList<StatItem> getStatItems() {
+        return statItems;
     }
 
     public int getStacks() {

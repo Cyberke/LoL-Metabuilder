@@ -1,13 +1,13 @@
 package be.howest.lolmetabuilder.data;
 
 /**
- * Created by manuel on 11/28/14.
+ * Created by manuel on 12/3/14.
  */
-public class Tag {
+public class ChampionTag {
     private int id = 0;
     private String name = "";
 
-    public Tag(
+    public ChampionTag(
             int id, String name
     ) {
         this.id = id;

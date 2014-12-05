@@ -14,11 +14,14 @@ import java.util.ArrayList;
 import javax.net.ssl.HttpsURLConnection;
 
 import be.howest.lolmetabuilder.data.Champion;
+import be.howest.lolmetabuilder.data.Effect;
 import be.howest.lolmetabuilder.data.FreeChamp;
 import be.howest.lolmetabuilder.data.Item;
+import be.howest.lolmetabuilder.data.ItemTag;
 import be.howest.lolmetabuilder.data.Leaf;
 import be.howest.lolmetabuilder.data.MasteryTree;
 import be.howest.lolmetabuilder.data.Rune;
+import be.howest.lolmetabuilder.data.StatItem;
 
 /**
  * Created by manuel on 11/19/14.
@@ -207,7 +210,7 @@ public class api_ophalen {
         return champions;
     }
 
-    //TODO Moet nog map filteren -> 10: false moet dan skippen
+    //TODO: Moet nog map filteren -> 10: false moet dan skippen
     public static ArrayList<Item> items(ApplicationInfo appInfo) {
         ArrayList<Item> items = null;
 
@@ -226,6 +229,9 @@ public class api_ophalen {
             int id = 0, totalGold = 0, baseGold = 0, depth = 0,
                     specialRecipe = 0, map = 10, stacks = 0;
             boolean purchasable = true, consumed = false;
+            ArrayList<StatItem> statItems = new ArrayList<StatItem>();
+            ArrayList<ItemTag> itemTags = new ArrayList<ItemTag>();
+            ArrayList<Effect> effects = new ArrayList<Effect>();
 
             while (!itemName.equals("data")) {
                 reader.skipValue();
@@ -281,22 +287,99 @@ public class api_ophalen {
                             depth = reader.nextInt();
                         }
                         else if (key.equals("consumed")) {
-                            consumed = reader.nextBoolean();
+                            consumed = true;
+
+                            reader.skipValue();
                         }
                         else if (key.equals("stacks")) {
                             stacks = reader.nextInt();
+                        }
+                        else if (key.equals("maps")) {
+                            reader.beginObject(); // {
+
+                            while (reader.hasNext()) {
+                                key = reader.nextName();
+
+                                if (key.equals("10")) {
+                                    map = -1;
+                                }
+                                else {
+                                    map = 10;
+                                }
+
+                                reader.skipValue();
+                            }
+
+                            reader.endObject(); // }
+                        }
+                        else if (key.equals("tags")) {
+                            reader.beginArray(); // [
+
+                            while (reader.hasNext()) {
+                                ItemTag itemTag = new ItemTag(reader.nextString());
+
+                                itemTags.add(itemTag);
+                            }
+
+                            reader.endArray(); // ]
+                        }
+                        else if (key.equals("stats")) {
+                            reader.beginObject(); // {
+
+                            while (reader.hasNext()) {
+                                key = reader.nextName();
+
+                                StatItem statItem = new StatItem(key, reader.nextDouble());
+
+                                statItems.add(statItem);
+                            }
+
+                            reader.endObject(); // }
+                        }
+                        else if (key.equals("effect")) {
+                            reader.beginObject(); // {
+
+                            while (reader.hasNext()) {
+                                key = reader.nextName();
+
+                                Effect effect = new Effect(key, Double.parseDouble(reader.nextString()));
+
+                                effects.add(effect);
+                            }
+
+                            reader.endObject(); // }
                         }
                         else {
                             reader.skipValue();
                         }
                     }
 
+                    if (map != -1) {
+                        Item item = new Item(id, totalGold, baseGold, purchasable, consumed, depth,
+                                specialRecipe, map, itemName, description, group, stacks);
+
+                        if (itemTags.size() > 0) {
+                            item.setItemTags(itemTags);
+                        }
+
+                        if (statItems.size() > 0) {
+                            item.setStatItems(statItems);
+                        }
+
+                        if (effects.size() > 0) {
+                            item.setEffects(effects);
+                        }
+
+                        items.add(item);
+
+                        consumed = false;
+
+                        itemTags.clear();
+                        statItems.clear();
+                        effects.clear();
+                    }
+
                     reader.endObject(); // }
-
-                    Item item = new Item(id, totalGold, baseGold, purchasable, consumed, depth,
-                            specialRecipe, map, itemName, description, group, stacks);
-
-                    items.add(item);
                 }
 
                 reader.endObject(); // }

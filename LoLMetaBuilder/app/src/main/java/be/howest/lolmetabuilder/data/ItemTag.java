@@ -3,29 +3,23 @@ package be.howest.lolmetabuilder.data;
 /**
  * Created by manuel on 11/28/14.
  */
-public class Effect {
+public class ItemTag {
     private int id = 0;
     private String name = "";
-    private double value = 0.0;
 
-    public Effect(String name, double value) {
+    public ItemTag(String name) {
         this.name = name;
-        this.value = value;
     }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public int getId() {
         return id;
     }
 
-    public double getValue() {
-        return value;
+    public String getName() {
+        return name;
     }
 }
