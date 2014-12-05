@@ -6,11 +6,12 @@
 
     <!-- Homepage -->
     <string name="free_champ_rotation">Free Champion Rotation</string>
-    <string name="action_settings">Settings</string>
     <string name="game_patch_notes">Patch notes</string>
 
-    <!-- Champ Details -->
+    <!-- Appbar -->
     <string name="action_add">Add Build</string>
+    <string name="action_settings">Settings</string>
+    <string name="search_hint">Search</string>
 
     <!-- Fragment titles -->
     <string name="title_activity_my_champion">Champions</string>
