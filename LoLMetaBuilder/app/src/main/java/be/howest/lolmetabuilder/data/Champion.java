@@ -166,5 +166,6 @@ public class Champion implements Parcelable{
         parcel.writeValue(enemyTips);
         parcel.writeValue(tags);
         parcel.writeValue(stats);
+        parcel.writeValue(spells);
     }
 }
