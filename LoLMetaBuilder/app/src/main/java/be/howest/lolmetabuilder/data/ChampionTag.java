@@ -7,11 +7,12 @@ public class ChampionTag {
     private int id = 0;
     private String name = "";
 
-    public ChampionTag(
-            int id, String name
-    ) {
-        this.id = id;
+    public ChampionTag(String name) {
         this.name = name;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

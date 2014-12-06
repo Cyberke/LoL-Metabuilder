@@ -1,6 +1,5 @@
 package be.howest.lolmetabuilder.json;
 
-import android.content.ContentValues;
 import android.content.pm.ApplicationInfo;
 import android.os.Bundle;
 import android.util.JsonReader;
@@ -11,9 +10,8 @@ import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 
-import javax.net.ssl.HttpsURLConnection;
-
 import be.howest.lolmetabuilder.data.Champion;
+import be.howest.lolmetabuilder.data.ChampionTag;
 import be.howest.lolmetabuilder.data.Effect;
 import be.howest.lolmetabuilder.data.FreeChamp;
 import be.howest.lolmetabuilder.data.Item;
@@ -21,7 +19,10 @@ import be.howest.lolmetabuilder.data.ItemTag;
 import be.howest.lolmetabuilder.data.Leaf;
 import be.howest.lolmetabuilder.data.MasteryTree;
 import be.howest.lolmetabuilder.data.Rune;
+import be.howest.lolmetabuilder.data.Spell;
+import be.howest.lolmetabuilder.data.StatChamp;
 import be.howest.lolmetabuilder.data.StatItem;
+import be.howest.lolmetabuilder.data.Tip;
 
 /**
  * Created by manuel on 11/19/14.
@@ -99,6 +100,11 @@ public class api_ophalen {
             String championName = reader.nextName(),
                     title = "", lore = "", passiveName = "", passiveDesc = "", image = "";
             int id = 0, attack = 0, defence = 0, magic = 0, difficulty = 0;
+            ArrayList<Tip> allyTips = new ArrayList<Tip>();
+            ArrayList<Tip> enemyTips = new ArrayList<Tip>();
+            ArrayList<ChampionTag> championTags = new ArrayList<ChampionTag>();
+            ArrayList<StatChamp> statChamps = new ArrayList<StatChamp>();
+            ArrayList<Spell> championSpells = new ArrayList<Spell>();
 
             while (!championName.equals("data")) {
                 reader.skipValue();
@@ -144,7 +150,41 @@ public class api_ophalen {
                         }
                         else if (key.equals("lore")) {
                             lore = reader.nextString();
-                        } else if (key.equals("info")) {
+                        }
+                        else if (key.equals("allytips")) {
+                            reader.beginArray(); // [
+
+                            while (reader.hasNext()) {
+                                Tip allyTip = new Tip(true, reader.nextString());
+
+                                allyTips.add(allyTip);
+                            }
+
+                            reader.endArray(); // ]
+                        }
+                        else if (key.equals("enemytips")) {
+                            reader.beginArray(); // [
+
+                            while (reader.hasNext()) {
+                                Tip enemyTip = new Tip(false, reader.nextString());
+
+                                enemyTips.add(enemyTip);
+                            }
+
+                            reader.endArray(); // ]
+                        }
+                        else if (key.equals("tags")) {
+                            reader.beginArray(); // [
+
+                            while (reader.hasNext()) {
+                                ChampionTag tag = new ChampionTag(reader.nextString());
+
+                                championTags.add(tag);
+                            }
+
+                            reader.endArray(); // ]
+                        }
+                        else if (key.equals("info")) {
                             reader.beginObject(); // {
 
                             while (reader.hasNext()) {
@@ -164,7 +204,56 @@ public class api_ophalen {
                             }
 
                             reader.endObject(); // }
-                        } else if (key.equals("passive")) {
+                        }
+                        else if (key.equals("stats")) {
+                            reader.beginObject(); // {
+
+                            while (reader.hasNext()) {
+                                key = reader.nextName();
+
+                                StatChamp stat = new StatChamp(key, reader.nextDouble());
+
+                                statChamps.add(stat);
+                            }
+
+                            reader.endObject(); // }
+                        }
+                        else if (key.equals("spells")) {
+                            reader.beginArray(); // [
+
+                            String spellName = "", spellDescription = "",
+                            spellTooltip = "";
+
+                            while (reader.hasNext()) {
+                                reader.beginObject(); // {
+
+                                while (reader.hasNext()) {
+                                    key = reader.nextName();
+
+                                    if (key.equals("name")) {
+                                        spellName = reader.nextString();
+                                    }
+                                    else if (key.equals("sanitizedDescription")) {
+                                        spellDescription = reader.nextString();
+                                    }
+                                    else if (key.equals("sanitizedTooltip")) {
+                                        spellTooltip = reader.nextString();
+                                    }
+                                    else {
+                                        reader.skipValue();
+                                    }
+                                }
+
+                                Spell spell = new Spell(spellName, spellDescription, spellTooltip);
+
+                                championSpells.add(spell);
+
+                                reader.endObject(); // }
+                            }
+
+                            reader.endArray(); // ]
+                        }
+                        else if (key.equals("passive")) {
                             reader.beginObject(); // {
 
                             while (reader.hasNext()) {
@@ -185,13 +274,20 @@ public class api_ophalen {
                         }
                     }
 
-                    reader.endObject(); // }
-
                     Champion champion = new Champion(id, championName, title,
                             lore, attack, defence, magic, difficulty, passiveName,
-                            passiveDesc, image);
+                            passiveDesc, image, allyTips, enemyTips, championTags,
+                            statChamps, championSpells);
 
                     champions.add(champion);
+
+                    allyTips = new ArrayList<Tip>();
+                    enemyTips = new ArrayList<Tip>();
+                    championTags = new ArrayList<ChampionTag>();
+                    statChamps = new ArrayList<StatChamp>();
+                    championSpells = new ArrayList<Spell>();
+
+                    reader.endObject(); // }
                 }
 
                 reader.endObject(); // }
@@ -210,7 +306,6 @@ public class api_ophalen {
         return champions;
     }
 
-    //TODO: Moet nog map filteren -> 10: false moet dan skippen
     public static ArrayList<Item> items(ApplicationInfo appInfo) {
         ArrayList<Item> items = null;
 
@@ -359,11 +454,11 @@ public class api_ophalen {
                                 specialRecipe, map, itemName, description, group, stacks);
 
                         if (itemTags.size() > 0) {
-                            item.setItemTags(itemTags);
+                            item.setTags(itemTags);
                         }
 
                         if (statItems.size() > 0) {
-                            item.setStatItems(statItems);
+                            item.setStats(statItems);
                         }
 
                         if (effects.size() > 0) {
@@ -374,9 +469,9 @@ public class api_ophalen {
 
                         consumed = false;
 
-                        itemTags.clear();
-                        statItems.clear();
-                        effects.clear();
+                        itemTags = new ArrayList<ItemTag>();
+                        statItems = new ArrayList<StatItem>();
+                        effects = new ArrayList<Effect>();
                     }
 
                     reader.endObject(); // }
@@ -398,6 +493,7 @@ public class api_ophalen {
         return items;
     }
 
+    // TODO: SanitizedDescription ga een object worden
     public static ArrayList<Leaf> leafs(ApplicationInfo appInfo) {
         ArrayList<Leaf> leafs = null;
 

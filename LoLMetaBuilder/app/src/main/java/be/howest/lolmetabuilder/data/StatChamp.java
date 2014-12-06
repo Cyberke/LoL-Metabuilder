@@ -8,16 +8,17 @@ public class StatChamp {
     private String name = "";
     private double value = 0.0;
 
-    public StatChamp(
-            int id, String name, double value
-    ) {
-        this.id = id;
+    public StatChamp(String name, double value) {
         this.name = name;
         this.value = value;
     }
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

@@ -9,14 +9,16 @@ public class Spell {
         description = "",
         tooltip = "";
 
-    public Spell(
-            int id, String name, String description,
+    public Spell(String name, String description,
             String tooltip
     ) {
-        this.id = id;
         this.name = name;
         this.description = description;
         this.tooltip = tooltip;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getId() {

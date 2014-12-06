@@ -9,14 +9,17 @@ public class Tip {
     private boolean isAlly = true;
     private String content = "";
 
-    public Tip(
-            int id, int champID, boolean isAlly,
-            String content
-    ) {
-        this.id = id;
-        this.champID = champID;
+    public Tip(boolean isAlly, String content) {
         this.isAlly = isAlly;
         this.content = content;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setChampID(int champID) {
+        this.champID = champID;
     }
 
     public int getId() {

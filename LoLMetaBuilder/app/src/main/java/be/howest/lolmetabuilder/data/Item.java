@@ -1,6 +1,5 @@
 package be.howest.lolmetabuilder.data;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -19,8 +18,8 @@ public class Item {
     private String name = "",
         description = "",
         group = "";
-    private ArrayList<StatItem> statItems = new ArrayList<StatItem>();
-    private ArrayList<ItemTag> itemTags = new ArrayList<ItemTag>();
+    private ArrayList<StatItem> stats = new ArrayList<StatItem>();
+    private ArrayList<ItemTag> tags = new ArrayList<ItemTag>();
     private ArrayList<Effect> effects = new ArrayList<Effect>();
 
     public Item(
@@ -44,12 +43,12 @@ public class Item {
         this.stacks = stacks;
     }
 
-    public void setStatItems(ArrayList<StatItem> statItems) {
-        this.statItems = statItems;
+    public void setStats(ArrayList<StatItem> stats) {
+        this.stats = stats;
     }
 
-    public void setItemTags(ArrayList<ItemTag> itemTags) {
-        this.itemTags = itemTags;
+    public void setTags(ArrayList<ItemTag> tags) {
+        this.tags = tags;
     }
 
     public void setEffects(ArrayList<Effect> effects) {
@@ -60,12 +59,12 @@ public class Item {
         return effects;
     }
 
-    public ArrayList<ItemTag> getItemTags() {
-        return itemTags;
+    public ArrayList<ItemTag> getTags() {
+        return tags;
     }
 
-    public ArrayList<StatItem> getStatItems() {
-        return statItems;
+    public ArrayList<StatItem> getStats() {
+        return stats;
     }
 
     public int getStacks() {

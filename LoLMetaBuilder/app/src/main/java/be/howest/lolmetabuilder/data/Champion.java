@@ -3,6 +3,9 @@ package be.howest.lolmetabuilder.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+
 /**
  * Created by jelle on 25/11/2014.
  * Edited by manuel on 28/11/2014.
@@ -22,12 +25,19 @@ public class Champion implements Parcelable{
         passiveName = "",
         passiveDesc = "",
         image = "";
+    private ArrayList<Tip> allyTips = new ArrayList<Tip>();
+    private ArrayList<Tip> enemyTips = new ArrayList<Tip>();
+    private ArrayList<ChampionTag> tags = new ArrayList<ChampionTag>();
+    private ArrayList<StatChamp> stats = new ArrayList<StatChamp>();
+    private ArrayList<Spell> spells = new ArrayList<Spell>();
 
     public Champion(
             int id, String name, String title,
             String lore, int attack, int defense,
             int magic, int difficulty, String passiveName,
-            String passiveDesc, String image) {
+            String passiveDesc, String image, ArrayList<Tip> allyTips,
+            ArrayList<Tip> enemyTips, ArrayList<ChampionTag> tags,
+            ArrayList<StatChamp> stats, ArrayList<Spell> spells) {
         this.id = id;
         this.name = name;
         this.title = title;
@@ -39,6 +49,31 @@ public class Champion implements Parcelable{
         this.passiveName = passiveName;
         this.passiveDesc = passiveDesc;
         this.image = image;
+        this.allyTips = allyTips;
+        this.enemyTips = enemyTips;
+        this.tags = tags;
+        this.stats = stats;
+        this.spells = spells;
+    }
+
+    public ArrayList<Spell> getSpells() {
+        return spells;
+    }
+
+    public ArrayList<Tip> getAllyTips() {
+        return allyTips;
+    }
+
+    public ArrayList<Tip> getEnemyTips() {
+        return enemyTips;
+    }
+
+    public ArrayList<ChampionTag> getTags() {
+        return tags;
+    }
+
+    public ArrayList<StatChamp> getStats() {
+        return stats;
     }
 
     public String getImage() {
@@ -116,7 +151,6 @@ public class Champion implements Parcelable{
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-
         parcel.writeInt(id);
         parcel.writeString(name);
         parcel.writeString(title);
@@ -128,6 +162,9 @@ public class Champion implements Parcelable{
         parcel.writeString(passiveName);
         parcel.writeString(passiveDesc);
         parcel.writeString(image);
-
+        parcel.writeValue(allyTips);
+        parcel.writeValue(enemyTips);
+        parcel.writeValue(tags);
+        parcel.writeValue(stats);
     }
 }
