@@ -15,6 +15,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import be.howest.lolmetabuilder.data.Champion;
+import be.howest.lolmetabuilder.data.ChampionTag;
+import be.howest.lolmetabuilder.data.Tip;
 
 public class ChampionOverviewFragment extends Fragment {
 
@@ -52,6 +54,7 @@ public class ChampionOverviewFragment extends Fragment {
         viewHolder.imgChamp = (ImageView) view.findViewById(R.id.imgVChampAvatar);
         viewHolder.txtChampName = (TextView) view.findViewById(R.id.txtVChampionName);
         viewHolder.txtChampTitle = (TextView) view.findViewById(R.id.txtVChampionTitle);
+        viewHolder.txtCategorieen = (TextView) view.findViewById(R.id.txtVCategorieen);
         viewHolder.txtIPPrice = (TextView) view.findViewById(R.id.txtVIPCost);
         viewHolder.txtRPPrice = (TextView) view.findViewById(R.id.txtVRPCost);
         viewHolder.txtAttack = (TextView) view.findViewById(R.id.txtVAttackStats);
@@ -80,6 +83,33 @@ public class ChampionOverviewFragment extends Fragment {
         viewHolder.pbDefense.setProgress(champion.getDefense() * 10);
         viewHolder.pbMagic.setProgress(champion.getMagic() * 10);
         viewHolder.pbDifficulty.setProgress(champion.getDifficulty() * 10);
+
+        String categorieen = "";
+
+        for (ChampionTag tag : champion.getTags()) {
+            categorieen += tag.getName() + ", ";
+        }
+
+        // Verwijderd laatste komma
+        categorieen = categorieen.substring(0, categorieen.length() - 2);
+
+        viewHolder.txtCategorieen.setText(categorieen);
+
+        String allyTips = "";
+
+        for (Tip allyTip : champion.getAllyTips()) {
+            allyTips += allyTip.getContent() + "\n";
+        }
+
+        viewHolder.txtAllyTips.setText(allyTips);
+
+        String enemyTips = "";
+
+        for (Tip enemyTip : champion.getEnemyTips()) {
+            enemyTips += enemyTip.getContent() + "\n";
+        }
+
+        viewHolder.txtEnemyTips.setText(enemyTips);
 
         return view;
     }
@@ -123,6 +153,7 @@ public class ChampionOverviewFragment extends Fragment {
 
         TextView txtChampName,
                 txtChampTitle,
+                txtCategorieen,
                 txtIPPrice,
                 txtRPPrice,
                 txtAttack,

@@ -1,6 +1,7 @@
 package be.howest.lolmetabuilder;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,6 +11,8 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.google.gson.Gson;
 
 import be.howest.lolmetabuilder.data.Champion;
 import be.howest.lolmetabuilder.data.FreeChamp;
@@ -72,6 +75,30 @@ public class PlaceholderFragment extends Fragment {
             viewHolder.txtChampName.setText(champ.getName());
             viewHolder.txtChampPrice.setAlpha(0);
             viewHolder.imgChamp.setBackground(getDrawableResourceByName(champ.getImage().toLowerCase()));
+
+            convertView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+                    //Openen champion detail met fragment
+
+                    //gekozen champion met de fragment meesturen
+                    Fragment fragment = new ChampionOverviewFragment();
+                    Bundle args = new Bundle();
+                    args.putString("Champion", new Gson().toJson(champ));
+                    fragment.setArguments(args);
+
+                    //openen fragment
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, fragment)
+                            .addToBackStack(null)
+                            .commit();
+
+                    //Toast.makeText(v.getContext(), "Champion: " + champ.getName(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
 
             return convertView;
         }
