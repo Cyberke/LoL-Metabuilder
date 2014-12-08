@@ -306,6 +306,7 @@ public class api_ophalen {
         return champions;
     }
 
+    // TODO: From ben ik blijkbaar vergeten.
     public static ArrayList<Item> items(ApplicationInfo appInfo) {
         ArrayList<Item> items = null;
 
@@ -320,7 +321,8 @@ public class api_ophalen {
             JsonReader reader = new JsonReader(new InputStreamReader(input, "UTF-8"));
             reader.beginObject(); // {
 
-            String itemName = reader.nextName(), description = "", group = "";
+            String itemName = reader.nextName(), description = "", group = "",
+            image = "";
             int id = 0, totalGold = 0, baseGold = 0, depth = 0,
                     specialRecipe = 0, map = 10, stacks = 0;
             boolean purchasable = true, consumed = false;
@@ -339,7 +341,7 @@ public class api_ophalen {
                 reader.beginObject(); // {
 
                 while (reader.hasNext()) {
-                    reader.nextName(); // i1001
+                    reader.nextName(); // 1001
                     reader.beginObject(); // {
 
                     while (reader.hasNext()) {
@@ -347,6 +349,7 @@ public class api_ophalen {
 
                         if (key.equals("id")) {
                             id = reader.nextInt();
+                            image = "i" + id;
                         }
                         else if (key.equals("name")) {
                             itemName = reader.nextString();
@@ -451,7 +454,7 @@ public class api_ophalen {
 
                     if (map != -1) {
                         Item item = new Item(id, totalGold, baseGold, purchasable, consumed, depth,
-                                specialRecipe, map, itemName, description, group, stacks);
+                                specialRecipe, map, itemName, description, group, stacks, image);
 
                         if (itemTags.size() > 0) {
                             item.setTags(itemTags);

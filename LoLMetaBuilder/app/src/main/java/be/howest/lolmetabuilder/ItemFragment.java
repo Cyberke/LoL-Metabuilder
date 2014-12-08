@@ -58,6 +58,9 @@ public class ItemFragment extends Fragment {
         viewHolder.gvBuildsInto = (GridView) view.findViewById(R.id.gVBuildsInto);
 
         //layout invullen
+
+        // Ik heb bij Item een nieuw property gemaakt image.
+
         int itemImageId = getResources().getIdentifier("i1001", "drawable", getActivity().getPackageName());
         viewHolder.imgItem.setImageResource(itemImageId);
         viewHolder.txtItemName.setText(item.getName());

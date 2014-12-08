@@ -20,7 +20,8 @@ public class Item implements Parcelable{
         consumed = false;
     private String name = "",
         description = "",
-        group = "";
+        group = "",
+        image = "";
     private ArrayList<StatItem> stats = new ArrayList<StatItem>();
     private ArrayList<ItemTag> tags = new ArrayList<ItemTag>();
     private ArrayList<Effect> effects = new ArrayList<Effect>();
@@ -30,7 +31,7 @@ public class Item implements Parcelable{
             boolean purchasable, boolean consumed,
             int depth, int specialRecipe, int map,
             String name, String description, String group,
-            int stacks
+            int stacks, String image
     ) {
         this.id = id;
         this.totalGold = totalGold;
@@ -44,6 +45,11 @@ public class Item implements Parcelable{
         this.description = description;
         this.group = group;
         this.stacks = stacks;
+        this.image = image;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public void setStats(ArrayList<StatItem> stats) {
@@ -137,5 +143,6 @@ public class Item implements Parcelable{
         parcel.writeString(description);
         parcel.writeString(group);
         parcel.writeInt(stacks);
+        parcel.writeString(image);
     }
 }
