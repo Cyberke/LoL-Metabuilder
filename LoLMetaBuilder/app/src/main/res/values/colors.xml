@@ -6,8 +6,14 @@
     <item name="navigation_background" type="color">#f3f3f3</item>
     <item name="navigation_selected" type="color">#bfbfbf</item>
     <item name="navigation_pressed" type="color">#787878</item>
+
+    <!-- Champion Cel -->
     <item name="champion_grid_label_background" type="color">#86010101</item>
     <item name="champion_grid_label_text" type="color">#ffffffff</item>
+
+    <!-- Item Cel -->
+    <item name="item_grid_label_background" type="color">#86010101</item>
+    <item name="item_grid_label_text" type="color">#ffffffff</item>
 
     <!-- Progress bar -->
     <item name="champion_stat_attack" type="color">#ffba0000</item>

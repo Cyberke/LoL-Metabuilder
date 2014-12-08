@@ -1,11 +1,14 @@
 package be.howest.lolmetabuilder.data;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.ArrayList;
 
 /**
  * Created by manuel on 11/28/14.
  */
-public class Item {
+public class Item implements Parcelable{
     private int id = 0,
         totalGold = 0,
         baseGold = 0,
@@ -113,5 +116,26 @@ public class Item {
 
     public boolean isConsumed() {
         return consumed;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeInt(totalGold);
+        parcel.writeInt(baseGold);
+        parcel.writeValue(purchasable);
+        parcel.writeValue(consumed);
+        parcel.writeInt(depth);
+        parcel.writeInt(specialRecipe);
+        parcel.writeInt(map);
+        parcel.writeString(name);
+        parcel.writeString(description);
+        parcel.writeString(group);
+        parcel.writeInt(stacks);
     }
 }

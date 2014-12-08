@@ -23,6 +23,12 @@ import be.howest.lolmetabuilder.data.FreeChamp;
 public class PlaceholderFragment extends Fragment {
     private GridView gvFreeChamps;
 
+    public static PlaceholderFragment newInstance() {
+        PlaceholderFragment fragment = new PlaceholderFragment();
+
+        return fragment;
+    }
+
     public PlaceholderFragment() {
     }
 
@@ -38,6 +44,7 @@ public class PlaceholderFragment extends Fragment {
     }
 
     class FreeChampionAdapter extends ArrayAdapter<FreeChamp> {
+
         public FreeChampionAdapter() {
             super(getActivity(), R.layout.cel_champ, R.id.txtChampName);
 

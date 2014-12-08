@@ -7,6 +7,14 @@ import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.gson.Gson;
+
+import be.howest.lolmetabuilder.data.Item;
 
 public class ItemFragment extends Fragment {
 
@@ -34,7 +42,32 @@ public class ItemFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_item, container, false);
+        View view = inflater.inflate(R.layout.fragment_item, container, false);
+
+        //gekozen champion ophalen
+        Bundle bundle = getArguments();
+        Item item = new Gson().fromJson(bundle.getString("Item"), Item.class);
+
+        //layout elementen ophalen
+        ViewHolder viewHolder = new ViewHolder();
+        viewHolder.imgItem = (ImageView) view.findViewById(R.id.imgVItemAvatar);
+        viewHolder.txtItemName = (TextView) view.findViewById(R.id.txtVItemName);
+        viewHolder.txtItemPrice = (TextView) view.findViewById(R.id.txtVItemPrice);
+        viewHolder.txtItemDescription = (TextView) view.findViewById(R.id.txtVItemDescription);
+        viewHolder.gVRequires = (GridView) view.findViewById(R.id.gVRequires);
+        viewHolder.gvBuildsInto = (GridView) view.findViewById(R.id.gVBuildsInto);
+
+        //layout invullen
+        int itemImageId = getResources().getIdentifier("i1001", "drawable", getActivity().getPackageName());
+        viewHolder.imgItem.setImageResource(itemImageId);
+        viewHolder.txtItemName.setText(item.getName());
+        viewHolder.txtItemPrice.setText(item.getTotalGold() + " gold");
+        viewHolder.txtItemDescription.setText(item.getDescription());
+
+        //TODO gridviews opvullen
+
+
+        return view;
     }
 
     public void onButtonPressed(Uri uri) {
@@ -62,6 +95,20 @@ public class ItemFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
+    }
+
+    class ViewHolder {
+        ImageView imgItem;
+
+        TextView txtItemName,
+                txtItemPrice,
+                txtItemDescription;
+
+        GridView gVRequires,
+                gvBuildsInto;
+
+        Button btnAddToBuild;
+
     }
 
 }

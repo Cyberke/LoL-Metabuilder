@@ -52,7 +52,8 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
                                                     BuildsFragment.OnFragmentInteractionListener,
                                                     SimulateFragment.OnFragmentInteractionListener,
                                                     SettingsFragment.OnFragmentInteractionListener,
-                                                    ChampionOverviewFragment.OnFragmentInteractionListener{
+                                                    ChampionOverviewFragment.OnFragmentInteractionListener,
+                                                    ItemFragment.OnFragmentInteractionListener{
     private ProgressDialog pDialog;
     private static Boolean isInGeladen = false;
     private DrawerLayout drawerLayout;
@@ -218,7 +219,7 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .replace(R.id.container, new PlaceholderFragment())
+                    .replace(R.id.container, new PlaceholderFragment().newInstance())
                     .commit();
         }
     }
@@ -287,7 +288,7 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
             switch(position)
             {
                 case 0:
-                    fragment = new PlaceholderFragment();
+                    fragment = new PlaceholderFragment().newInstance();
                     break;
                 case 1:
                     fragment = new ChampionFragment().newInstance();
@@ -312,10 +313,14 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
             {
 
                 FragmentManager fragmentManager = getFragmentManager();
+
+                fragmentManager.popBackStack();
+
                 FragmentTransaction trans = fragmentManager.beginTransaction();
                 trans.replace(R.id.container, fragment);
+                trans.addToBackStack(null);
                 trans.commit();
-                fragmentManager.popBackStack();
+
 
                 drawerLayout.closeDrawers();
             }
