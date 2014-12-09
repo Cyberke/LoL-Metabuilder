@@ -338,6 +338,8 @@ public class api_ophalen {
             ArrayList<Effect> effects = new ArrayList<Effect>();
             ArrayList<Item> requires = new ArrayList<Item>();
             ArrayList<Integer> requiresIds = new ArrayList<Integer>();
+            ArrayList<Integer> buildIntoIds = new ArrayList<Integer>();
+            ArrayList<Item> buildIntos = new ArrayList<Item>();
 
             while (!itemName.equals("data")) {
                 reader.skipValue();
@@ -387,7 +389,7 @@ public class api_ophalen {
                         else if (key.equals("group")) {
                             group = reader.nextString();
                         }
-                        else if (key.equals("sanitizedDescription")) {
+                        else if (key.equals("description")) {
                             description = reader.nextString();
                         }
                         else if (key.equals("depth")) {
@@ -398,6 +400,15 @@ public class api_ophalen {
 
                             while (reader.hasNext()) {
                                 requiresIds.add(reader.nextInt());
+                            }
+
+                            reader.endArray(); // ]
+                        }
+                        else if (key.equals("into")) {
+                            reader.beginArray(); // [
+
+                            while (reader.hasNext()) {
+                                buildIntoIds.add(reader.nextInt());
                             }
 
                             reader.endArray(); // ]
@@ -490,6 +501,10 @@ public class api_ophalen {
                             item.setRequiresIds(requiresIds);
                         }
 
+                        if (buildIntoIds.size() > 0) {
+                            item.setBuildIntoIds(buildIntoIds);
+                        }
+
                         items.add(item);
 
                         consumed = false;
@@ -498,6 +513,7 @@ public class api_ophalen {
                         statItems = new ArrayList<Stat>();
                         effects = new ArrayList<Effect>();
                         requiresIds = new ArrayList<Integer>();
+                        buildIntoIds = new ArrayList<Integer>();
                     }
 
                     reader.endObject(); // }
@@ -510,9 +526,17 @@ public class api_ophalen {
                         requires.add(requiredItem);
                     }
 
+                    for (int buildIntoId : i.getBuildIntoIds()) {
+                        Item buildIntoItem = findItemById(buildIntoId, items);
+
+                        buildIntos.add(buildIntoItem);
+                    }
+
                     i.setRequires(requires);
+                    i.setBuildIntos(buildIntos);
 
                     requires = new ArrayList<Item>();
+                    buildIntos = new ArrayList<Item>();
                 }
 
                 reader.endObject(); // }
