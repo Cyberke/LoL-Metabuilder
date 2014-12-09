@@ -22,8 +22,8 @@ public class Item implements Parcelable{
         description = "",
         group = "",
         image = "";
-    private ArrayList<StatItem> stats = new ArrayList<StatItem>();
-    private ArrayList<ItemTag> tags = new ArrayList<ItemTag>();
+    private ArrayList<Stat> stats = new ArrayList<Stat>();
+    private ArrayList<Tag> tags = new ArrayList<Tag>();
     private ArrayList<Effect> effects = new ArrayList<Effect>();
     private ArrayList<Item> requires = new ArrayList<Item>();
     private ArrayList<Integer> requiresIds = new ArrayList<Integer>();
@@ -70,11 +70,11 @@ public class Item implements Parcelable{
         return image;
     }
 
-    public void setStats(ArrayList<StatItem> stats) {
+    public void setStats(ArrayList<Stat> stats) {
         this.stats = stats;
     }
 
-    public void setTags(ArrayList<ItemTag> tags) {
+    public void setTags(ArrayList<Tag> tags) {
         this.tags = tags;
     }
 
@@ -86,11 +86,11 @@ public class Item implements Parcelable{
         return effects;
     }
 
-    public ArrayList<ItemTag> getTags() {
+    public ArrayList<Tag> getTags() {
         return tags;
     }
 
-    public ArrayList<StatItem> getStats() {
+    public ArrayList<Stat> getStats() {
         return stats;
     }
 

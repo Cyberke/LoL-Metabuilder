@@ -10,17 +10,16 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import be.howest.lolmetabuilder.data.Champion;
-import be.howest.lolmetabuilder.data.ChampionTag;
+import be.howest.lolmetabuilder.data.Tag;
+import be.howest.lolmetabuilder.data.Description;
 import be.howest.lolmetabuilder.data.Effect;
 import be.howest.lolmetabuilder.data.FreeChamp;
 import be.howest.lolmetabuilder.data.Item;
-import be.howest.lolmetabuilder.data.ItemTag;
 import be.howest.lolmetabuilder.data.Leaf;
 import be.howest.lolmetabuilder.data.MasteryTree;
 import be.howest.lolmetabuilder.data.Rune;
 import be.howest.lolmetabuilder.data.Spell;
-import be.howest.lolmetabuilder.data.StatChamp;
-import be.howest.lolmetabuilder.data.StatItem;
+import be.howest.lolmetabuilder.data.Stat;
 import be.howest.lolmetabuilder.data.Tip;
 
 /**
@@ -101,8 +100,8 @@ public class api_ophalen {
             int id = 0, attack = 0, defence = 0, magic = 0, difficulty = 0;
             ArrayList<Tip> allyTips = new ArrayList<Tip>();
             ArrayList<Tip> enemyTips = new ArrayList<Tip>();
-            ArrayList<ChampionTag> championTags = new ArrayList<ChampionTag>();
-            ArrayList<StatChamp> statChamps = new ArrayList<StatChamp>();
+            ArrayList<Tag> championTags = new ArrayList<Tag>();
+            ArrayList<Stat> statChamps = new ArrayList<Stat>();
             ArrayList<Spell> championSpells = new ArrayList<Spell>();
 
             while (!championName.equals("data")) {
@@ -176,7 +175,7 @@ public class api_ophalen {
                             reader.beginArray(); // [
 
                             while (reader.hasNext()) {
-                                ChampionTag tag = new ChampionTag(reader.nextString());
+                                Tag tag = new Tag(reader.nextString());
 
                                 championTags.add(tag);
                             }
@@ -210,7 +209,7 @@ public class api_ophalen {
                             while (reader.hasNext()) {
                                 key = reader.nextName();
 
-                                StatChamp stat = new StatChamp(key, reader.nextDouble());
+                                Stat stat = new Stat(key, reader.nextDouble());
 
                                 statChamps.add(stat);
                             }
@@ -282,8 +281,8 @@ public class api_ophalen {
 
                     allyTips = new ArrayList<Tip>();
                     enemyTips = new ArrayList<Tip>();
-                    championTags = new ArrayList<ChampionTag>();
-                    statChamps = new ArrayList<StatChamp>();
+                    championTags = new ArrayList<Tag>();
+                    statChamps = new ArrayList<Stat>();
                     championSpells = new ArrayList<Spell>();
 
                     reader.endObject(); // }
@@ -334,8 +333,8 @@ public class api_ophalen {
             int id = 0, totalGold = 0, baseGold = 0, depth = 0,
                     specialRecipe = 0, map = 10, stacks = 0;
             boolean purchasable = true, consumed = false;
-            ArrayList<StatItem> statItems = new ArrayList<StatItem>();
-            ArrayList<ItemTag> itemTags = new ArrayList<ItemTag>();
+            ArrayList<Stat> statItems = new ArrayList<Stat>();
+            ArrayList<Tag> itemTags = new ArrayList<Tag>();
             ArrayList<Effect> effects = new ArrayList<Effect>();
             ArrayList<Item> requires = new ArrayList<Item>();
             ArrayList<Integer> requiresIds = new ArrayList<Integer>();
@@ -433,7 +432,7 @@ public class api_ophalen {
                             reader.beginArray(); // [
 
                             while (reader.hasNext()) {
-                                ItemTag itemTag = new ItemTag(reader.nextString());
+                                Tag itemTag = new Tag(reader.nextString());
 
                                 itemTags.add(itemTag);
                             }
@@ -446,7 +445,7 @@ public class api_ophalen {
                             while (reader.hasNext()) {
                                 key = reader.nextName();
 
-                                StatItem statItem = new StatItem(key, reader.nextDouble());
+                                Stat statItem = new Stat(key, reader.nextDouble());
 
                                 statItems.add(statItem);
                             }
@@ -495,8 +494,8 @@ public class api_ophalen {
 
                         consumed = false;
 
-                        itemTags = new ArrayList<ItemTag>();
-                        statItems = new ArrayList<StatItem>();
+                        itemTags = new ArrayList<Tag>();
+                        statItems = new ArrayList<Stat>();
                         effects = new ArrayList<Effect>();
                         requiresIds = new ArrayList<Integer>();
                     }
@@ -532,7 +531,6 @@ public class api_ophalen {
         return items;
     }
 
-    // TODO: SanitizedDescription ga een object worden
     public static ArrayList<Leaf> leafs(ApplicationInfo appInfo) {
         ArrayList<Leaf> leafs = null;
 
@@ -547,8 +545,9 @@ public class api_ophalen {
             JsonReader reader = new JsonReader(new InputStreamReader(input, "UTF-8"));
             reader.beginObject(); // {
 
-            String leafName = reader.nextName(), description = "";
+            String leafName = reader.nextName();
             int id = 0, ranks = 0, prereq = 0;
+            ArrayList<Description> descriptions = new ArrayList<Description>();
 
             while (!leafName.equals("data")) {
                 reader.skipValue();
@@ -577,9 +576,9 @@ public class api_ophalen {
                             reader.beginArray(); // [
 
                             while (reader.hasNext()) {
-                                // Kan 1 of meer descriptions bevatten
-                                // Ik gebruik ';' als delimiter
-                                description += reader.nextString() + ";";
+                                Description description = new Description(reader.nextString());
+
+                                descriptions.add(description);
                             }
 
                             reader.endArray(); // ]
@@ -599,11 +598,11 @@ public class api_ophalen {
 
                     reader.endObject(); // }
 
-                    Leaf leaf = new Leaf(id, leafName, description, ranks, prereq);
+                    Leaf leaf = new Leaf(id, leafName, descriptions, ranks, prereq);
 
                     leafs.add(leaf);
 
-                    description = ""; // anders klopt het totaal niet!
+                    descriptions = new ArrayList<Description>();
                 }
 
                 reader.endObject(); // }

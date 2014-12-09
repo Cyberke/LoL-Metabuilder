@@ -1,13 +1,13 @@
 package be.howest.lolmetabuilder.data;
 
 /**
- * Created by manuel on 11/28/14.
+ * Created by manuel on 12/3/14.
  */
-public class ItemTag {
+public class Tag {
     private int id = 0;
     private String name = "";
 
-    public ItemTag(String name) {
+    public Tag(String name) {
         this.name = name;
     }
 

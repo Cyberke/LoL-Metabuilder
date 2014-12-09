@@ -3,7 +3,6 @@ package be.howest.lolmetabuilder.data;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 /**
@@ -27,8 +26,8 @@ public class Champion implements Parcelable{
         image = "";
     private ArrayList<Tip> allyTips = new ArrayList<Tip>();
     private ArrayList<Tip> enemyTips = new ArrayList<Tip>();
-    private ArrayList<ChampionTag> tags = new ArrayList<ChampionTag>();
-    private ArrayList<StatChamp> stats = new ArrayList<StatChamp>();
+    private ArrayList<Tag> tags = new ArrayList<Tag>();
+    private ArrayList<Stat> stats = new ArrayList<Stat>();
     private ArrayList<Spell> spells = new ArrayList<Spell>();
 
     public Champion(
@@ -36,8 +35,8 @@ public class Champion implements Parcelable{
             String lore, int attack, int defense,
             int magic, int difficulty, String passiveName,
             String passiveDesc, String image, ArrayList<Tip> allyTips,
-            ArrayList<Tip> enemyTips, ArrayList<ChampionTag> tags,
-            ArrayList<StatChamp> stats, ArrayList<Spell> spells) {
+            ArrayList<Tip> enemyTips, ArrayList<Tag> tags,
+            ArrayList<Stat> stats, ArrayList<Spell> spells) {
         this.id = id;
         this.name = name;
         this.title = title;
@@ -68,11 +67,11 @@ public class Champion implements Parcelable{
         return enemyTips;
     }
 
-    public ArrayList<ChampionTag> getTags() {
+    public ArrayList<Tag> getTags() {
         return tags;
     }
 
-    public ArrayList<StatChamp> getStats() {
+    public ArrayList<Stat> getStats() {
         return stats;
     }
 
