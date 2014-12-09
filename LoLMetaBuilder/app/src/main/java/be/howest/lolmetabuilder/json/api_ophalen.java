@@ -6,7 +6,6 @@ import android.util.JsonReader;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -306,7 +305,16 @@ public class api_ophalen {
         return champions;
     }
 
-    // TODO: From ben ik blijkbaar vergeten.
+    private static Item findItemById(int id, ArrayList<Item> items) {
+        for (Item i : items) {
+            if (id == i.getId()) {
+                return i;
+            }
+        }
+
+        return null;
+    }
+
     public static ArrayList<Item> items(ApplicationInfo appInfo) {
         ArrayList<Item> items = null;
 
@@ -329,6 +337,8 @@ public class api_ophalen {
             ArrayList<StatItem> statItems = new ArrayList<StatItem>();
             ArrayList<ItemTag> itemTags = new ArrayList<ItemTag>();
             ArrayList<Effect> effects = new ArrayList<Effect>();
+            ArrayList<Item> requires = new ArrayList<Item>();
+            ArrayList<Integer> requiresIds = new ArrayList<Integer>();
 
             while (!itemName.equals("data")) {
                 reader.skipValue();
@@ -383,6 +393,15 @@ public class api_ophalen {
                         }
                         else if (key.equals("depth")) {
                             depth = reader.nextInt();
+                        }
+                        else if (key.equals("from")) {
+                            reader.beginArray(); // [
+
+                            while (reader.hasNext()) {
+                                requiresIds.add(reader.nextInt());
+                            }
+
+                            reader.endArray(); // ]
                         }
                         else if (key.equals("consumed")) {
                             consumed = true;
@@ -468,6 +487,10 @@ public class api_ophalen {
                             item.setEffects(effects);
                         }
 
+                        if (requiresIds.size() > 0) {
+                            item.setRequiresIds(requiresIds);
+                        }
+
                         items.add(item);
 
                         consumed = false;
@@ -475,9 +498,22 @@ public class api_ophalen {
                         itemTags = new ArrayList<ItemTag>();
                         statItems = new ArrayList<StatItem>();
                         effects = new ArrayList<Effect>();
+                        requiresIds = new ArrayList<Integer>();
                     }
 
                     reader.endObject(); // }
+                }
+
+                for (Item i : items) {
+                    for (int requiresId : i.getRequiresIds()) {
+                        Item requiredItem = findItemById(requiresId, items);
+
+                        requires.add(requiredItem);
+                    }
+
+                    i.setRequires(requires);
+
+                    requires = new ArrayList<Item>();
                 }
 
                 reader.endObject(); // }

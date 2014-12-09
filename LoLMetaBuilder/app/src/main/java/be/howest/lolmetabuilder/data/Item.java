@@ -25,6 +25,8 @@ public class Item implements Parcelable{
     private ArrayList<StatItem> stats = new ArrayList<StatItem>();
     private ArrayList<ItemTag> tags = new ArrayList<ItemTag>();
     private ArrayList<Effect> effects = new ArrayList<Effect>();
+    private ArrayList<Item> requires = new ArrayList<Item>();
+    private ArrayList<Integer> requiresIds = new ArrayList<Integer>();
 
     public Item(
             int id, int totalGold, int baseGold,
@@ -46,6 +48,22 @@ public class Item implements Parcelable{
         this.group = group;
         this.stacks = stacks;
         this.image = image;
+    }
+
+    public ArrayList<Integer> getRequiresIds() {
+        return requiresIds;
+    }
+
+    public void setRequiresIds(ArrayList<Integer> requiresIds) {
+        this.requiresIds = requiresIds;
+    }
+
+    public ArrayList<Item> getRequires() {
+        return requires;
+    }
+
+    public void setRequires(ArrayList<Item> requires) {
+        this.requires = requires;
     }
 
     public String getImage() {
@@ -144,5 +162,6 @@ public class Item implements Parcelable{
         parcel.writeString(group);
         parcel.writeInt(stacks);
         parcel.writeString(image);
+        parcel.writeValue(requires);
     }
 }

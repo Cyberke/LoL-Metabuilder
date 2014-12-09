@@ -219,7 +219,7 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
 
         if (savedInstanceState == null) {
             getFragmentManager().beginTransaction()
-                    .replace(R.id.container, new PlaceholderFragment().newInstance())
+                    .replace(R.id.container, PlaceholderFragment.newInstance())
                     .commit();
         }
     }
@@ -288,22 +288,22 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
             switch(position)
             {
                 case 0:
-                    fragment = new PlaceholderFragment().newInstance();
+                    fragment = PlaceholderFragment.newInstance();
                     break;
                 case 1:
-                    fragment = new ChampionFragment().newInstance();
+                    fragment = ChampionFragment.newInstance();
                     break;
                 case 2:
-                    fragment = new ItemsFragment().newInstance();
+                    fragment = ItemsFragment.newInstance();
                     break;
                 case 3:
-                    fragment = new BuildsFragment().newInstance();
+                    fragment = BuildsFragment.newInstance();
                     break;
                 case 4:
-                    fragment = new SimulateFragment().newInstance();
+                    fragment = SimulateFragment.newInstance();
                     break;
                 case 5:
-                    fragment = new SettingsFragment().newInstance();
+                    fragment = SettingsFragment.newInstance();
                     break;
                 default:
                     break;
