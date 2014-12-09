@@ -33,7 +33,9 @@ public class BuildsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_builds, container, false);
+        View view = inflater.inflate(R.layout.fragment_builds, container, false);
+
+        return view;
     }
 
     public void onButtonPressed(Uri uri) {

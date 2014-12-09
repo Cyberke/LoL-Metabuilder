@@ -1,6 +1,7 @@
 package be.howest.lolmetabuilder;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -56,6 +57,7 @@ public class LoreFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        getActivity().getFragmentManager().popBackStack("Tab", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         mListener = null;
     }
 

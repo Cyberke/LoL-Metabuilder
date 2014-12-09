@@ -1,5 +1,6 @@
 package be.howest.lolmetabuilder;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.graphics.drawable.Drawable;
@@ -36,6 +37,14 @@ public class PlaceholderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_my, container, false);
+
+        //reset tabs
+        ActionBar actionBar = getActivity().getActionBar();
+        actionBar.removeAllTabs();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+
+        MyActivity.drawerList.setSelection(0);
+        MyActivity.drawerList.setItemChecked(0, true);
 
         gvFreeChamps = (GridView) view.findViewById(R.id.gvFreeChamps);
         gvFreeChamps.setAdapter(new FreeChampionAdapter());
@@ -87,6 +96,7 @@ public class PlaceholderFragment extends Fragment {
 
                 @Override
                 public void onClick(View v) {
+                    //TODO tabs inladen (zie ChampionFragment)
                     //Openen champion detail met fragment
 
                     //gekozen champion met de fragment meesturen

@@ -40,6 +40,14 @@
         <item>Settings</item>
     </string-array>
 
+    <!-- Champion Tab titles -->
+    <string-array name="titles_champion_tabs">
+        <item>Overview</item>
+        <item>Skins</item>
+        <item>Lore</item>
+        <item>Abilities</item>
+    </string-array>
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
