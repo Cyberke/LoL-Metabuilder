@@ -1,5 +1,7 @@
 package be.howest.lolmetabuilder.data;
 
+import java.util.ArrayList;
+
 /**
  * Created by manuel on 11/28/14.
  */
@@ -8,16 +10,16 @@ public class Leaf {
         ranks = 0,
         prereq = 0,
         treeID = 0;
-    private String name = "",
-        description = "";
+    private String name = "";
+    private ArrayList<Description> descriptions = new ArrayList<Description>();
 
     public Leaf(
-            int id, String name, String description,
+            int id, String name, ArrayList<Description> descriptions,
             int ranks, int prereq
     ) {
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.descriptions = descriptions;
         this.ranks = ranks;
         this.prereq = prereq;
     }
@@ -46,7 +48,7 @@ public class Leaf {
         return name;
     }
 
-    public String getDescription() {
-        return description;
+    public ArrayList<Description> getDescriptions() {
+        return descriptions;
     }
 }

@@ -22,9 +22,13 @@ public class Item implements Parcelable{
         description = "",
         group = "",
         image = "";
-    private ArrayList<StatItem> stats = new ArrayList<StatItem>();
-    private ArrayList<ItemTag> tags = new ArrayList<ItemTag>();
+    private ArrayList<Stat> stats = new ArrayList<Stat>();
+    private ArrayList<Tag> tags = new ArrayList<Tag>();
     private ArrayList<Effect> effects = new ArrayList<Effect>();
+    private ArrayList<Item> requires = new ArrayList<Item>();
+    private ArrayList<Integer> requiresIds = new ArrayList<Integer>();
+    private ArrayList<Integer> buildIntoIds = new ArrayList<Integer>();
+    private ArrayList<Item> buildIntos = new ArrayList<Item>();
 
     public Item(
             int id, int totalGold, int baseGold,
@@ -48,15 +52,47 @@ public class Item implements Parcelable{
         this.image = image;
     }
 
+    public ArrayList<Integer> getBuildIntoIds() {
+        return buildIntoIds;
+    }
+
+    public void setBuildIntoIds(ArrayList<Integer> buildIntoIds) {
+        this.buildIntoIds = buildIntoIds;
+    }
+
+    public ArrayList<Item> getBuildIntos() {
+        return buildIntos;
+    }
+
+    public void setBuildIntos(ArrayList<Item> buildIntos) {
+        this.buildIntos = buildIntos;
+    }
+
+    public ArrayList<Integer> getRequiresIds() {
+        return requiresIds;
+    }
+
+    public void setRequiresIds(ArrayList<Integer> requiresIds) {
+        this.requiresIds = requiresIds;
+    }
+
+    public ArrayList<Item> getRequires() {
+        return requires;
+    }
+
+    public void setRequires(ArrayList<Item> requires) {
+        this.requires = requires;
+    }
+
     public String getImage() {
         return image;
     }
 
-    public void setStats(ArrayList<StatItem> stats) {
+    public void setStats(ArrayList<Stat> stats) {
         this.stats = stats;
     }
 
-    public void setTags(ArrayList<ItemTag> tags) {
+    public void setTags(ArrayList<Tag> tags) {
         this.tags = tags;
     }
 
@@ -68,11 +104,11 @@ public class Item implements Parcelable{
         return effects;
     }
 
-    public ArrayList<ItemTag> getTags() {
+    public ArrayList<Tag> getTags() {
         return tags;
     }
 
-    public ArrayList<StatItem> getStats() {
+    public ArrayList<Stat> getStats() {
         return stats;
     }
 
@@ -144,5 +180,7 @@ public class Item implements Parcelable{
         parcel.writeString(group);
         parcel.writeInt(stacks);
         parcel.writeString(image);
+        parcel.writeValue(requires);
+        parcel.writeValue(buildIntos);
     }
 }

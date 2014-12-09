@@ -3,9 +3,11 @@ package be.howest.lolmetabuilder;
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
+
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.PorterDuff;
+
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -21,6 +23,8 @@ import com.google.gson.Gson;
 import be.howest.lolmetabuilder.data.Champion;
 import be.howest.lolmetabuilder.data.ChampionTag;
 import be.howest.lolmetabuilder.data.Skin;
+import be.howest.lolmetabuilder.data.Tag;
+
 import be.howest.lolmetabuilder.data.Tip;
 
 public class ChampionOverviewFragment extends Fragment {
@@ -97,7 +101,7 @@ public class ChampionOverviewFragment extends Fragment {
 
         String categorieen = "";
 
-        for (ChampionTag tag : champion.getTags()) {
+        for (Tag tag : champion.getTags()) {
             categorieen += tag.getName() + ", ";
         }
 
