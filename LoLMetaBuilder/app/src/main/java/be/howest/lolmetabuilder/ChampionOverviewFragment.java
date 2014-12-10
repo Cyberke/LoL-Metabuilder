@@ -35,6 +35,11 @@ public class ChampionOverviewFragment extends Fragment {
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        //No call for super(). Bug on API Level > 11.
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -47,6 +52,14 @@ public class ChampionOverviewFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_champion_overview, container, false);
+
+        ActionBar actionBar = getActivity().getActionBar();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        if(actionBar.getTabCount() > 0)
+        {
+            actionBar.setSelectedNavigationItem(0);
+        }
+
 
         //gekozen champion ophalen
         Bundle bundle = getArguments();

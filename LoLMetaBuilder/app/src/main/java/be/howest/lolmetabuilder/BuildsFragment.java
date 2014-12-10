@@ -35,6 +35,9 @@ public class BuildsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_builds, container, false);
 
+        MainActivity.drawerList.setSelection(3);
+        MainActivity.drawerList.setItemChecked(3, true);
+
         return view;
     }
 

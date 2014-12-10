@@ -51,6 +51,11 @@ public class ItemsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_items, container, false);
 
+        //TODO nav drawer klopt niet meer na op deze fragment te laden
+
+        MainActivity.drawerList.setSelection(2);
+        MainActivity.drawerList.setItemChecked(2, true);
+
         //reset tabs
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.removeAllTabs();

@@ -7,6 +7,11 @@
     <item name="navigation_selected" type="color">#bfbfbf</item>
     <item name="navigation_pressed" type="color">#787878</item>
 
+    <!-- Tabs -->
+    <item name="tab_background" type="color">#f3f3f3</item>
+    <item name="tab_text" type="color">#86010101</item>
+    <item name="tab_selector" type="color">#27568f</item>
+
     <!-- Champion Cel -->
     <item name="champion_grid_label_background" type="color">#86010101</item>
     <item name="champion_grid_label_text" type="color">#ffffffff</item>

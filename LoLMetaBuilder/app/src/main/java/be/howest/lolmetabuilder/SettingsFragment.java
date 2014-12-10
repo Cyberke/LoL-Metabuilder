@@ -37,10 +37,14 @@ public class SettingsFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
 
+        MainActivity.drawerList.setSelection(5);
+        MainActivity.drawerList.setItemChecked(5, true);
+
         //reset tabs
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.removeAllTabs();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+
 
         return view;
     }

@@ -37,6 +37,9 @@ public class SimulateFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_simulate, container, false);
 
+        MainActivity.drawerList.setSelection(4);
+        MainActivity.drawerList.setItemChecked(4, true);
+
         //reset tabs
         ActionBar actionBar = getActivity().getActionBar();
         actionBar.removeAllTabs();

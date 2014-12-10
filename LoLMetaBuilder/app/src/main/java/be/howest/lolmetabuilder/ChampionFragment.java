@@ -53,6 +53,9 @@ public class ChampionFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_champion, container, false);
 
+        MainActivity.drawerList.setSelection(1);
+        MainActivity.drawerList.setItemChecked(1, true);
+
         gvChamps = (GridView) view.findViewById(R.id.gvChampions);
         gvChamps.setAdapter(new ChampionAdapter());
 
@@ -154,17 +157,17 @@ public class ChampionFragment extends Fragment {
         //Openen champion detail met fragment
 
         //gekozen champion met de fragment meesturen
-        //Fragment fragment = new ChampionOverviewFragment();
-        //Bundle args = new Bundle();
-        //args.putString("Champion", new Gson().toJson(champion));
-        //fragment.setArguments(args);
+        Fragment fragment = new ChampionOverviewFragment();
+        Bundle args = new Bundle();
+        args.putString("Champion", new Gson().toJson(champion));
+        fragment.setArguments(args);
 
         //openen fragment
-        //FragmentManager fragmentManager = getFragmentManager();
-        //fragmentManager.beginTransaction()
-        //        .replace(R.id.container, fragment)
-        //        .addToBackStack("Champion")
-        //        .commit();
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack("Champion")
+                .commit();
 
         //Tabs instellen
         ActionBar actionBar = getActivity().getActionBar();
@@ -191,9 +194,6 @@ public class ChampionFragment extends Fragment {
                 .setText(tabTitles[3])
                 .setTabListener(new TabListener<AbilitiesFragment>(getActivity(), "Abilities", AbilitiesFragment.class));
         actionBar.addTab(tab, false);
-
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setDisplayShowTitleEnabled(false);
 
         }
 
@@ -225,7 +225,8 @@ public class ChampionFragment extends Fragment {
             {
                 case 0:
                     //overview
-                    fragment = ChampionOverviewFragment.newInstance();
+                    //fragment = ChampionOverviewFragment.newInstance();
+                    mActivity.getFragmentManager().popBackStack("Tab", FragmentManager.POP_BACK_STACK_INCLUSIVE);
                     break;
                 case 1:
                     //skins

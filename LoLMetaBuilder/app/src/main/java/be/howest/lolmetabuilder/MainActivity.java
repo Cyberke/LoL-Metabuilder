@@ -182,7 +182,7 @@ public class MainActivity extends Activity implements ChampionFragment.OnFragmen
         }
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my);
+        setContentView(R.layout.activity_main);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawerToggle = new ActionBarDrawerToggle((Activity) this, drawerLayout, R.drawable.ic_drawer, 0, 0) {
             public void onDrawerClosed(View view) {
@@ -279,12 +279,14 @@ public class MainActivity extends Activity implements ChampionFragment.OnFragmen
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             Fragment fragment = null;
+            FragmentManager fragmentManager = getFragmentManager();
             currentFragment = position;
 
             switch(position)
             {
                 case 0:
-                    fragment = PlaceholderFragment.newInstance();
+                    fragmentManager.popBackStack("NavDrawer", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                    drawerLayout.closeDrawers();
                     break;
                 case 1:
                     fragment = ChampionFragment.newInstance();
@@ -308,9 +310,7 @@ public class MainActivity extends Activity implements ChampionFragment.OnFragmen
             if(fragment != null)
             {
 
-                FragmentManager fragmentManager = getFragmentManager();
-
-                fragmentManager.popBackStack();
+                fragmentManager.popBackStack("NavDrawer", FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
                 FragmentTransaction trans = fragmentManager.beginTransaction();
                 trans.replace(R.id.container, fragment);
