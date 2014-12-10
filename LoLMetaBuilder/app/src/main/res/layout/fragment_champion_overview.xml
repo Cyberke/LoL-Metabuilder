@@ -123,7 +123,7 @@
             android:layout_marginTop="5dp"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:text="3"
             android:id="@+id/txtVAttackStats"
@@ -134,7 +134,7 @@
             android:layout_marginStart="30dp"/>
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:text="4"
             android:id="@+id/txtVDefenseStats"
@@ -143,7 +143,7 @@
             android:layout_alignStart="@+id/txtVAttackStats" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:text="8"
             android:id="@+id/txtVSpellsStats"
@@ -152,7 +152,7 @@
             android:layout_alignStart="@+id/txtVDefenseStats" />
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="20dp"
             android:layout_height="wrap_content"
             android:text="5"
             android:id="@+id/txtVDifficultyStats"
