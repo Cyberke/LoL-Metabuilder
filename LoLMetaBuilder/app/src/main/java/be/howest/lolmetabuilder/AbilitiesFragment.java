@@ -1,6 +1,8 @@
 package be.howest.lolmetabuilder;
 
+import android.app.ActionBar;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
@@ -33,7 +35,9 @@ public class AbilitiesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_abilities, container, false);
+        View view = inflater.inflate(R.layout.fragment_abilities, container, false);
+
+        return view;
     }
 
     public void onButtonPressed(Uri uri) {
@@ -56,6 +60,7 @@ public class AbilitiesFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        getActivity().getFragmentManager().popBackStack("Tab", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         mListener = null;
     }
 

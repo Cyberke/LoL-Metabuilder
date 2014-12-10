@@ -53,11 +53,14 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
                                                     SimulateFragment.OnFragmentInteractionListener,
                                                     SettingsFragment.OnFragmentInteractionListener,
                                                     ChampionOverviewFragment.OnFragmentInteractionListener,
-                                                    ItemFragment.OnFragmentInteractionListener{
+                                                    ItemFragment.OnFragmentInteractionListener,
+                                                    SkinFragment.OnFragmentInteractionListener,
+                                                    LoreFragment.OnFragmentInteractionListener,
+                                                    AbilitiesFragment.OnFragmentInteractionListener{
     private ProgressDialog pDialog;
     private static Boolean isInGeladen = false;
     private DrawerLayout drawerLayout;
-    private ListView drawerList;
+    public static ListView drawerList;
     private String[] layers;
     private ActionBarDrawerToggle drawerToggle;
     private int currentFragment = 0;
@@ -318,9 +321,8 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
 
                 FragmentTransaction trans = fragmentManager.beginTransaction();
                 trans.replace(R.id.container, fragment);
-                trans.addToBackStack(null);
+                trans.addToBackStack("NavDrawer");
                 trans.commit();
-
 
                 drawerLayout.closeDrawers();
             }

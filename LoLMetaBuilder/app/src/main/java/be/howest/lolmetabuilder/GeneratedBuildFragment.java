@@ -1,5 +1,6 @@
 package be.howest.lolmetabuilder;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -33,7 +34,14 @@ public class GeneratedBuildFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_generated_build, container, false);
+        View view = inflater.inflate(R.layout.fragment_generated_build, container, false);
+
+        //reset tabs
+        ActionBar actionBar = getActivity().getActionBar();
+        actionBar.removeAllTabs();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+
+        return view;
     }
 
     public void onButtonPressed(Uri uri) {

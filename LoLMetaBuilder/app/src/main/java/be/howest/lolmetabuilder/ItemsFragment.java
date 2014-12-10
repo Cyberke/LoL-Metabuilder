@@ -1,5 +1,6 @@
 package be.howest.lolmetabuilder;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.graphics.drawable.Drawable;
@@ -49,6 +50,11 @@ public class ItemsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_items, container, false);
+
+        //reset tabs
+        ActionBar actionBar = getActivity().getActionBar();
+        actionBar.removeAllTabs();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 
         gvItems = (GridView) view.findViewById(R.id.gVItems);
         gvItems.setAdapter(new ItemAdapter());
@@ -141,7 +147,7 @@ public class ItemsFragment extends Fragment {
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.container, fragment)
-                            .addToBackStack(null)
+                            .addToBackStack("Item")
                             .commit();
                 }
             });

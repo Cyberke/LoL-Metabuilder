@@ -1,6 +1,13 @@
 package be.howest.lolmetabuilder;
 
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
 import android.app.Activity;
+
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
+import android.graphics.PorterDuff;
+
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,7 +21,10 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import be.howest.lolmetabuilder.data.Champion;
+import be.howest.lolmetabuilder.data.ChampionTag;
+import be.howest.lolmetabuilder.data.Skin;
 import be.howest.lolmetabuilder.data.Tag;
+
 import be.howest.lolmetabuilder.data.Tip;
 
 public class ChampionOverviewFragment extends Fragment {
@@ -44,9 +54,15 @@ public class ChampionOverviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_champion_overview, container, false);
 
+
+
         //gekozen champion ophalen
         Bundle bundle = getArguments();
-        Champion champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
+        if(bundle.getString("Champion") != null)
+        {
+            Champion champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
+
+
 
         //layout elementen ophalen
         ViewHolder viewHolder = new ViewHolder();
@@ -97,7 +113,7 @@ public class ChampionOverviewFragment extends Fragment {
         String allyTips = "";
 
         for (Tip allyTip : champion.getAllyTips()) {
-            allyTips += allyTip.getContent() + "\n";
+            allyTips += allyTip.getContent() + "\n\n";
         }
 
         viewHolder.txtAllyTips.setText(allyTips);
@@ -105,10 +121,18 @@ public class ChampionOverviewFragment extends Fragment {
         String enemyTips = "";
 
         for (Tip enemyTip : champion.getEnemyTips()) {
-            enemyTips += enemyTip.getContent() + "\n";
+            enemyTips += enemyTip.getContent() + "\n\n";
         }
 
         viewHolder.txtEnemyTips.setText(enemyTips);
+
+        }
+
+        if(getActivity().getActionBar() != null)
+        {
+            getActivity().getActionBar().setSelectedNavigationItem(0);
+        }
+
 
         return view;
     }
@@ -133,6 +157,7 @@ public class ChampionOverviewFragment extends Fragment {
     @Override
     public void onDetach() {
         super.onDetach();
+        getActivity().getFragmentManager().popBackStack("Tab", FragmentManager.POP_BACK_STACK_INCLUSIVE);
         mListener = null;
     }
 
@@ -168,5 +193,4 @@ public class ChampionOverviewFragment extends Fragment {
                     pbDifficulty;
 
     }
-
 }
