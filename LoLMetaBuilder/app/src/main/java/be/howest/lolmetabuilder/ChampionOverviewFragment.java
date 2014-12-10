@@ -1,12 +1,8 @@
 package be.howest.lolmetabuilder;
 
-import android.app.ActionBar;
-import android.app.ActionBar.Tab;
 import android.app.Activity;
 
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.graphics.PorterDuff;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -20,11 +16,10 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.google.gson.Gson;
 
-import be.howest.lolmetabuilder.data.Champion;
-import be.howest.lolmetabuilder.data.Skin;
-import be.howest.lolmetabuilder.data.Tag;
+import be.howest.lolmetabuilder.data.models.Champion;
+import be.howest.lolmetabuilder.data.models.Tag;
 
-import be.howest.lolmetabuilder.data.Tip;
+import be.howest.lolmetabuilder.data.models.Tip;
 
 public class ChampionOverviewFragment extends Fragment {
 

@@ -15,7 +15,7 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import be.howest.lolmetabuilder.data.Item;
+import be.howest.lolmetabuilder.data.models.Item;
 
 public class ItemFragment extends Fragment {
 

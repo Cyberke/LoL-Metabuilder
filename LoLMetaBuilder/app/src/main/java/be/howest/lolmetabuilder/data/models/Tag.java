@@ -1,13 +1,13 @@
-package be.howest.lolmetabuilder.data;
+package be.howest.lolmetabuilder.data.models;
 
 /**
- * Created by manuel on 11/28/14.
+ * Created by manuel on 12/3/14.
  */
-public class MasteryTree {
+public class Tag {
     private int id = 0;
     private String name = "";
 
-    public MasteryTree(String name) {
+    public Tag(String name) {
         this.name = name;
     }
 

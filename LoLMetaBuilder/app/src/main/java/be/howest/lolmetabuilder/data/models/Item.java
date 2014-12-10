@@ -1,4 +1,4 @@
-package be.howest.lolmetabuilder.data;
+package be.howest.lolmetabuilder.data.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;

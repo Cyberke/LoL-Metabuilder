@@ -15,8 +15,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 
-import be.howest.lolmetabuilder.data.Champion;
-import be.howest.lolmetabuilder.data.FreeChamp;
+import be.howest.lolmetabuilder.data.models.Champion;
+import be.howest.lolmetabuilder.data.models.FreeChamp;
 
 /**
  * Created by manuel on 12/3/14.

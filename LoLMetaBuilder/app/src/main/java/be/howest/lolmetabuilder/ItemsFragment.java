@@ -19,7 +19,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-import be.howest.lolmetabuilder.data.Item;
+import be.howest.lolmetabuilder.data.models.Item;
 
 public class ItemsFragment extends Fragment {
 

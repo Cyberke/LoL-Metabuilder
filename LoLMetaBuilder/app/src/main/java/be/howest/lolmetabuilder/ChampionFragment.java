@@ -2,7 +2,6 @@ package be.howest.lolmetabuilder;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
@@ -20,7 +19,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-import be.howest.lolmetabuilder.data.Champion;
+import be.howest.lolmetabuilder.data.models.Champion;
 
 public class ChampionFragment extends Fragment {
 

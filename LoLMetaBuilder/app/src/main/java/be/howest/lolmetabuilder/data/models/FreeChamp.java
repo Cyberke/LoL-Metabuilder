@@ -1,7 +1,4 @@
-package be.howest.lolmetabuilder.data;
-
-import android.os.Parcel;
-import android.os.Parcelable;
+package be.howest.lolmetabuilder.data.models;
 
 /**
  * Created by manuel on 11/28/14.

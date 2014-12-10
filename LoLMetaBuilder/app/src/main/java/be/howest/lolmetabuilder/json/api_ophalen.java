@@ -9,18 +9,18 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-import be.howest.lolmetabuilder.data.Champion;
-import be.howest.lolmetabuilder.data.Tag;
-import be.howest.lolmetabuilder.data.Description;
-import be.howest.lolmetabuilder.data.Effect;
-import be.howest.lolmetabuilder.data.FreeChamp;
-import be.howest.lolmetabuilder.data.Item;
-import be.howest.lolmetabuilder.data.Leaf;
-import be.howest.lolmetabuilder.data.MasteryTree;
-import be.howest.lolmetabuilder.data.Rune;
-import be.howest.lolmetabuilder.data.Spell;
-import be.howest.lolmetabuilder.data.Stat;
-import be.howest.lolmetabuilder.data.Tip;
+import be.howest.lolmetabuilder.data.models.Champion;
+import be.howest.lolmetabuilder.data.models.Tag;
+import be.howest.lolmetabuilder.data.models.Description;
+import be.howest.lolmetabuilder.data.models.Effect;
+import be.howest.lolmetabuilder.data.models.FreeChamp;
+import be.howest.lolmetabuilder.data.models.Item;
+import be.howest.lolmetabuilder.data.models.Leaf;
+import be.howest.lolmetabuilder.data.models.MasteryTree;
+import be.howest.lolmetabuilder.data.models.Rune;
+import be.howest.lolmetabuilder.data.models.Spell;
+import be.howest.lolmetabuilder.data.models.Stat;
+import be.howest.lolmetabuilder.data.models.Tip;
 
 /**
  * Created by manuel on 11/19/14.

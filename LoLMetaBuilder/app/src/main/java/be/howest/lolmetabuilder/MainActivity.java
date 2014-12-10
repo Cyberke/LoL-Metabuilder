@@ -30,12 +30,12 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import be.howest.lolmetabuilder.data.Champion;
-import be.howest.lolmetabuilder.data.FreeChamp;
-import be.howest.lolmetabuilder.data.Item;
-import be.howest.lolmetabuilder.data.Leaf;
-import be.howest.lolmetabuilder.data.MasteryTree;
-import be.howest.lolmetabuilder.data.Rune;
+import be.howest.lolmetabuilder.data.models.Champion;
+import be.howest.lolmetabuilder.data.models.FreeChamp;
+import be.howest.lolmetabuilder.data.models.Item;
+import be.howest.lolmetabuilder.data.models.Leaf;
+import be.howest.lolmetabuilder.data.models.MasteryTree;
+import be.howest.lolmetabuilder.data.models.Rune;
 import be.howest.lolmetabuilder.json.api_ophalen;
 
 
