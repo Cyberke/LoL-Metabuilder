@@ -84,6 +84,7 @@ public class MainActivity extends Activity implements ChampionFragment.OnFragmen
         @Override
         protected List<String> doInBackground(String... params) {
             try {
+
                 String PACKAGE_NAME = getApplicationContext().getPackageName();
                 ApplicationInfo appInfo = getPackageManager().getApplicationInfo(PACKAGE_NAME, PackageManager.GET_META_DATA);
 
