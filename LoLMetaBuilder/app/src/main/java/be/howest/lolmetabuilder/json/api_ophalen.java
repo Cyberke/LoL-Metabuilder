@@ -684,8 +684,10 @@ public class api_ophalen {
             JsonReader reader = new JsonReader(new InputStreamReader(input, "UTF-8"));
             reader.beginObject(); // {
 
-            String runeName = reader.nextName(), description = "", type = "";
+            String runeName = reader.nextName(), description = "", type = "", image = "";
             int id = 0, tier = 0;
+            ArrayList<Tag> runeTags = new ArrayList<Tag>();
+            ArrayList<Stat> runeStats = new ArrayList<Stat>();
 
             while (!runeName.equals("data")) {
                 reader.skipValue();
@@ -712,6 +714,48 @@ public class api_ophalen {
                         }
                         else if (key.equals("sanitizedDescription")) {
                             description = reader.nextString();
+                        }
+                        else if (key.equals("tags")) {
+                            reader.beginArray(); // [
+
+                            while (reader.hasNext()) {
+                                Tag runeTag = new Tag(reader.nextString());
+
+                                runeTags.add(runeTag);
+                            }
+
+                            reader.endArray(); // ]
+                        }
+                        else if (key.equals("image")) {
+                            reader.beginObject(); // {
+
+                            while (reader.hasNext()) {
+                                key = reader.nextName();
+
+                                if (key.equals("full")) {
+                                    // .png verwijderen voor de drawables
+                                    String[] parts = reader.nextString().split("\\.");
+                                    image = parts[0];
+                                }
+                                else {
+                                    reader.skipValue();
+                                }
+                            }
+
+                            reader.endObject(); // }
+                        }
+                        else if (key.equals("stats")) {
+                            reader.beginObject(); // {
+
+                            while (reader.hasNext()) {
+                                key = reader.nextName();
+
+                                Stat runeStat = new Stat(key, reader.nextDouble());
+
+                                runeStats.add(runeStat);
+                            }
+
+                            reader.endObject(); // }
                         }
                         else if (key.equals("rune")) {
                             reader.beginObject(); // {
@@ -740,9 +784,20 @@ public class api_ophalen {
 
                     reader.endObject(); // }
 
-                    Rune rune = new Rune(id, runeName, description, tier, type);
+                    Rune rune = new Rune(id, runeName, description, tier, type, image);
+
+                    if (runeTags.size() > 0) {
+                        rune.setTags(runeTags);
+                    }
+
+                    if (runeStats.size() > 0) {
+                        rune.setStats(runeStats);
+                    }
 
                     runes.add(rune);
+
+                    runeTags = new ArrayList<Tag>();
+                    runeStats = new ArrayList<Stat>();
                 }
 
                 reader.endObject(); // }

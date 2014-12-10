@@ -1,5 +1,7 @@
 package be.howest.lolmetabuilder.data.models;
 
+import java.util.ArrayList;
+
 /**
  * Created by manuel on 11/28/14.
  */
@@ -8,17 +10,41 @@ public class Rune {
         tier = 0;
     private String name = "",
         description = "",
-        type = "";
+        type = "",
+        image = "";
+    private ArrayList<Tag> tags = new ArrayList<Tag>();
+    private ArrayList<Stat> stats = new ArrayList<Stat>();
 
     public Rune(
             int id, String name, String description,
-            int tier, String type
+            int tier, String type, String image
     ) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.tier = tier;
         this.type = type;
+        this.image = image;
+    }
+
+    public ArrayList<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(ArrayList<Tag> tags) {
+        this.tags = tags;
+    }
+
+    public ArrayList<Stat> getStats() {
+        return stats;
+    }
+
+    public void setStats(ArrayList<Stat> stats) {
+        this.stats = stats;
+    }
+
+    public String getImage() {
+        return image;
     }
 
     public int getId() {
