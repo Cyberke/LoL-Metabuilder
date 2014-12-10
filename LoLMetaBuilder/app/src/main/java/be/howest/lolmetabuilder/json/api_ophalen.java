@@ -220,7 +220,8 @@ public class api_ophalen {
                             reader.beginArray(); // [
 
                             String spellName = "", spellDescription = "",
-                            spellTooltip = "", spellCooldown = "", spellRange = "";
+                            spellTooltip = "", spellCooldown = "", spellRange = "",
+                            spellImage = "";
 
                             while (reader.hasNext()) {
                                 reader.beginObject(); // {
@@ -237,6 +238,24 @@ public class api_ophalen {
                                     else if (key.equals("sanitizedTooltip")) {
                                         spellTooltip = reader.nextString();
                                     }
+                                    else if (key.equals("image")) {
+                                        reader.beginObject(); // {
+
+                                        while (reader.hasNext()) {
+                                            key = reader.nextName();
+
+                                            if (key.equals("full")) {
+                                                // .png verwijderen voor de drawables
+                                                String[] parts = reader.nextString().split("\\.");
+                                                spellImage = parts[0];
+                                            }
+                                            else {
+                                                reader.skipValue();
+                                            }
+                                        }
+
+                                        reader.endObject(); // }
+                                    }
                                     else if (key.equals("cooldownBurn")) {
                                         spellCooldown = reader.nextString();
                                     }
@@ -249,7 +268,7 @@ public class api_ophalen {
                                 }
 
                                 Spell spell = new Spell(spellName, spellDescription, spellTooltip,
-                                        spellCooldown, spellRange);
+                                        spellCooldown, spellRange, spellImage);
 
                                 championSpells.add(spell);
 
