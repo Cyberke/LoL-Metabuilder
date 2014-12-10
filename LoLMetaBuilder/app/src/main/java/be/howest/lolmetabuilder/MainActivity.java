@@ -1,7 +1,6 @@
 package be.howest.lolmetabuilder;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -12,27 +11,20 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.os.Build;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -47,7 +39,7 @@ import be.howest.lolmetabuilder.data.Rune;
 import be.howest.lolmetabuilder.json.api_ophalen;
 
 
-public class MyActivity extends Activity implements ChampionFragment.OnFragmentInteractionListener,
+public class MainActivity extends Activity implements ChampionFragment.OnFragmentInteractionListener,
                                                     ItemsFragment.OnFragmentInteractionListener,
                                                     BuildsFragment.OnFragmentInteractionListener,
                                                     SimulateFragment.OnFragmentInteractionListener,
@@ -83,7 +75,7 @@ public class MyActivity extends Activity implements ChampionFragment.OnFragmentI
         protected void onPreExecute() {
             super.onPreExecute();
 
-            pDialog = new ProgressDialog(MyActivity.this);
+            pDialog = new ProgressDialog(MainActivity.this);
             pDialog.setMessage("Loading data...");
             pDialog.setCancelable(false);
             pDialog.show();

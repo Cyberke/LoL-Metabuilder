@@ -96,7 +96,7 @@ public class ItemsFragment extends Fragment {
             super(getActivity(), R.layout.cel_item, R.id.txtItemPrice);
 
             //items die op de mainactivity worden opgehaald gebruiken
-            items = MyActivity.items;
+            items = MainActivity.items;
 
             this.addAll(items);
         }

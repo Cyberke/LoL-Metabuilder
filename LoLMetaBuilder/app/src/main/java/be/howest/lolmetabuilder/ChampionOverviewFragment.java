@@ -53,8 +53,6 @@ public class ChampionOverviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_champion_overview, container, false);
 
-
-
         //gekozen champion ophalen
         Bundle bundle = getArguments();
         if(bundle.getString("Champion") != null)
@@ -125,11 +123,6 @@ public class ChampionOverviewFragment extends Fragment {
 
         viewHolder.txtEnemyTips.setText(enemyTips);
 
-        }
-
-        if(getActivity().getActionBar() != null)
-        {
-            getActivity().getActionBar().setSelectedNavigationItem(0);
         }
 
 

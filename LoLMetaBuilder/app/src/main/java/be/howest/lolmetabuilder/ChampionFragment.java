@@ -1,33 +1,25 @@
 package be.howest.lolmetabuilder;
 
-import android.annotation.TargetApi;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.app.Fragment;
-import android.speech.tts.TextToSpeech;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import org.w3c.dom.Text;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+
 import be.howest.lolmetabuilder.data.Champion;
 
 public class ChampionFragment extends Fragment {
@@ -109,7 +101,7 @@ public class ChampionFragment extends Fragment {
             super(getActivity(), R.layout.cel_champ, R.id.txtChampName);
 
             //champions die op de mainactivity worden opgehaald gebruiken
-            champions = MyActivity.champions;
+            champions = MainActivity.champions;
 
             this.addAll(champions);
         }
@@ -163,29 +155,28 @@ public class ChampionFragment extends Fragment {
         //Openen champion detail met fragment
 
         //gekozen champion met de fragment meesturen
-        Fragment fragment = new ChampionOverviewFragment();
-        Bundle args = new Bundle();
-        args.putString("Champion", new Gson().toJson(champion));
-        fragment.setArguments(args);
+        //Fragment fragment = new ChampionOverviewFragment();
+        //Bundle args = new Bundle();
+        //args.putString("Champion", new Gson().toJson(champion));
+        //fragment.setArguments(args);
 
         //openen fragment
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack("Champion")
-                .commit();
+        //FragmentManager fragmentManager = getFragmentManager();
+        //fragmentManager.beginTransaction()
+        //        .replace(R.id.container, fragment)
+        //        .addToBackStack("Champion")
+        //        .commit();
 
         //Tabs instellen
         ActionBar actionBar = getActivity().getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        actionBar.setDisplayShowTitleEnabled(false);
+
 
         String[] tabTitles = getResources().getStringArray(R.array.titles_champion_tabs);
 
         ActionBar.Tab tab = actionBar.newTab()
                 .setText(tabTitles[0])
                 .setTabListener(new TabListener<ChampionOverviewFragment>(getActivity(), "Overview", ChampionOverviewFragment.class));
-        actionBar.addTab(tab, false);
+        actionBar.addTab(tab, true);
 
         tab = actionBar.newTab()
                 .setText(tabTitles[1])
@@ -201,6 +192,9 @@ public class ChampionFragment extends Fragment {
                 .setText(tabTitles[3])
                 .setTabListener(new TabListener<AbilitiesFragment>(getActivity(), "Abilities", AbilitiesFragment.class));
         actionBar.addTab(tab, false);
+
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        actionBar.setDisplayShowTitleEnabled(false);
 
         }
 

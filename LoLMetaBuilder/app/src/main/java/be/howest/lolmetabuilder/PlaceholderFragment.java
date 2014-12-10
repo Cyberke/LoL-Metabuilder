@@ -43,8 +43,8 @@ public class PlaceholderFragment extends Fragment {
         actionBar.removeAllTabs();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 
-        MyActivity.drawerList.setSelection(0);
-        MyActivity.drawerList.setItemChecked(0, true);
+        MainActivity.drawerList.setSelection(0);
+        MainActivity.drawerList.setItemChecked(0, true);
 
         gvFreeChamps = (GridView) view.findViewById(R.id.gvFreeChamps);
         gvFreeChamps.setAdapter(new FreeChampionAdapter());
@@ -57,7 +57,7 @@ public class PlaceholderFragment extends Fragment {
         public FreeChampionAdapter() {
             super(getActivity(), R.layout.cel_champ, R.id.txtChampName);
 
-            this.addAll(MyActivity.freeChamps);
+            this.addAll(MainActivity.freeChamps);
         }
 
         class ViewHolder {
@@ -71,7 +71,7 @@ public class PlaceholderFragment extends Fragment {
             //View row = super.getView(position, convertView, parent);
             ViewHolder viewHolder = new ViewHolder();
 
-            final Champion champ = MyActivity.freeChamps.get(position).getChampion();
+            final Champion champ = MainActivity.freeChamps.get(position).getChampion();
 
             if(convertView == null)
             {
@@ -111,8 +111,6 @@ public class PlaceholderFragment extends Fragment {
                             .replace(R.id.container, fragment)
                             .addToBackStack(null)
                             .commit();
-
-                    //Toast.makeText(v.getContext(), "Champion: " + champ.getName(), Toast.LENGTH_SHORT).show();
                 }
             });
 
