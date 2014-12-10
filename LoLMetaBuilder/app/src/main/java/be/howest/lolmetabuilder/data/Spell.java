@@ -7,14 +7,26 @@ public class Spell {
     private int id = 0;
     private String name = "",
         description = "",
-        tooltip = "";
+        tooltip = "",
+        cooldown = "",
+        range = "";
 
     public Spell(String name, String description,
-            String tooltip
+            String tooltip, String cooldown, String range
     ) {
         this.name = name;
         this.description = description;
         this.tooltip = tooltip;
+        this.cooldown = cooldown;
+        this.range = range;
+    }
+
+    public String getCooldown() {
+        return cooldown;
+    }
+
+    public String getRange() {
+        return range;
     }
 
     public void setId(int id) {

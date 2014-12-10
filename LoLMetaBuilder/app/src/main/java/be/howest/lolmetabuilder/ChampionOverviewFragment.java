@@ -21,7 +21,6 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 
 import be.howest.lolmetabuilder.data.Champion;
-import be.howest.lolmetabuilder.data.ChampionTag;
 import be.howest.lolmetabuilder.data.Skin;
 import be.howest.lolmetabuilder.data.Tag;
 

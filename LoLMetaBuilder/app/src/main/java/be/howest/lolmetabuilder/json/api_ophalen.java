@@ -220,7 +220,7 @@ public class api_ophalen {
                             reader.beginArray(); // [
 
                             String spellName = "", spellDescription = "",
-                            spellTooltip = "";
+                            spellTooltip = "", spellCooldown = "", spellRange = "";
 
                             while (reader.hasNext()) {
                                 reader.beginObject(); // {
@@ -237,12 +237,19 @@ public class api_ophalen {
                                     else if (key.equals("sanitizedTooltip")) {
                                         spellTooltip = reader.nextString();
                                     }
+                                    else if (key.equals("cooldownBurn")) {
+                                        spellCooldown = reader.nextString();
+                                    }
+                                    else if (key.equals("rangeBurn")) {
+                                        spellRange = reader.nextString();
+                                    }
                                     else {
                                         reader.skipValue();
                                     }
                                 }
 
-                                Spell spell = new Spell(spellName, spellDescription, spellTooltip);
+                                Spell spell = new Spell(spellName, spellDescription, spellTooltip,
+                                        spellCooldown, spellRange);
 
                                 championSpells.add(spell);
 
