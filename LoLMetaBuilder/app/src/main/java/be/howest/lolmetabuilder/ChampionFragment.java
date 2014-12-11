@@ -2,6 +2,7 @@ package be.howest.lolmetabuilder;
 
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
