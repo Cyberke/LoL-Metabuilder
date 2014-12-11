@@ -816,6 +816,16 @@ public class api_ophalen {
         return runes;
     }
 
+    private static Leaf findLeafById(int id, ArrayList<Leaf> leafs) {
+        for (Leaf l : leafs) {
+            if (id == l.getId()) {
+                return l;
+            }
+        }
+
+        return null;
+    }
+
     public static ArrayList<MasteryTree> masteryTrees(ApplicationInfo appInfo) {
         ArrayList<MasteryTree> masteryTrees = null;
 
@@ -831,6 +841,9 @@ public class api_ophalen {
             reader.beginObject(); // {
 
             String treeName = reader.nextName();
+            ArrayList<Integer> masteriesId = new ArrayList<Integer>();
+            ArrayList<Leaf> masteries = new ArrayList<Leaf>();
+            ArrayList<Leaf> leafs = leafs(appInfo);
 
             while (!treeName.equals("tree")) {
                 reader.skipValue();
@@ -845,11 +858,64 @@ public class api_ophalen {
                 while (reader.hasNext()) {
                     treeName = reader.nextName(); // Defense
 
-                    reader.skipValue();
+                    reader.beginArray(); // [
 
-                    MasteryTree masteryTree = new MasteryTree(treeName);
+                    while (reader.hasNext()) {
+                        reader.beginObject(); // {
+
+                        while (reader.hasNext()) {
+                            reader.nextName(); // masteryTreeItems
+                            reader.beginArray(); // [
+
+                            while (reader.hasNext()) {
+                                try {
+                                    reader.beginObject(); // {
+
+                                    while (reader.hasNext()) {
+                                        String key = reader.nextName();
+
+                                        if (key.equals("masteryId")) {
+                                            int masteryId = reader.nextInt();
+
+                                            masteriesId.add(masteryId);
+                                        } else {
+                                            reader.skipValue();
+                                        }
+                                    }
+
+                                    reader.endObject(); // }
+                                }
+                                catch (Exception e) {
+                                    // Sommige masteryTreeItems hebben geen object
+                                    // Defense/1/masteryTreeItems/2 : null
+                                    reader.skipValue();
+                                }
+                            }
+
+                            reader.endArray(); // ]
+                        }
+
+                        reader.endObject(); // }
+                    }
+
+                    reader.endArray(); // ]
+
+                    MasteryTree masteryTree = new MasteryTree(treeName, masteriesId);
 
                     masteryTrees.add(masteryTree);
+
+                    for (MasteryTree mt : masteryTrees) {
+                        for (int masteryId : mt.getMasteryItemIds()) {
+                            Leaf leaf = findLeafById(masteryId, leafs);
+
+                            masteries.add(leaf);
+                        }
+
+                        mt.setMasteries(masteries);
+
+                        masteriesId = new ArrayList<Integer>();
+                        masteries = new ArrayList<Leaf>();
+                    }
                 }
 
                 reader.endObject(); // }
