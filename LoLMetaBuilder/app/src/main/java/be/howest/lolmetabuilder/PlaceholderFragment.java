@@ -109,7 +109,7 @@ public class PlaceholderFragment extends Fragment {
                     FragmentManager fragmentManager = getFragmentManager();
                     fragmentManager.beginTransaction()
                             .replace(R.id.container, fragment)
-                            .addToBackStack(null)
+                            .addToBackStack("Champion")
                             .commit();
                 }
             });
