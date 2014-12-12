@@ -67,7 +67,7 @@ public class DatabaseAccess {
                     "    statID      INTEGER NOT NULL," +
                     "    spellID     INTEGER NOT NULL" +
                     "                        REFERENCES Champion_Spell ( id )," +
-                    "    FOREIGN KEY ( statID ) REFERENCES statchamp ( id ) );");
+                    "    FOREIGN KEY ( statID ) REFERENCES Stat ( id ) );");
 
             //Spell
             db.execSQL("CREATE TABLE Spell ( " +
@@ -112,6 +112,13 @@ public class DatabaseAccess {
                     "    statID        INTEGER NOT NULL" +
                     "                          REFERENCES Stat ( id ) );");
 
+            /*
+            private ArrayList<Stat> stats = new ArrayList<Stat>();
+            private ArrayList<Tag> tags = new ArrayList<Tag>();
+            private ArrayList<Effect> effects = new ArrayList<Effect>();
+            private ArrayList<Integer> requiresIds = new ArrayList<Integer>();
+            private ArrayList<Integer> buildIntoIds = new ArrayList<Integer>();
+             */
             //Rune
             db.execSQL("CREATE TABLE Rune ( " +
                     "    id          INTEGER PRIMARY KEY AUTOINCREMENT" +
@@ -120,6 +127,8 @@ public class DatabaseAccess {
                     "    name        TEXT    NOT NULL," +
                     "    description TEXT    NOT NULL," +
                     "    type        TEXT    NOT NULL );");
+
+            //Rune_Effect
 
             //Skin
             db.execSQL("CREATE TABLE Skin ( " +
@@ -139,6 +148,7 @@ public class DatabaseAccess {
                     "    cooldown    TEXT    NOT NULL," +
                     "    range       TEXT    NOT NULL," +
                     "    image       TEXT    NOT NULL );");
+            //Spell_Effect
 
             //Stat
             db.execSQL("CREATE TABLE Stat ( " +
@@ -220,6 +230,14 @@ public class DatabaseAccess {
                     "    statID INTEGER NOT NULL," +
                     "    FOREIGN KEY ( runeID ) REFERENCES Rune ( id )," +
                     "    FOREIGN KEY ( statID ) REFERENCES Stat ( id ) );");
+
+            //Item_Req
+            db.execSQL("CREATE TABLE Item_Req ( " +
+                    "    id        INTEGER PRIMARY KEY AUTOINCREMENT," +
+                    "    itemID    INTEGER REFERENCES Item ( id )," +
+                    "    otherItem INTEGER REFERENCES Item ( id )," +
+                    "    required  BOOLEAN NOT NULL );");
+
 
             //MasteryTree_Leaf
 
