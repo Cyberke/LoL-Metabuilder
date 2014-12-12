@@ -15,11 +15,8 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
-
 import java.util.ArrayList;
-
 import be.howest.lolmetabuilder.data.models.Champion;
 
 public class ChampionFragment extends Fragment {
