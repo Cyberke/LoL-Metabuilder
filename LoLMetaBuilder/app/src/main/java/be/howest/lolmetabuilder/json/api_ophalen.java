@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import be.howest.lolmetabuilder.data.models.Champion;
+import be.howest.lolmetabuilder.data.models.Skin;
 import be.howest.lolmetabuilder.data.models.Tag;
 import be.howest.lolmetabuilder.data.models.Description;
 import be.howest.lolmetabuilder.data.models.Effect;
@@ -103,6 +104,7 @@ public class api_ophalen {
             ArrayList<Tag> championTags = new ArrayList<Tag>();
             ArrayList<Stat> statChamps = new ArrayList<Stat>();
             ArrayList<Spell> championSpells = new ArrayList<Spell>();
+            ArrayList<Skin> championSkins = new ArrayList<Skin>();
 
             while (!championName.equals("data")) {
                 reader.skipValue();
@@ -145,6 +147,43 @@ public class api_ophalen {
                             }
 
                             reader.endObject(); // }
+                        }
+                        else if (key.equals("skins")) {
+                            reader.beginArray(); // [
+
+                            while (reader.hasNext()) {
+                                reader.beginObject(); // {
+
+                                int skinId = 0, skinNum = 0;
+                                String skinName = "", skinImage = "";
+
+                                while (reader.hasNext()) {
+                                    key = reader.nextName();
+
+                                    if (key.equals("id")) {
+                                        skinId = reader.nextInt();
+                                    }
+                                    else if (key.equals("name")) {
+                                        skinName = reader.nextString();
+                                    }
+                                    else if (key.equals("num")) {
+                                        skinNum = reader.nextInt();
+                                    }
+                                    else {
+                                        reader.skipValue();
+                                    }
+                                }
+
+                                skinImage = image + "_" + skinNum;
+
+                                Skin skin = new Skin(skinId, skinName, skinImage, id, skinNum);
+
+                                championSkins.add(skin);
+
+                                reader.endObject(); // }
+                            }
+
+                            reader.endArray(); // ]
                         }
                         else if (key.equals("lore")) {
                             lore = reader.nextString();
@@ -220,8 +259,8 @@ public class api_ophalen {
                             reader.beginArray(); // [
 
                             String spellName = "", spellDescription = "",
-                            spellTooltip = "", spellCooldown = "", spellRange = "",
-                            spellImage = "";
+                                    spellTooltip = "", spellCooldown = "", spellRange = "",
+                                    spellImage = "";
 
                             while (reader.hasNext()) {
                                 reader.beginObject(); // {
@@ -301,7 +340,7 @@ public class api_ophalen {
                     Champion champion = new Champion(id, championName, title,
                             lore, attack, defence, magic, difficulty, passiveName,
                             passiveDesc, image, allyTips, enemyTips, championTags,
-                            statChamps, championSpells);
+                            statChamps, championSpells, championSkins);
 
                     champions.add(champion);
 
@@ -310,6 +349,7 @@ public class api_ophalen {
                     championTags = new ArrayList<Tag>();
                     statChamps = new ArrayList<Stat>();
                     championSpells = new ArrayList<Spell>();
+                    championSkins = new ArrayList<Skin>();
 
                     reader.endObject(); // }
                 }
@@ -355,7 +395,7 @@ public class api_ophalen {
             reader.beginObject(); // {
 
             String itemName = reader.nextName(), description = "", group = "",
-            image = "";
+                    image = "";
             int id = 0, totalGold = 0, baseGold = 0, depth = 0,
                     specialRecipe = 0, map = 10, stacks = 0;
             boolean purchasable = true, consumed = false;

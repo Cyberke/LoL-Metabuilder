@@ -29,6 +29,7 @@ public class Champion implements Parcelable{
     private ArrayList<Tag> tags = new ArrayList<Tag>();
     private ArrayList<Stat> stats = new ArrayList<Stat>();
     private ArrayList<Spell> spells = new ArrayList<Spell>();
+    private ArrayList<Skin> skins = new ArrayList<Skin>();
 
     public Champion(
             int id, String name, String title,
@@ -36,7 +37,8 @@ public class Champion implements Parcelable{
             int magic, int difficulty, String passiveName,
             String passiveDesc, String image, ArrayList<Tip> allyTips,
             ArrayList<Tip> enemyTips, ArrayList<Tag> tags,
-            ArrayList<Stat> stats, ArrayList<Spell> spells) {
+            ArrayList<Stat> stats, ArrayList<Spell> spells,
+            ArrayList<Skin> skins) {
         this.id = id;
         this.name = name;
         this.title = title;
@@ -53,6 +55,11 @@ public class Champion implements Parcelable{
         this.tags = tags;
         this.stats = stats;
         this.spells = spells;
+        this.skins = skins;
+    }
+
+    public ArrayList<Skin> getSkins() {
+        return skins;
     }
 
     public ArrayList<Spell> getSpells() {
