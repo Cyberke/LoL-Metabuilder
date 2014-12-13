@@ -1,9 +1,9 @@
 package be.howest.lolmetabuilder;
 
 import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
@@ -15,6 +15,7 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,7 +40,7 @@ import be.howest.lolmetabuilder.data.models.Rune;
 import be.howest.lolmetabuilder.json.api_ophalen;
 
 
-public class MainActivity extends Activity implements ChampionFragment.OnFragmentInteractionListener,
+public class MainActivity extends FragmentActivity implements ChampionFragment.OnFragmentInteractionListener,
                                                     ItemsFragment.OnFragmentInteractionListener,
                                                     BuildsFragment.OnFragmentInteractionListener,
                                                     SimulateFragment.OnFragmentInteractionListener,
@@ -48,7 +49,8 @@ public class MainActivity extends Activity implements ChampionFragment.OnFragmen
                                                     ItemFragment.OnFragmentInteractionListener,
                                                     SkinFragment.OnFragmentInteractionListener,
                                                     LoreFragment.OnFragmentInteractionListener,
-                                                    AbilitiesFragment.OnFragmentInteractionListener{
+                                                    AbilitiesFragment.OnFragmentInteractionListener,
+                                                    ChampionDetailFragment.OnFragmentInteractionListener{
     private ProgressDialog pDialog;
     private static Boolean isInGeladen = false;
     private DrawerLayout drawerLayout;
@@ -214,7 +216,7 @@ public class MainActivity extends Activity implements ChampionFragment.OnFragmen
         handleIntent(getIntent());
 
         if (savedInstanceState == null) {
-            getFragmentManager().beginTransaction()
+            getSupportFragmentManager().beginTransaction()
                     .replace(R.id.container, PlaceholderFragment.newInstance())
                     .commit();
         }
@@ -279,7 +281,7 @@ public class MainActivity extends Activity implements ChampionFragment.OnFragmen
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
             Fragment fragment = null;
-            FragmentManager fragmentManager = getFragmentManager();
+            FragmentManager fragmentManager = getSupportFragmentManager();
             currentFragment = position;
 
             switch(position)

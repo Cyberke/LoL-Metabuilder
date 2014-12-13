@@ -2,12 +2,13 @@ package be.howest.lolmetabuilder;
 
 import android.app.ActionBar;
 import android.app.Activity;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,9 @@ public class ChampionFragment extends Fragment {
 
     public GridView gvChamps;
     private static Champion champion;
+    ActionBar actionBar;
+    ViewPager viewPager;
+    ChampionAdapterFragment ft;
 
     private OnFragmentInteractionListener mListener;
 
@@ -152,117 +156,26 @@ public class ChampionFragment extends Fragment {
 
         private void loadChampionDetail(View v)
         {
-        //Openen champion detail met fragment
+            //Openen champion detail met fragment
 
-        //gekozen champion met de fragment meesturen
-        Fragment fragment = new ChampionOverviewFragment();
-        Bundle args = new Bundle();
-        args.putString("Champion", new Gson().toJson(champion));
-        fragment.setArguments(args);
+            //gekozen champion met de fragment meesturen
+            Fragment fragment = new ChampionDetailFragment();
+            Bundle args = new Bundle();
+            args.putString("Champion", new Gson().toJson(champion));
+            fragment.setArguments(args);
 
-        //openen fragment
-        FragmentManager fragmentManager = getFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, fragment)
-                .addToBackStack("Champion")
-                .commit();
-
-        //Tabs instellen
-        ActionBar actionBar = getActivity().getActionBar();
-
-
-        String[] tabTitles = getResources().getStringArray(R.array.titles_champion_tabs);
-
-        ActionBar.Tab tab = actionBar.newTab()
-                .setText(tabTitles[0])
-                .setTabListener(new TabListener<ChampionOverviewFragment>(getActivity(), "Overview", ChampionOverviewFragment.class));
-        actionBar.addTab(tab, true);
-
-        tab = actionBar.newTab()
-                .setText(tabTitles[1])
-                .setTabListener(new TabListener<SkinFragment>(getActivity(), "Skins", SkinFragment.class));
-        actionBar.addTab(tab, false);
-
-        tab = actionBar.newTab()
-                .setText(tabTitles[2])
-                .setTabListener(new TabListener<LoreFragment>(getActivity(), "Lore", LoreFragment.class));
-        actionBar.addTab(tab, false);
-
-        tab = actionBar.newTab()
-                .setText(tabTitles[3])
-                .setTabListener(new TabListener<AbilitiesFragment>(getActivity(), "Abilities", AbilitiesFragment.class));
-        actionBar.addTab(tab, false);
-
+            //openen fragment
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .addToBackStack("Champion")
+                    .commit();
         }
 
         private Drawable getDrawableResourceByName(String name) {
             String packageName = getActivity().getPackageName();
             int resId = getResources().getIdentifier( name, "drawable", packageName);
             return getResources().getDrawable(resId);
-        }
-    }
-
-    public static class TabListener<T extends Fragment> implements ActionBar.TabListener {
-        private Fragment mFragment;
-        private final Activity mActivity;
-        private final String mTag;
-        private final Class<T> mClass;
-
-        public TabListener(Activity activity, String tag, Class<T> clz){
-            mActivity = activity;
-            mTag = tag;
-            mClass = clz;
-        }
-
-        @Override
-        public void onTabSelected(ActionBar.Tab tab, FragmentTransaction ft){
-
-            Fragment fragment = null;
-
-            switch(tab.getPosition())
-            {
-                case 0:
-                    //overview
-                    //fragment = ChampionOverviewFragment.newInstance();
-                    mActivity.getFragmentManager().popBackStack("Tab", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                    break;
-                case 1:
-                    //skins
-                    fragment = SkinFragment.newInstance();
-                    break;
-                case 2:
-                    //lore
-                    fragment = LoreFragment.newInstance();
-                    break;
-                case 3:
-                    //abilities
-                    fragment = AbilitiesFragment.newInstance();
-                    break;
-            }
-
-            if(fragment != null)
-            {
-
-                Bundle args = new Bundle();
-                args.putString("Champion", new Gson().toJson(champion));
-                fragment.setArguments(args);
-
-                mActivity.getFragmentManager().beginTransaction()
-                        .replace(R.id.container, fragment)
-                        .addToBackStack("Tab")
-                        .commit();
-            }
-        }
-
-        public void onTabUnselected(ActionBar.Tab tab, FragmentTransaction ft) {
-            if (mFragment != null) {
-                // Detach the fragment, because another one is being attached
-                ft.detach(mFragment);
-            }
-        }
-
-        public void onTabReselected(ActionBar.Tab tab, FragmentTransaction ft) {
-            // User selected the already selected tab. Usually do nothing.
         }
     }
 }

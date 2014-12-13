@@ -3,12 +3,12 @@ package be.howest.lolmetabuilder;
 import android.app.ActionBar;
 import android.app.Activity;
 
-import android.app.FragmentManager;
+import android.support.v4.app.FragmentManager;
 
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,11 +26,13 @@ public class ChampionOverviewFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+
     public static ChampionOverviewFragment newInstance() {
         ChampionOverviewFragment fragment = new ChampionOverviewFragment();
 
         return fragment;
     }
+
     public ChampionOverviewFragment() {
         // Required empty public constructor
     }
@@ -54,20 +56,9 @@ public class ChampionOverviewFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_champion_overview, container, false);
 
-        ActionBar actionBar = getActivity().getActionBar();
-        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-        if(actionBar.getTabCount() > 0)
-        {
-            actionBar.setSelectedNavigationItem(0);
-        }
-
-
-        //gekozen champion ophalen
+        //get selected champion
         Bundle bundle = getArguments();
-        if(bundle.getString("Champion") != null)
-        {
-            Champion champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
-
+        Champion champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
 
 
         //layout elementen ophalen
@@ -131,8 +122,6 @@ public class ChampionOverviewFragment extends Fragment {
         }
 
         viewHolder.txtEnemyTips.setText(enemyTips);
-
-        }
 
 
         return view;

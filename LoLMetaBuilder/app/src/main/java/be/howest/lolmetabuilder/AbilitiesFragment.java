@@ -5,10 +5,14 @@ import android.app.Activity;
 import android.app.FragmentManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.gson.Gson;
+
+import be.howest.lolmetabuilder.data.models.Champion;
 
 public class AbilitiesFragment extends Fragment {
 
@@ -36,6 +40,10 @@ public class AbilitiesFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_abilities, container, false);
+
+        //get selected champion
+        Bundle bundle = getArguments();
+        Champion champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
 
         return view;
     }
