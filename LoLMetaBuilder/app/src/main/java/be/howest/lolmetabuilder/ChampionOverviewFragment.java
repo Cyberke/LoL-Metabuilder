@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 
 import be.howest.lolmetabuilder.data.models.Champion;
@@ -59,7 +61,7 @@ public class ChampionOverviewFragment extends Fragment {
         //get selected champion
         Bundle bundle = getArguments();
         Champion champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
-
+        Toast.makeText(getActivity().getBaseContext(), "3. " + champion.getName(), Toast.LENGTH_SHORT).show();
 
         //layout elementen ophalen
         ViewHolder viewHolder = new ViewHolder();

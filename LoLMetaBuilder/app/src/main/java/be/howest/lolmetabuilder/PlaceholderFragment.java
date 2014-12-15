@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -23,6 +24,7 @@ import be.howest.lolmetabuilder.data.models.FreeChamp;
  */
 public class PlaceholderFragment extends Fragment {
     private GridView gvFreeChamps;
+    private static Champion champion;
 
     public static PlaceholderFragment newInstance() {
         PlaceholderFragment fragment = new PlaceholderFragment();
@@ -96,26 +98,33 @@ public class PlaceholderFragment extends Fragment {
 
                 @Override
                 public void onClick(View v) {
-                    //TODO tabs inladen (zie ChampionFragment)
-                    //Openen champion detail met fragment
-
-                    //gekozen champion met de fragment meesturen
-                    Fragment fragment = new ChampionOverviewFragment();
-                    Bundle args = new Bundle();
-                    args.putString("Champion", new Gson().toJson(champ));
-                    fragment.setArguments(args);
-
-                    //openen fragment
-                    FragmentManager fragmentManager = getFragmentManager();
-                    fragmentManager.beginTransaction()
-                            .replace(R.id.container, fragment)
-                            .addToBackStack("Champion")
-                            .commit();
+                    champion = champ;
+                    loadChampionDetail(v);
                 }
             });
 
 
             return convertView;
+        }
+
+        private void loadChampionDetail(View v)
+        {
+            //Openen champion detail met fragment
+
+            //gekozen champion met de fragment meesturen
+            Fragment fragment = new ChampionDetailFragment();
+            Bundle args = new Bundle();
+            args.putString("Champion", new Gson().toJson(champion));
+            fragment.setArguments(args);
+
+            Toast.makeText(getContext(), "1. " + champion.getName(), Toast.LENGTH_SHORT).show();
+
+            //openen fragment
+            FragmentManager fragmentManager = getFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, fragment)
+                    .addToBackStack("Champion")
+                    .commit();
         }
 
         private Drawable getDrawableResourceByName(String name) {
@@ -125,3 +134,4 @@ public class PlaceholderFragment extends Fragment {
         }
     }
 }
+

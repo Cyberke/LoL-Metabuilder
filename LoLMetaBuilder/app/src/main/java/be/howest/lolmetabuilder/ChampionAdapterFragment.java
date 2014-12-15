@@ -13,37 +13,36 @@ import be.howest.lolmetabuilder.data.models.Champion;
  * Created by jelle on 13/12/2014.
  */
 public class ChampionAdapterFragment extends FragmentPagerAdapter {
+    //TODO er word slechts 1 bundle gestuurd naar deze klasse, als je de eerste keer tabs opent.
 
-    Champion champion;
+    Bundle bundle;
 
-    public ChampionAdapterFragment(FragmentManager fm, Champion champion)
+    public ChampionAdapterFragment(FragmentManager fm, Bundle bundle)
     {
         super(fm);
-        this.champion = champion;
+        this.bundle = bundle;
     }
 
     @Override
     public Fragment getItem(int i) {
-        Bundle args = new Bundle();
-        args.putString("Champion", new Gson().toJson(champion));
 
         switch(i)
         {
             case 0:
                 Fragment champoverview = ChampionOverviewFragment.newInstance();
-                champoverview.setArguments(args);
+                champoverview.setArguments(bundle);
                 return champoverview;
             case 1:
                 Fragment champskin = SkinFragment.newInstance();
-                champskin.setArguments(args);
+                champskin.setArguments(bundle);
                 return champskin;
             case 2:
                 Fragment champlore = LoreFragment.newInstance();
-                champlore.setArguments(args);
+                champlore.setArguments(bundle);
                 return champlore;
             case 3:
                 Fragment champabilities = AbilitiesFragment.newInstance();
-                champabilities.setArguments(args);
+                champabilities.setArguments(bundle);
                 return champabilities;
             default:
                 break;

@@ -16,6 +16,8 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.google.gson.Gson;
 import java.util.ArrayList;
 import be.howest.lolmetabuilder.data.models.Champion;
@@ -163,6 +165,8 @@ public class ChampionFragment extends Fragment {
             Bundle args = new Bundle();
             args.putString("Champion", new Gson().toJson(champion));
             fragment.setArguments(args);
+
+            Toast.makeText(getContext(), "1. " + champion.getName(), Toast.LENGTH_SHORT).show();
 
             //openen fragment
             FragmentManager fragmentManager = getFragmentManager();

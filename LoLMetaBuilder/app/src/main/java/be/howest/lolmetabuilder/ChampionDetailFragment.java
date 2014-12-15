@@ -10,6 +10,7 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -49,8 +50,10 @@ public class ChampionDetailFragment extends Fragment implements ActionBar.TabLis
         Bundle bundle = getArguments();
         Champion champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
 
+        Toast.makeText(getActivity().getBaseContext(), "2. " + champion.getName(), Toast.LENGTH_SHORT).show();
+
         viewPager = (ViewPager) view.findViewById(R.id.pager);
-        ft = new ChampionAdapterFragment(getActivity().getSupportFragmentManager(), champion);
+        ft = new ChampionAdapterFragment(getActivity().getSupportFragmentManager(), bundle);
 
         actionBar = getActivity().getActionBar();
         viewPager.setAdapter(ft);
