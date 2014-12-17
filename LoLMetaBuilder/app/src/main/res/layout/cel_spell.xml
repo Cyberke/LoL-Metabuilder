@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+    <!-- Cel layout -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent">
+    <!-- basic uitleg ability -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+            <!-- Image + video -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <ImageView
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/imgVAbility"
+                    android:minHeight="55dp"
+                    android:minWidth="55dp"/>
+                <Button
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:id="@+id/btnVideo"
+                    android:text="Video">
+                </Button>
+            </LinearLayout>
+            <!-- Naam & desc -->
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/LayoutAbilityNameKeybind">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtVAbilityName"
+                        android:text="Abiliy"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/txtVKeybind"
+                        android:layout_alignParentRight="true"
+                        android:text="Keybind"/>
+                </RelativeLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/LayoutAbilityNameKeybind"
+                    android:id="@+id/txtVAbilityDesc"/>
+            </RelativeLayout>
+    </LinearLayout>
+    <!-- Detail waarden -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textViewCost"
+            android:text="Cost: "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewCost"
+            android:id="@+id/textViewCooldown"
+            android:text="Cooldown: "/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textViewCooldown"
+            android:id="@+id/textViewRange"
+            android:text="Range: "/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtVAbilityCost"
+            android:layout_toRightOf="@id/textViewCooldown"
+            android:layout_toEndOf="@id/textViewCost"
+            android:text="Ability cost"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtVAbilityCost"
+            android:layout_toRightOf="@id/textViewCooldown"
+            android:layout_toEndOf="@id/textViewCost"
+            android:id="@+id/txtVAbilityCooldown"
+            android:text="Ability cooldown"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txtVAbilityCooldown"
+            android:layout_toRightOf="@id/textViewCooldown"
+            android:layout_toEndOf="@id/textViewCost"
+            android:id="@+id/txtVAbilityRange"
+            android:text="Ability range"/>
+    </RelativeLayout>
+</LinearLayout>

@@ -30,6 +30,9 @@
         <meta-data
             android:name="auth.client_secret"
             android:value="&amp;api_key=eba44b46-d00c-4c09-843a-95152831e3a6"/>
+        <meta-data
+            android:name="resource.spellvideo"
+            android:value="http://cdn.leagueoflegends.com/champion-abilities/videos/mp4/" />
     </application>
 
 </manifest>

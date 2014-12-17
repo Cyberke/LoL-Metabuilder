@@ -9,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -45,6 +46,13 @@ public class LoreFragment extends Fragment {
         Bundle bundle = getArguments();
         Champion champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
 
+        ViewHolder viewHolder = new ViewHolder();
+        viewHolder.txtLoreTitle = (TextView) view.findViewById(R.id.txtVLoreTitle);
+        viewHolder.txtLoreText = (TextView) view.findViewById(R.id.txtVLore);
+
+        viewHolder.txtLoreTitle.setText(champion.getName() + " " + champion.getTitle());
+        viewHolder.txtLoreText.setText(champion.getLore());
+
         return view;
     }
 
@@ -74,6 +82,11 @@ public class LoreFragment extends Fragment {
 
     public interface OnFragmentInteractionListener {
         public void onFragmentInteraction(Uri uri);
+    }
+
+    class ViewHolder {
+        TextView txtLoreTitle,
+                txtLoreText;
     }
 
 }

@@ -116,7 +116,7 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
                     }
                 }
 
-                if (freeChamps.size() == 10) {
+                if (freeChamps.size() != 0) {
                     dc.add("Complete");
                 }
                 else {
