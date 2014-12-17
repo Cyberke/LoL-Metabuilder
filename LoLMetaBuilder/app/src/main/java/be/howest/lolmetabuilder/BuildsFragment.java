@@ -1,5 +1,6 @@
 package be.howest.lolmetabuilder;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -37,6 +38,11 @@ public class BuildsFragment extends Fragment {
 
         MainActivity.drawerList.setSelection(3);
         MainActivity.drawerList.setItemChecked(3, true);
+
+        //reset tabs
+        ActionBar actionBar = getActivity().getActionBar();
+        actionBar.removeAllTabs();
+        actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 
         return view;
     }

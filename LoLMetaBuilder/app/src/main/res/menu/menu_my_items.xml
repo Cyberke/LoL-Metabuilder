@@ -1,5 +1,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="be.howest.lolmetabuilder.MyItemsActivity">
-
+    <item android:id="@+id/search"
+          android:title="@string/action_search"
+          android:icon="@drawable/ic_action_search"
+          android:showAsAction="collapseActionView|ifRoom"
+          android:actionViewClass="android.widget.SearchView" />
 </menu>

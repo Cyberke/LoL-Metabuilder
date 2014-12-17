@@ -21,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.GridView;
@@ -168,6 +169,15 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
 
             adapter.addAll(freeChamps);
             adapter.notifyDataSetChanged();
+
+            //height gridview free champs instellen
+            /*
+            ViewGroup.LayoutParams params = gvFreeChamps.getLayoutParams();
+            int oneRowHeight = gvFreeChamps.getHeight();
+            double rows = Math.ceil(freeChamps.size() / 5);
+            params.height = (int) (oneRowHeight * rows);
+            gvFreeChamps.setLayoutParams(params);
+            */
         }
     }
 
@@ -214,10 +224,10 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
         drawerList.setSelection(0);
 
         handleIntent(getIntent());
-
+        Fragment fragment = PlaceholderFragment.newInstance();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.container, PlaceholderFragment.newInstance())
+                    .replace(R.id.container, fragment)
                     .commit();
         }
     }
@@ -242,11 +252,6 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
         // Inflate the menu; this adds items to the action bar if it is present.
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.my, menu);
-
-        //Associate searchable config with the searchview
-        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 
         return true;
     }

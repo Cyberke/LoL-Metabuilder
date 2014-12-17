@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:gravity="center"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:textColor="@color/champion_grid_label_text"
             android:background="@color/champion_grid_label_background"/>
 
@@ -27,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:gravity="center"
-            android:textSize="12sp"
+            android:textSize="10sp"
             android:textColor="@color/champion_grid_label_text"
             android:background="@color/champion_grid_label_background"/>
 

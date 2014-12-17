@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -156,10 +157,9 @@ public class AbilitiesFragment extends Fragment {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            //TODO cost
             viewHolder.txtName.setText(spell.getName());
             viewHolder.txtDesc.setText(spell.getDescription());
-            viewHolder.txtCost.setText("Cost");
+            viewHolder.txtCost.setText(spell.getCost());
             viewHolder.txtCooldown.setText(spell.getCooldown());
             viewHolder.txtRange.setText(spell.getRange());
 
@@ -188,7 +188,7 @@ public class AbilitiesFragment extends Fragment {
                 String championId = String.format("%04d", champion.getId());
                 String spellId = String.format("%02d", position+2);
                 String videoURL = baseVideoURL + championId + "_" + spellId + ".mp4";
-
+                Toast.makeText(getActivity().getBaseContext(), "" + videoURL, Toast.LENGTH_SHORT).show();
                 //put url in intent and start
                 intent.setDataAndType(Uri.parse(videoURL), "video/mp4");
                 startActivity(intent);
