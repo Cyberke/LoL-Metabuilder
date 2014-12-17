@@ -24,7 +24,7 @@ import be.howest.lolmetabuilder.data.models.Item;
 public class ItemsFragment extends Fragment {
 
     public GridView gvItems;
-
+    private static Item item;
     private OnFragmentInteractionListener mListener;
 
     public static ItemsFragment newInstance() {
@@ -114,7 +114,7 @@ public class ItemsFragment extends Fragment {
             //View row = super.getView(position, convertView, parent);
             ViewHolder viewHolder = new ViewHolder();
 
-            final Item item = items.get(position);
+            final Item item2 = items.get(position);
 
             if (convertView == null) {
                 LayoutInflater inflater = getActivity().getLayoutInflater();
@@ -129,7 +129,7 @@ public class ItemsFragment extends Fragment {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            viewHolder.txtItemPrice.setText("" + item.getBaseGold());
+            viewHolder.txtItemPrice.setText("" + item2.getBaseGold());
             //TODO alle items in drawable steken
             //viewHolder.imgItem.setBackground(getDrawableResourceByName(item.getId()+""));
             viewHolder.imgItem.setBackground(getDrawableResourceByName("i1001"));
@@ -138,10 +138,12 @@ public class ItemsFragment extends Fragment {
 
                 @Override
                 public void onClick(View v) {
+                    item = item2;
+
                     //Openen item detail met fragment
 
                     //gekozen item met de fragment meesturen
-                    Fragment fragment = new ItemFragment();
+                    Fragment fragment = ItemFragment.newInstance();
                     Bundle args = new Bundle();
                     args.putString("Item", new Gson().toJson(item));
                     fragment.setArguments(args);

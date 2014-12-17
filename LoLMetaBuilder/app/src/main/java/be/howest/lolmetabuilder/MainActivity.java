@@ -91,9 +91,6 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
                 String PACKAGE_NAME = getApplicationContext().getPackageName();
                 ApplicationInfo appInfo = getPackageManager().getApplicationInfo(PACKAGE_NAME, PackageManager.GET_META_DATA);
 
-                // Als je ze wilt testen moet je ze 1 per 1 uit commentaar halen
-                // En freeChamps bijvoorbeeld naar collection hernoemen
-
                 ArrayList<String> dc = new ArrayList<String>();
 
                 champions = api_ophalen.champions(appInfo);
@@ -200,8 +197,6 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
             public void onDrawerClosed(View view) {
                 // TODO: Titel veranderen naar activity name
                 getActionBar().setTitle(R.string.app_name);
-
-
             }
 
             public void onDrawerOpened(View drawerView) {

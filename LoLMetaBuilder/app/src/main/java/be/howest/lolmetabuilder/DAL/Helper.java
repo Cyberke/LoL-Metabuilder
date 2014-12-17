@@ -64,6 +64,7 @@ public class Helper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE Rune_Stat");
         db.execSQL("DROP TABLE Masterytree_Leaf");
 
+        //TODO: in iedere createTable functie moeten de aangemaakte tabellen ingevuld worden
         //Recreate all tables
         //Tabellen die in tussentabellen gebruikt worden eerst
         createTipTableV1(db);
@@ -105,6 +106,8 @@ public class Helper extends SQLiteOpenHelper {
                 "    FOREIGN KEY ( champID ) REFERENCES Champion ( id ) \n" +
                 ");";
         db.execSQL(sql);
+
+
     }
 
     private void createEffectTableV1(SQLiteDatabase db) {
@@ -168,6 +171,7 @@ public class Helper extends SQLiteOpenHelper {
                 "    name        TEXT    NOT NULL,\n" +
                 "    description TEXT    NOT NULL,\n" +
                 "    tooltip     TEXT    NOT NULL,\n" +
+                "    cost        TEXT    NOT NULL,\n" +
                 "    cooldown    TEXT    NOT NULL,\n" +
                 "    range       TEXT    NOT NULL,\n" +
                 "    image       TEXT    NOT NULL \n" +
