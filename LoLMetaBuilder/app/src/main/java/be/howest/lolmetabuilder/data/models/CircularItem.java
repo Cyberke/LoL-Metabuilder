@@ -1,14 +1,11 @@
 package be.howest.lolmetabuilder.data.models;
 
-import android.os.Parcel;
-import android.os.Parcelable;
-
 import java.util.ArrayList;
 
 /**
  * Created by manuel on 11/28/14.
  */
-public class Item {
+public class CircularItem {
     private int id = 0,
             totalGold = 0,
             baseGold = 0,
@@ -25,12 +22,10 @@ public class Item {
     private ArrayList<Stat> stats = new ArrayList<Stat>();
     private ArrayList<Tag> tags = new ArrayList<Tag>();
     private ArrayList<Effect> effects = new ArrayList<Effect>();
-    private ArrayList<CircularItem> requires = new ArrayList<CircularItem>();
     private ArrayList<Integer> requiresIds = new ArrayList<Integer>();
     private ArrayList<Integer> buildIntoIds = new ArrayList<Integer>();
-    private ArrayList<CircularItem> buildIntos = new ArrayList<CircularItem>();
 
-    public Item(
+    public CircularItem(
             int id, int totalGold, int baseGold,
             boolean purchasable, boolean consumed,
             int depth, int specialRecipe, int map,
@@ -58,30 +53,6 @@ public class Item {
 
     public void setBuildIntoIds(ArrayList<Integer> buildIntoIds) {
         this.buildIntoIds = buildIntoIds;
-    }
-
-    public ArrayList<CircularItem> getBuildIntos() {
-        return buildIntos;
-    }
-
-    public void setBuildIntos(ArrayList<CircularItem> buildIntos) {
-        this.buildIntos = buildIntos;
-    }
-
-    public ArrayList<Integer> getRequiresIds() {
-        return requiresIds;
-    }
-
-    public void setRequiresIds(ArrayList<Integer> requiresIds) {
-        this.requiresIds = requiresIds;
-    }
-
-    public ArrayList<CircularItem> getRequires() {
-        return requires;
-    }
-
-    public void setRequires(ArrayList<CircularItem> requires) {
-        this.requires = requires;
     }
 
     public String getImage() {

@@ -9,7 +9,7 @@ import java.util.ArrayList;
  * Created by jelle on 25/11/2014.
  * Edited by manuel on 28/11/2014.
  */
-public class Champion implements Parcelable{
+public class Champion {
     private int id = 0,
         attack = 0,
         defense = 0,
@@ -148,30 +148,5 @@ public class Champion implements Parcelable{
 
     public String getPassiveDesc() {
         return passiveDesc;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeInt(id);
-        parcel.writeString(name);
-        parcel.writeString(title);
-        parcel.writeString(lore);
-        parcel.writeInt(attack);
-        parcel.writeInt(defense);
-        parcel.writeInt(magic);
-        parcel.writeInt(difficulty);
-        parcel.writeString(passiveName);
-        parcel.writeString(passiveDesc);
-        parcel.writeString(image);
-        parcel.writeValue(allyTips);
-        parcel.writeValue(enemyTips);
-        parcel.writeValue(tags);
-        parcel.writeValue(stats);
-        parcel.writeValue(spells);
     }
 }

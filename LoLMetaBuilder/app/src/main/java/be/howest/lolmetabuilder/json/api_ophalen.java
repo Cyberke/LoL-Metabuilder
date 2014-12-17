@@ -10,6 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import be.howest.lolmetabuilder.data.models.Champion;
+import be.howest.lolmetabuilder.data.models.CircularItem;
 import be.howest.lolmetabuilder.data.models.Skin;
 import be.howest.lolmetabuilder.data.models.Tag;
 import be.howest.lolmetabuilder.data.models.Description;
@@ -373,8 +374,8 @@ public class api_ophalen {
         return champions;
     }
 
-    private static Item findItemById(int id, ArrayList<Item> items) {
-        for (Item i : items) {
+    private static CircularItem findItemById(int id, ArrayList<CircularItem> items) {
+        for (CircularItem i : items) {
             if (id == i.getId()) {
                 return i;
             }
@@ -385,6 +386,7 @@ public class api_ophalen {
 
     public static ArrayList<Item> items(ApplicationInfo appInfo) {
         ArrayList<Item> items = null;
+        ArrayList<CircularItem> circularItems = null;
 
         try {
             Bundle bundle = appInfo.metaData;
@@ -405,10 +407,10 @@ public class api_ophalen {
             ArrayList<Stat> statItems = new ArrayList<Stat>();
             ArrayList<Tag> itemTags = new ArrayList<Tag>();
             ArrayList<Effect> effects = new ArrayList<Effect>();
-            ArrayList<Item> requires = new ArrayList<Item>();
+            ArrayList<CircularItem> requires = new ArrayList<CircularItem>();
             ArrayList<Integer> requiresIds = new ArrayList<Integer>();
             ArrayList<Integer> buildIntoIds = new ArrayList<Integer>();
-            ArrayList<Item> buildIntos = new ArrayList<Item>();
+            ArrayList<CircularItem> buildIntos = new ArrayList<CircularItem>();
 
             while (!itemName.equals("data")) {
                 reader.skipValue();
@@ -418,6 +420,7 @@ public class api_ophalen {
 
             if (itemName.equals("data")) {
                 items = new ArrayList<Item>();
+                circularItems = new ArrayList<CircularItem>();
                 reader.beginObject(); // {
 
                 while (reader.hasNext()) {
@@ -553,17 +556,23 @@ public class api_ophalen {
                     if (map != -1) {
                         Item item = new Item(id, totalGold, baseGold, purchasable, consumed, depth,
                                 specialRecipe, map, itemName, description, group, stacks, image);
+                        CircularItem circularItem = new CircularItem(id, totalGold, baseGold,
+                                purchasable, consumed, depth, specialRecipe, map, itemName,
+                                description, group, stacks, image);
 
                         if (itemTags.size() > 0) {
                             item.setTags(itemTags);
+                            circularItem.setTags(itemTags);
                         }
 
                         if (statItems.size() > 0) {
                             item.setStats(statItems);
+                            circularItem.setStats(statItems);
                         }
 
                         if (effects.size() > 0) {
                             item.setEffects(effects);
+                            circularItem.setEffects(effects);
                         }
 
                         if (requiresIds.size() > 0) {
@@ -575,6 +584,7 @@ public class api_ophalen {
                         }
 
                         items.add(item);
+                        circularItems.add(circularItem);
 
                         consumed = false;
 
@@ -590,13 +600,13 @@ public class api_ophalen {
 
                 for (Item i : items) {
                     for (int requiresId : i.getRequiresIds()) {
-                        Item requiredItem = findItemById(requiresId, items);
+                        CircularItem requiredItem = findItemById(requiresId, circularItems);
 
                         requires.add(requiredItem);
                     }
 
                     for (int buildIntoId : i.getBuildIntoIds()) {
-                        Item buildIntoItem = findItemById(buildIntoId, items);
+                        CircularItem buildIntoItem = findItemById(buildIntoId, circularItems);
 
                         buildIntos.add(buildIntoItem);
                     }
@@ -604,8 +614,8 @@ public class api_ophalen {
                     i.setRequires(requires);
                     i.setBuildIntos(buildIntos);
 
-                    requires = new ArrayList<Item>();
-                    buildIntos = new ArrayList<Item>();
+                    requires = new ArrayList<CircularItem>();
+                    buildIntos = new ArrayList<CircularItem>();
                 }
 
                 reader.endObject(); // }
