@@ -260,7 +260,7 @@ public class api_ophalen {
 
                             String spellName = "", spellDescription = "",
                                     spellTooltip = "", spellCooldown = "", spellRange = "",
-                                    spellImage = "";
+                                    spellImage = "", spellCost = "";
 
                             while (reader.hasNext()) {
                                 reader.beginObject(); // {
@@ -295,6 +295,9 @@ public class api_ophalen {
 
                                         reader.endObject(); // }
                                     }
+                                    else if (key.equals("costBurn")) {
+                                        spellCost = reader.nextString();
+                                    }
                                     else if (key.equals("cooldownBurn")) {
                                         spellCooldown = reader.nextString();
                                     }
@@ -307,7 +310,7 @@ public class api_ophalen {
                                 }
 
                                 Spell spell = new Spell(spellName, spellDescription, spellTooltip,
-                                        spellCooldown, spellRange, spellImage);
+                                        spellCooldown, spellRange, spellImage, spellCost);
 
                                 championSpells.add(spell);
 

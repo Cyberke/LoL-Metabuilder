@@ -10,11 +10,12 @@ public class Spell {
         tooltip = "",
         cooldown = "",
         range = "",
-        image = "";
+        image = "",
+        cost = "";
 
     public Spell(String name, String description,
             String tooltip, String cooldown, String range,
-            String image
+            String image, String cost
     ) {
         this.name = name;
         this.description = description;
@@ -22,6 +23,11 @@ public class Spell {
         this.cooldown = cooldown;
         this.range = range;
         this.image = image;
+        this.cost = cost;
+    }
+
+    public String getCost() {
+        return cost;
     }
 
     public String getImage() {
