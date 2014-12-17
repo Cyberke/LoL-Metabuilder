@@ -61,6 +61,8 @@ public class ChampionOverviewFragment extends Fragment {
         //get selected champion
         Bundle bundle = getArguments();
         Champion champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
+
+        //TODO bij 2e keer krijg je verkeerde champ
         Toast.makeText(getActivity().getBaseContext(), "3. " + champion.getName(), Toast.LENGTH_SHORT).show();
 
         //layout elementen ophalen

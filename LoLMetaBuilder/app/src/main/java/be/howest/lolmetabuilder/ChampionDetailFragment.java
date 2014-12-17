@@ -98,6 +98,7 @@ public class ChampionDetailFragment extends Fragment implements ActionBar.TabLis
     public void onDetach() {
         super.onDetach();
         mListener = null;
+
     }
 
     @Override

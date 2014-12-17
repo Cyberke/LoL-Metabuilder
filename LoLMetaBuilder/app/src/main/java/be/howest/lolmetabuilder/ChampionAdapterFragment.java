@@ -13,7 +13,7 @@ import be.howest.lolmetabuilder.data.models.Champion;
  * Created by jelle on 13/12/2014.
  */
 public class ChampionAdapterFragment extends FragmentPagerAdapter {
-    //TODO er word slechts 1 bundle gestuurd naar deze klasse, als je de eerste keer tabs opent.
+
 
     Bundle bundle;
 

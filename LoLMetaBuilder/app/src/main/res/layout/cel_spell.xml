@@ -9,12 +9,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
             <!-- Image + video -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_marginRight="5dp">
                 <ImageView
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
@@ -35,18 +40,13 @@
                 <RelativeLayout
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/LayoutAbilityNameKeybind">
+                    android:id="@+id/LayoutAbilityNameKeybind"
+                    android:layout_marginBottom="5dp">
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/txtVAbilityName"
                         android:text="Abiliy"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/txtVKeybind"
-                        android:layout_alignParentRight="true"
-                        android:text="Keybind"/>
                 </RelativeLayout>
                 <TextView
                     android:layout_width="match_parent"
@@ -58,7 +58,10 @@
     <!-- Detail waarden -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginBottom="15dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

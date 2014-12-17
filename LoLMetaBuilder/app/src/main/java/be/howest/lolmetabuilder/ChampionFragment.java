@@ -161,7 +161,7 @@ public class ChampionFragment extends Fragment {
             //Openen champion detail met fragment
 
             //gekozen champion met de fragment meesturen
-            Fragment fragment = new ChampionDetailFragment();
+            Fragment fragment = ChampionDetailFragment.newInstance();
             Bundle args = new Bundle();
             args.putString("Champion", new Gson().toJson(champion));
             fragment.setArguments(args);

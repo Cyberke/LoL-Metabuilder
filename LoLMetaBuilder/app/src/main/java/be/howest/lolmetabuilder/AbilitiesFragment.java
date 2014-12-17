@@ -123,7 +123,6 @@ public class AbilitiesFragment extends Fragment {
             ImageView imgAbility;
 
             TextView txtName,
-                    txtKeybind,
                     txtDesc,
                     txtCost,
                     txtCooldown,
@@ -145,7 +144,6 @@ public class AbilitiesFragment extends Fragment {
                 viewHolder = new ViewHolder();
 
                 viewHolder.txtName = (TextView) convertView.findViewById(R.id.txtVAbilityName);
-                viewHolder.txtKeybind = (TextView) convertView.findViewById(R.id.txtVKeybind);
                 viewHolder.txtDesc = (TextView) convertView.findViewById(R.id.txtVAbilityDesc);
                 viewHolder.txtCost = (TextView) convertView.findViewById(R.id.txtVAbilityCost);
                 viewHolder.txtCooldown = (TextView) convertView.findViewById(R.id.txtVAbilityCooldown);
@@ -158,9 +156,8 @@ public class AbilitiesFragment extends Fragment {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            //TODO keybind, cost
+            //TODO cost
             viewHolder.txtName.setText(spell.getName());
-            viewHolder.txtKeybind.setText("Keybind");
             viewHolder.txtDesc.setText(spell.getDescription());
             viewHolder.txtCost.setText("Cost");
             viewHolder.txtCooldown.setText(spell.getCooldown());
@@ -168,7 +165,6 @@ public class AbilitiesFragment extends Fragment {
 
             int abilityImageId = getResources().getIdentifier(spell.getImage().toLowerCase(), "drawable", getActivity().getPackageName());
             viewHolder.imgAbility.setImageResource(abilityImageId);
-            //viewHolder.imgAbility.setAdjustViewBounds(true);
             viewHolder.btnVideo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
