@@ -38,6 +38,7 @@ import be.howest.lolmetabuilder.data.models.Item;
 import be.howest.lolmetabuilder.data.models.Leaf;
 import be.howest.lolmetabuilder.data.models.MasteryTree;
 import be.howest.lolmetabuilder.data.models.Rune;
+import be.howest.lolmetabuilder.data.models.Version;
 import be.howest.lolmetabuilder.json.api_ophalen;
 
 
@@ -98,6 +99,9 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
                 leafs = api_ophalen.leafs(appInfo);
                 runes = api_ophalen.runes(appInfo);
                 masteryTrees = api_ophalen.masteryTrees(appInfo);
+
+                // TODO : API versies vergelijken met database stored versies
+                ArrayList<Version> versions = api_ophalen.versions(appInfo);
 
                 ArrayList<FreeChamp> temp = api_ophalen.freechampRotation(appInfo);
 
@@ -182,7 +186,6 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         if(!isInGeladen) {
             GetChampionTask task = new GetChampionTask();
             task.execute();

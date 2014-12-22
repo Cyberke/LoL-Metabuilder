@@ -25,10 +25,10 @@ public class Item {
     private ArrayList<Stat> stats = new ArrayList<Stat>();
     private ArrayList<Tag> tags = new ArrayList<Tag>();
     private ArrayList<Effect> effects = new ArrayList<Effect>();
-    private ArrayList<CircularItem> requires = new ArrayList<CircularItem>();
+    private ArrayList<Item> requires = new ArrayList<Item>();
     private ArrayList<Integer> requiresIds = new ArrayList<Integer>();
     private ArrayList<Integer> buildIntoIds = new ArrayList<Integer>();
-    private ArrayList<CircularItem> buildIntos = new ArrayList<CircularItem>();
+    private ArrayList<Item> buildIntos = new ArrayList<Item>();
 
     public Item(
             int id, int totalGold, int baseGold,
@@ -60,11 +60,11 @@ public class Item {
         this.buildIntoIds = buildIntoIds;
     }
 
-    public ArrayList<CircularItem> getBuildIntos() {
+    public ArrayList<Item> getBuildIntos() {
         return buildIntos;
     }
 
-    public void setBuildIntos(ArrayList<CircularItem> buildIntos) {
+    public void setBuildIntos(ArrayList<Item> buildIntos) {
         this.buildIntos = buildIntos;
     }
 
@@ -76,11 +76,11 @@ public class Item {
         this.requiresIds = requiresIds;
     }
 
-    public ArrayList<CircularItem> getRequires() {
+    public ArrayList<Item> getRequires() {
         return requires;
     }
 
-    public void setRequires(ArrayList<CircularItem> requires) {
+    public void setRequires(ArrayList<Item> requires) {
         this.requires = requires;
     }
 
