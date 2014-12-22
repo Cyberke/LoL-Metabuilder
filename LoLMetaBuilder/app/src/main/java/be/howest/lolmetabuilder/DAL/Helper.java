@@ -10,12 +10,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class Helper extends SQLiteOpenHelper {
 
     private static Helper INSTANCE;
-    private static Object lock = new Object(); //Wat is lock?
+    private static Object lock = new Object();
 
     private static final String DB_NAME = "loldb.db";
     private static final int DB_VERSION = 1;
 
-    private Helper(Context context) { super(context, DB_NAME, null, DB_VERSION);}
+    private Helper(Context context)
+    {
+        super(context, DB_NAME, null, DB_VERSION);
+    }
 
     public static Helper getInstance(Context context) {
         if(INSTANCE == null) {
@@ -186,6 +189,8 @@ public class Helper extends SQLiteOpenHelper {
                 "    name TEXT    NOT NULL \n" +
                 ");";
         db.execSQL(sql);
+
+
     }
 
     private void createItemTableV1(SQLiteDatabase db) {
