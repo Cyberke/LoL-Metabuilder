@@ -261,7 +261,8 @@ public class api_ophalen {
 
                             String spellName = "", spellDescription = "",
                                     spellTooltip = "", spellCooldown = "", spellRange = "",
-                                    spellImage = "", spellCost = "";
+                                    spellImage = "", spellCost = "", spellEffect = "";
+                            ArrayList<String> spellEffects = new ArrayList<String>();
 
                             while (reader.hasNext()) {
                                 reader.beginObject(); // {
@@ -302,6 +303,17 @@ public class api_ophalen {
                                     else if (key.equals("cooldownBurn")) {
                                         spellCooldown = reader.nextString();
                                     }
+                                    else if (key.equals("effectBurn")) {
+                                        reader.beginArray(); // [
+
+                                        while (reader.hasNext()) {
+                                            spellEffect = reader.nextString();
+
+                                            spellEffects.add(spellEffect);
+                                        }
+
+                                        reader.endArray(); // ]
+                                    }
                                     else if (key.equals("rangeBurn")) {
                                         spellRange = reader.nextString();
                                     }
@@ -313,7 +325,13 @@ public class api_ophalen {
                                 Spell spell = new Spell(spellName, spellDescription, spellTooltip,
                                         spellCooldown, spellRange, spellImage, spellCost);
 
+                                if (spellEffects.size() > 0) {
+                                    spell.setEffects(spellEffects);
+                                }
+
                                 championSpells.add(spell);
+
+                                spellEffects = new ArrayList<String>();
 
                                 reader.endObject(); // }
                             }
