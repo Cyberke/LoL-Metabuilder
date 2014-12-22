@@ -151,7 +151,7 @@ public class Helper extends SQLiteOpenHelper {
                 db.rawQuery("INSERT INTO FreeChamp VALUES (?,?)", new String[] {"" + fc.getChampion().getId(), fc.getChampion().getName()});
             }
 
-            //Champion, Stat_Champion, Tag_Champion, Spell_Champion, Tip_Champion
+            //Champion, Stat, Stat_Champion, Tag, Tag_Champion, Spell, Spell_Champion, Tip, Tip_Champion
             for(Champion c : champions) {
                 db.rawQuery("INSERT INTO Champions VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", new String[] {""+c.getId(), c.getName(), c.getTitle(), c.getLore(), ""+c.getAttack(), ""+c.getDefense(), ""+c.getMagic(), ""+c.getDifficulty(), c.getPassiveName(), c.getPassiveDesc(), ""+c.getPriceRP(), ""+c.getPriceIP()});
 
@@ -188,6 +188,50 @@ public class Helper extends SQLiteOpenHelper {
                 }
             }
 
+            //Item, Stat, Stat_Item, Tag, Tag_Item, Effect_Item, Item_Upgrade
+            for(Item i : items){
+                db.rawQuery("INSERT INTO Item VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)", new String[]{""+i.getId(), ""+i.getTotalGold(), ""+i.getBaseGold(), ""+i.getDepth(), ""+i.getSpecialRecipe(), ""+i.getMap(), ""+i.getStacks(), ""+i.isPurchasable(), ""+i.isConsumed(), ""+i.getName(), ""+i.getDescription(), ""+i.getGroup(), ""+i.getImage()});
+
+                //Stat_Item, Stat
+                for(Stat s : i.getStats()){
+                    db.rawQuery("INSERT INTO Stat_Item (statID, itemID) VALUES(?,?)", new String[]{""+s.getId(), ""+i.getId()});
+                    db.rawQuery("INSERT INTO Stat VALUES(?,?,?)", new String[]{""+s.getId(), ""+s.getName(), ""+s.getValue()});
+                }
+
+                //Tag_Item, Tag
+                for(Tag t : i.getTags()){
+                    db.rawQuery("INSERT INTO Tag_Item (tagID, itemID) VALUES(?,?)", new String[]{""+t.getId(), ""+i.getId()});
+                    db.rawQuery("INSERT INTO Tag VALUES(?,?)", new String[]{""+t.getId(), t.getName()});
+                }
+
+                //Effect_Item, Effect
+                for(Effect e : i.getEffects()){
+                    db.rawQuery("INSERT INTO Effect_Item (effectID, itemID) VALUES(?,?)", new String[]{""+e.getId(), ""+i.getId()});
+                    db.rawQuery("INSERT INTO Effect VALUES(?,?,?)", new String[]{""+e.getId(), e.getName(), ""+e.getValue()});
+                }
+
+                //Item_Upgrade
+                for(Item u : i.getBuildIntos()){
+                    db.rawQuery("INSERT INTO Item_Upgrade (itemID, otherItem, required) VALUES(?,?,0)", new String[]{""+i.getId(), ""+u.getId()});
+                }
+
+                for(Item u : i.getRequires()){
+                    db.rawQuery("INSERT INTO Item_Upgrade (itemID, otherItem, required) VALUES(?,?,1)", new String[]{""+i.getId(), ""+u.getId()});
+                }
+            }
+
+            //Rune, Stat_Rune
+            for(Rune r : runes){
+                //TODO: Rune moet nog een veld hebben voor Image
+                //TODO: Nieuwe tussentabel Tag_Rune
+                db.rawQuery("INSERT INTO Rune VALUES(?,?,?,?,?)", new String[]{""+r.getId(), r.getName(), r.getDescription(), ""+r.getTier(), ""+r.getType()});
+
+                //Stat, Stat_Rune
+                for(Stat s : r.getStats()){
+                    db.rawQuery("INSERT INTO Stat_Rune (runeID, statID) VALUES(?,?)", new String[]{""+r.getId(), ""+s.getId()});
+                    db.rawQuery("INSERT INTO Stat VALUES(?,?,?)", new String[]{""+s.getId(), ""+s.getName(), ""+s.getValue()});
+                }
+            }
 
 
         } catch(Exception e) {
