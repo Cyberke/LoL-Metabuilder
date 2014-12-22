@@ -1,8 +1,17 @@
 package be.howest.lolmetabuilder.DAL;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
+import java.sql.PreparedStatement;
+import java.util.ArrayList;
+
+import be.howest.lolmetabuilder.data.models.*;
+import be.howest.lolmetabuilder.json.api_ophalen;
 
 /**
  * Created by Milan on 12/12/2014.
@@ -15,16 +24,19 @@ public class Helper extends SQLiteOpenHelper {
     private static final String DB_NAME = "loldb.db";
     private static final int DB_VERSION = 1;
 
-    private Helper(Context context)
+    public static ApplicationInfo appInfo;
+
+    private Helper(Context context, ApplicationInfo appInfo)
     {
         super(context, DB_NAME, null, DB_VERSION);
+        this.appInfo = appInfo;
     }
 
     public static Helper getInstance(Context context) {
         if(INSTANCE == null) {
             synchronized (lock) {
                 if(INSTANCE == null) {
-                    INSTANCE = new Helper(context.getApplicationContext());
+                    INSTANCE = new Helper(context.getApplicationContext(), appInfo);
                 }
             }
         }
@@ -38,7 +50,20 @@ public class Helper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Drop all tables
-        //Tabellen die in tussentabellen gebruikt worden eerst
+
+        //Tussentabellen
+        db.execSQL("DROP TABLE Champion_Spell");
+        db.execSQL("DROP TABLE Champion_Tag");
+        db.execSQL("DROP TABLE Champion_Stat");
+        db.execSQL("DROP TABLE Spell_Effect");
+        db.execSQL("DROP TABLE Item_Stat");
+        db.execSQL("DROP TABLE Item_Tag");
+        db.execSQL("DROP TABLE Item_Effect");
+        db.execSQL("DROP TABLE Item_Upgrade");
+        db.execSQL("DROP TABLE Rune_Stat");
+        db.execSQL("DROP TABLE Masterytree_Leaf");
+
+        //Tabellen die in tussentabellen gebruikt worden
         db.execSQL("DROP TABLE Tip");
         db.execSQL("DROP TABLE Effect");
         db.execSQL("DROP TABLE Tag");
@@ -55,19 +80,6 @@ public class Helper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE Masterytree");
         db.execSQL("DROP TABLE Leaf");
 
-        //tussentabellen
-        db.execSQL("DROP TABLE Champion_Spell");
-        db.execSQL("DROP TABLE Champion_Tag");
-        db.execSQL("DROP TABLE Champion_Stat");
-        db.execSQL("DROP TABLE Spell_Effect");
-        db.execSQL("DROP TABLE Item_Stat");
-        db.execSQL("DROP TABLE Item_Tag");
-        db.execSQL("DROP TABLE Item_Effect");
-        db.execSQL("DROP TABLE Item_Upgrade");
-        db.execSQL("DROP TABLE Rune_Stat");
-        db.execSQL("DROP TABLE Masterytree_Leaf");
-
-        //TODO: in iedere createTable functie moeten de aangemaakte tabellen ingevuld worden
         //Recreate all tables
         //Tabellen die in tussentabellen gebruikt worden eerst
         createTipTableV1(db);
@@ -77,7 +89,6 @@ public class Helper extends SQLiteOpenHelper {
 
         //hoofdtabellen
         createChampionTableV1(db);
-        createSpellTableV1(db);
         createFreeChampTableV1(db);
         createItemTableV1(db);
         createRuneTableV1(db);
@@ -88,34 +99,116 @@ public class Helper extends SQLiteOpenHelper {
 
         //tussentabellen
         createChampion_SpellTableV1(db);
-        createChampion_TagTableV1(db);
-        createChampion_StatTableV1(db);
-        createSpell_EffectTableV1(db);
-        createItem_StatTableV1(db);
-        createItem_TagTableV1(db);
-        createItem_EffectTableV1(db);
+        createTag_ChampionTableV1(db);
+        createTag_ItemTableV1(db);
+        createStat_ChampionTableV1(db);
+        createStat_ItemTableV1(db);
+        createStat_RuneTableV1(db);
+        createEffect_SpellTableV1(db);
+        createEffect_ItemTableV1(db);
         createItem_UpgradeTableV1(db);
-        createRune_StatTableV1(db);
         createMasteryTree_LeafTableV1(db);
-    }
 
+        //aangemaakte tabellen opvullen
+        fillTablesV1(db);
+    }
+    private void fillTablesV1(SQLiteDatabase db) {
+        //TODO: met foreach tabellen invullen
+
+        ArrayList<FreeChamp> freeChamps = new ArrayList<FreeChamp>();
+        ArrayList<Champion> champions = new ArrayList<Champion>();
+        ArrayList<Item> items = new ArrayList<Item>();
+        ArrayList<Leaf> leafs = new ArrayList<Leaf>();
+        ArrayList<Rune> runes = new ArrayList<Rune>();
+        ArrayList<MasteryTree> masteryTrees = new ArrayList<MasteryTree>();
+
+        try {
+            //Lijsten aanmaken en invullen via de API
+
+            champions = api_ophalen.champions(appInfo);
+            items = api_ophalen.items(appInfo);
+            leafs = api_ophalen.leafs(appInfo);
+            runes = api_ophalen.runes(appInfo);
+            masteryTrees = api_ophalen.masteryTrees(appInfo);
+
+            ArrayList<FreeChamp> temp = api_ophalen.freechampRotation(appInfo);
+
+            if (champions != null) {
+                for (Champion c : champions) {
+                    for (FreeChamp fc : temp) {
+                        if (c.getId() == fc.getId()) {
+                            FreeChamp freeChamp = new FreeChamp(fc.getId());
+                            freeChamp.setChampion(c);
+
+                            freeChamps.add(freeChamp);
+                        }
+                    }
+                }
+            }
+
+            //Freechamp
+            for(FreeChamp fc : freeChamps) {
+                db.rawQuery("INSERT INTO FreeChamp VALUES (?,?)", new String[] {"" + fc.getChampion().getId(), fc.getChampion().getName()});
+            }
+
+            //Champion, Stat_Champion, Tag_Champion, Spell_Champion, Tip_Champion
+            for(Champion c : champions) {
+                db.rawQuery("INSERT INTO Champions VALUES(?,?,?,?,?,?,?,?,?,?,?,?)", new String[] {""+c.getId(), c.getName(), c.getTitle(), c.getLore(), ""+c.getAttack(), ""+c.getDefense(), ""+c.getMagic(), ""+c.getDifficulty(), c.getPassiveName(), c.getPassiveDesc(), ""+c.getPriceRP(), ""+c.getPriceIP()});
+
+                //Stat_Champion, Stat
+                for(Stat s : c.getStats()){
+                    db.rawQuery("INSERT INTO Stat_Champion (champID, statID) VALUES (?,?)", new String[] {""+c.getId(), ""+s.getId()});
+                    db.rawQuery("INSERT INTO Stat VALUES(?,?,?)", new String[]{""+s.getId(), s.getName(), ""+s.getValue()});
+                }
+
+                //Tag_Champion, Tag
+                for(Tag t : c.getTags()) {
+                    db.rawQuery("INSERT INTO Tag_Champion (champID, tagID)", new String[]{""+c.getId(), ""+t.getId()});
+                    db.rawQuery("INSERT INTO Tag VALUES(?,?)", new String[]{""+t.getId(), t.getName()});
+                }
+
+                //Spell_Champion, Spell, Effect_Spell, Effect
+                for(Spell s : c.getSpells()){
+                    db.rawQuery("INSERT INTO Spell_Champion (champID, spellID)", new String[]{""+c.getId(), ""+s.getId()});
+                    db.rawQuery("INSERT INTO Spell VALUES(?,?,?,?,?,?,?,?)", new String[]{""+s.getId(), s.getName(), s.getDescription(), s.getTooltip(), ""+s.getCost(), ""+s.getCooldown(), ""+s.getRange(), ""+s.getImage()});
+                    for(Effect e : s.getEffects()) {
+                        db.rawQuery("INSERT INTO Effect_Spell (effectID, spellID)", new String[]{""+e.getId(), ""+s.getId()});
+                        db.rawQuery("INSERT INTO Effect VALUES(?,?,?)", new String[]{""+e.getId(), e.getName(), ""+e.getValue()});
+                    }
+                }
+
+                for(Tip t : c.getAllyTips()){
+                    db.rawQuery("INSERT INTO Tip_Champion (TipID, ChampID)", new String[]{""+t.getId(), ""+c.getId()});
+                    db.rawQuery("INSERT INTO Tip VALUES(?,?,1)", new String[]{""+t.getId(), t.getContent()});
+                }
+
+                for(Tip t : c.getEnemyTips()){
+                    db.rawQuery("INSERT INTO Tip_Champion (TipID, ChampID)", new String[]{""+t.getId(), ""+c.getId()});
+                    db.rawQuery("INSERT INTO Tip VALUES(?,?,0)", new String[]{""+t.getId(), t.getContent()});
+                }
+            }
+
+
+
+        } catch(Exception e) {
+            //TODO: Error message die zegt dat je internet nodig hebt
+            e.printStackTrace();
+        }
+    }
     private void createTipTableV1(SQLiteDatabase db) {
         String sql = "CREATE TABLE Tip ( \n" +
-                "    id      INTEGER PRIMARY KEY AUTOINCREMENT\n" +
+                "    id      INTEGER PRIMARY KEY\n" +
                 "                    NOT NULL,\n" +
                 "    content TEXT    NOT NULL,\n" +
                 "    isAlly  BOOLEAN NOT NULL,\n" +
                 "    champID INTEGER NOT NULL,\n" +
-                "    FOREIGN KEY ( champID ) REFERENCES Champion ( id ) \n" +
                 ");";
         db.execSQL(sql);
-
-
     }
 
     private void createEffectTableV1(SQLiteDatabase db) {
         String sql = "CREATE TABLE Effect ( \n" +
-                "    id    INTEGER PRIMARY KEY AUTOINCREMENT\n" +
+                "    id    INTEGER PRIMARY KEY\n" +
                 "                  NOT NULL,\n" +
                 "    name  TEXT    NOT NULL,\n" +
                 "    value REAL    NOT NULL \n" +
@@ -125,7 +218,7 @@ public class Helper extends SQLiteOpenHelper {
 
     private void createTagTableV1(SQLiteDatabase db) {
         String sql = "CREATE TABLE Tag ( \n" +
-                "    id   INTEGER PRIMARY KEY AUTOINCREMENT\n" +
+                "    id   INTEGER PRIMARY KEY\n" +
                 "                 NOT NULL,\n" +
                 "    name TEXT    NOT NULL \n" +
                 ");";
@@ -134,7 +227,7 @@ public class Helper extends SQLiteOpenHelper {
 
     private void createStatTableV1(SQLiteDatabase db) {
         String sql = "CREATE TABLE Stat ( \n" +
-                "    id    INTEGER PRIMARY KEY AUTOINCREMENT\n" +
+                "    id    INTEGER PRIMARY KEY\n" +
                 "                  NOT NULL,\n" +
                 "    name  TEXT    NOT NULL,\n" +
                 "    value REAL    NOT NULL \n" +
@@ -144,7 +237,7 @@ public class Helper extends SQLiteOpenHelper {
 
     private void createChampionTableV1(SQLiteDatabase db) {
         String sql = "CREATE TABLE Champion ( \n" +
-                "    id          INTEGER PRIMARY KEY AUTOINCREMENT\n" +
+                "    id          INTEGER PRIMARY KEY\n" +
                 "                        NOT NULL,\n" +
                 "    name        TEXT    NOT NULL,\n" +
                 "    title       TEXT    NOT NULL,\n" +
@@ -157,19 +250,13 @@ public class Helper extends SQLiteOpenHelper {
                 "    passiveDesc TEXT    NOT NULL,\n" +
                 "    priceRP     INTEGER,\n" +
                 "    priceIP     INTEGER,\n" +
-                "    tagID       INTEGER NOT NULL\n" +
-                "                        REFERENCES Tag ( id ),\n" +
-                "    statID      INTEGER NOT NULL,\n" +
-                "    spellID     INTEGER NOT NULL\n" +
-                "                        REFERENCES Champion_Spell ( id ),\n" +
-                "    FOREIGN KEY ( statID ) REFERENCES Stat ( id ) \n" +
                 ");";
         db.execSQL(sql);
     }
 
     private void createSpellTableV1(SQLiteDatabase db) {
         String sql = "CREATE TABLE Spell ( \n" +
-                "    id          INTEGER PRIMARY KEY AUTOINCREMENT\n" +
+                "    id          INTEGER PRIMARY KEY\n" +
                 "                        NOT NULL,\n" +
                 "    name        TEXT    NOT NULL,\n" +
                 "    description TEXT    NOT NULL,\n" +
@@ -183,19 +270,17 @@ public class Helper extends SQLiteOpenHelper {
     }
 
     private void createFreeChampTableV1(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Freechamp ( \n" +
-                "    id   INTEGER PRIMARY KEY AUTOINCREMENT\n" +
+        String sql = "CREATE TABLE FreeChamp ( \n" +
+                "    id   INTEGER PRIMARY KEY\n" +
                 "                 NOT NULL,\n" +
                 "    name TEXT    NOT NULL \n" +
                 ");";
         db.execSQL(sql);
-
-
     }
 
     private void createItemTableV1(SQLiteDatabase db) {
         String sql = "CREATE TABLE Item ( \n" +
-                "    id            INTEGER PRIMARY KEY AUTOINCREMENT\n" +
+                "    id            INTEGER PRIMARY KEY\n" +
                 "                          NOT NULL,\n" +
                 "    totalGold     INTEGER NOT NULL,\n" +
                 "    baseGold      INTEGER NOT NULL,\n" +
@@ -209,15 +294,13 @@ public class Helper extends SQLiteOpenHelper {
                 "    description   TEXT    NOT NULL,\n" +
                 "    [group]       TEXT    NOT NULL,\n" +
                 "    image         TEXT    NOT NULL,\n" +
-                "    statID        INTEGER NOT NULL\n" +
-                "                          REFERENCES Stat ( id ) \n" +
                 ");";
         db.execSQL(sql);
     }
 
     private void createRuneTableV1(SQLiteDatabase db) {
         String sql = "CREATE TABLE Rune ( \n" +
-                "    id          INTEGER PRIMARY KEY AUTOINCREMENT\n" +
+                "    id          INTEGER PRIMARY KEY\n" +
                 "                        NOT NULL,\n" +
                 "    name        TEXT    NOT NULL,\n" +
                 "    description TEXT    NOT NULL,\n" +
@@ -232,8 +315,6 @@ public class Helper extends SQLiteOpenHelper {
                 "    id         INTEGER NOT NULL,\n" +
                 "    name       TEXT    NOT NULL,\n" +
                 "    image      TEXT    NOT NULL,\n" +
-                "    championID INTEGER NOT NULL,\n" +
-                "    FOREIGN KEY ( championID ) REFERENCES Champion ( id ) \n" +
                 ");";
         db.execSQL(sql);
     }
@@ -251,10 +332,8 @@ public class Helper extends SQLiteOpenHelper {
                 "    id          INTEGER NOT NULL,\n" +
                 "    ranks       INTEGER NOT NULL,\n" +
                 "    prereq      INTEGER NOT NULL,\n" +
-                "    treeID      INTEGER NOT NULL,\n" +
                 "    name        TEXT    NOT NULL,\n" +
                 "    description TEXT    NOT NULL,\n" +
-                "    FOREIGN KEY ( treeID ) REFERENCES masterytree ( id ) \n" +
                 ");";
         db.execSQL(sql);
     }
@@ -265,81 +344,67 @@ public class Helper extends SQLiteOpenHelper {
                 "                    NOT NULL,\n" +
                 "    champID INTEGER NOT NULL,\n" +
                 "    spellID INTEGER NOT NULL,\n" +
-                "    FOREIGN KEY ( champID ) REFERENCES Champion ( id ),\n" +
-                "    FOREIGN KEY ( spellID ) REFERENCES Spell ( id ) \n" +
                 ");";
         db.execSQL(sql);
     }
 
-    private void createChampion_TagTableV1(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Champion_Tag ( \n" +
+    private void createTag_ChampionTableV1(SQLiteDatabase db) {
+        String sql = "CREATE TABLE Tag_Champion ( \n" +
                 "    id         INTEGER PRIMARY KEY AUTOINCREMENT\n" +
                 "                       NOT NULL,\n" +
                 "    championID INTEGER NOT NULL,\n" +
                 "    tagID      INTEGER NOT NULL,\n" +
-                "    FOREIGN KEY ( championID ) REFERENCES Champion ( id ),\n" +
-                "    FOREIGN KEY ( tagID ) REFERENCES Tag ( id ) \n" +
                 ");";
         db.execSQL(sql);
     }
 
-    private void createChampion_StatTableV1(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Champion_Stat ( \n" +
+    private void createStat_ChampionTableV1(SQLiteDatabase db) {
+        String sql = "CREATE TABLE Stat_Champion ( \n" +
                 "    id      INTEGER PRIMARY KEY AUTOINCREMENT\n" +
                 "                    NOT NULL,\n" +
                 "    champID INTEGER NOT NULL\n" +
-                "                    REFERENCES Champion ( id ),\n" +
                 "    statID  INTEGER NOT NULL\n" +
-                "                    REFERENCES Stat ( id ) \n" +
                 ");";
         db.execSQL(sql);
     }
 
-    private void createSpell_EffectTableV1(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Spell_Effect ( \n" +
+    private void createEffect_SpellTableV1(SQLiteDatabase db) {
+        String sql = "CREATE TABLE Effect_Spell ( \n" +
                 "    id       INTEGER PRIMARY KEY AUTOINCREMENT\n" +
                 "                     NOT NULL,\n" +
                 "    spellID  INTEGER NOT NULL,\n" +
                 "    effectID INTEGER NOT NULL,\n" +
-                "    FOREIGN KEY ( spellID ) REFERENCES spell ( id ),\n" +
-                "    FOREIGN KEY ( effectID ) REFERENCES effect ( id ) \n" +
                 ");";
         db.execSQL(sql);
     }
 
-    private void createItem_StatTableV1(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Item_Stat ( \n" +
+    private void createStat_ItemTableV1(SQLiteDatabase db) {
+        String sql = "CREATE TABLE Stat_Item ( \n" +
                 "    id     INTEGER PRIMARY KEY AUTOINCREMENT\n" +
                 "                   NOT NULL,\n" +
                 "    itemID INTEGER NOT NULL,\n" +
                 "    statID INTEGER NOT NULL\n" +
                 "                   REFERENCES Stat ( id ),\n" +
-                "    FOREIGN KEY ( itemID ) REFERENCES Item ( id ),\n" +
-                "    FOREIGN KEY ( statID ) REFERENCES statitem ( id ) \n" +
                 ");";
         db.execSQL(sql);
     }
 
-    private void createItem_TagTableV1(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Item_Tag ( \n" +
+    private void createTag_ItemTableV1(SQLiteDatabase db) {
+        String sql = "CREATE TABLE Tag_Item ( \n" +
                 "    id     INTEGER PRIMARY KEY AUTOINCREMENT\n" +
                 "                   NOT NULL,\n" +
                 "    itemID INTEGER NOT NULL\n" +
-                "                   REFERENCES Item ( id ),\n" +
                 "    tagID  INTEGER NOT NULL\n" +
-                "                   REFERENCES Tag ( id ) \n" +
                 ");";
         db.execSQL(sql);
     }
 
-    private void createItem_EffectTableV1(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Item_Effect ( \n" +
+    private void createEffect_ItemTableV1(SQLiteDatabase db) {
+        String sql = "CREATE TABLE Effect_Item ( \n" +
                 "    id       INTEGER PRIMARY KEY AUTOINCREMENT\n" +
                 "                     NOT NULL,\n" +
                 "    itemID   INTEGER NOT NULL\n" +
-                "                     REFERENCES Item ( id ),\n" +
                 "    effectID INTEGER NOT NULL\n" +
-                "                     REFERENCES Effect ( id ) \n" +
                 ");";
         db.execSQL(sql);
     }
@@ -347,22 +412,19 @@ public class Helper extends SQLiteOpenHelper {
     private void createItem_UpgradeTableV1(SQLiteDatabase db) {
         String sql = "CREATE TABLE Item_Upgrade ( \n" +
                 "    id        INTEGER PRIMARY KEY AUTOINCREMENT,\n" +
-                "    itemID    INTEGER REFERENCES Item ( id ),\n" +
-                "    otherItem INTEGER REFERENCES Item ( id ),\n" +
+                "    itemID    INTEGER NOT NULL,\n" +
+                "    otherItem INTEGER NOT NULL,\n" +
                 "    required  BOOLEAN NOT NULL \n" +
                 ");";
         db.execSQL(sql);
     }
 
-    private void createRune_StatTableV1(SQLiteDatabase db) {
-        String sql = "CREATE TABLE Rune_Stat ( \n" +
+    private void createStat_RuneTableV1(SQLiteDatabase db) {
+        String sql = "CREATE TABLE Stat_Rune ( \n" +
                 "    id     INTEGER PRIMARY KEY AUTOINCREMENT\n" +
                 "                   NOT NULL,\n" +
                 "    runeID INTEGER NOT NULL,\n" +
                 "    statID INTEGER NOT NULL\n" +
-                "                   REFERENCES Stat ( id ),\n" +
-                "    FOREIGN KEY ( runeID ) REFERENCES Rune ( id ),\n" +
-                "    FOREIGN KEY ( statID ) REFERENCES Stat ( id ) \n" +
                 ");\n";
         db.execSQL(sql);
     }
@@ -372,9 +434,7 @@ public class Helper extends SQLiteOpenHelper {
                 "    id            INTEGER PRIMARY KEY AUTOINCREMENT\n" +
                 "                          NOT NULL,\n" +
                 "    masteryTreeID INTEGER NOT NULL\n" +
-                "                          REFERENCES masterytree ( id ),\n" +
                 "    leafID        INTEGER NOT NULL\n" +
-                "                          REFERENCES leaf ( id ) \n" +
                 ");";
         db.execSQL(sql);
     }

@@ -121,6 +121,9 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
                     dc.add("Fail");
                 }
 
+                //Lijsten naar DB brengen
+
+
                 return dc;
             }
             catch (Exception e) {

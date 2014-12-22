@@ -1,5 +1,7 @@
 package be.howest.lolmetabuilder.data.models;
 
+import java.util.ArrayList;
+
 /**
  * Created by manuel on 11/28/14.
  */
@@ -12,10 +14,11 @@ public class Spell {
         range = "",
         image = "",
         cost = "";
+    private ArrayList<Effect> effects = new ArrayList<Effect>();
 
     public Spell(String name, String description,
             String tooltip, String cooldown, String range,
-            String image, String cost
+            String image, String cost, ArrayList<Effect> effects
     ) {
         this.name = name;
         this.description = description;
@@ -24,6 +27,7 @@ public class Spell {
         this.range = range;
         this.image = image;
         this.cost = cost;
+        this.effects = effects;
     }
 
     public String getCost() {
@@ -61,4 +65,6 @@ public class Spell {
     public String getTooltip() {
         return tooltip;
     }
+
+    public ArrayList<Effect> getEffects() { return effects; }
 }
