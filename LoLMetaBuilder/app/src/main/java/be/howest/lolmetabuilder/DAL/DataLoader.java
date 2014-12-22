@@ -9,12 +9,12 @@ import android.database.sqlite.SQLiteDatabase;
  * Created by Milan on 17/12/2014.
  */
 public class DataLoader extends AsyncTaskLoader<Cursor> {
-    private final String mSql;
     private Cursor mData;
 
-    public DataLoader(Context context, String sql) {
+
+
+    public DataLoader(Context context) {
         super(context);
-        this.mSql = sql;
     }
 
     public Cursor loadInBackground() {
@@ -22,7 +22,6 @@ public class DataLoader extends AsyncTaskLoader<Cursor> {
 
         SQLiteDatabase database = helper.getReadableDatabase();
 
-        mData = database.rawQuery(mSql, null);
 
         mData.getCount();
 
