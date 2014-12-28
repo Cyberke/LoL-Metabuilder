@@ -85,7 +85,7 @@ public class api_ophalen {
 
     public static ArrayList<Champion> champions(ApplicationInfo appInfo) {
         ArrayList<Champion> champions = null;
-
+        //TODO: Image opslaan in blobvorm
         try {
             Bundle bundle = appInfo.metaData;
 
@@ -98,7 +98,7 @@ public class api_ophalen {
             reader.beginObject(); // {
 
             String championName = reader.nextName(),
-                    title = "", lore = "", passiveName = "", passiveDesc = "", image = "";
+                    title = "", lore = "", passiveName = "", passiveDesc = "", image = " ";
             int id = 0, attack = 0, defence = 0, magic = 0, difficulty = 0;
             ArrayList<Tip> allyTips = new ArrayList<Tip>();
             ArrayList<Tip> enemyTips = new ArrayList<Tip>();
@@ -394,7 +394,7 @@ public class api_ophalen {
 
     public static ArrayList<Item> items(ApplicationInfo appInfo) {
         ArrayList<Item> items = null;
-
+        //TODO: BuildInto en Requires
         try {
             Bundle bundle = appInfo.metaData;
 

@@ -23,7 +23,7 @@ public class Champion {
         lore = "",
         passiveName = "",
         passiveDesc = "",
-        image = "";
+        image = " ";
     private ArrayList<Tip> allyTips = new ArrayList<Tip>();
     private ArrayList<Tip> enemyTips = new ArrayList<Tip>();
     private ArrayList<Tag> tags = new ArrayList<Tag>();

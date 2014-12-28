@@ -1,6 +1,7 @@
 package be.howest.lolmetabuilder;
 
 import android.app.Activity;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -17,6 +18,7 @@ import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -32,6 +34,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import be.howest.lolmetabuilder.DAL.Helper;
 import be.howest.lolmetabuilder.data.models.Champion;
 import be.howest.lolmetabuilder.data.models.FreeChamp;
 import be.howest.lolmetabuilder.data.models.Item;
@@ -88,6 +91,10 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
         @Override
         protected List<String> doInBackground(String... params) {
             try {
+                getApplicationContext().deleteDatabase("loldb");
+
+                Helper h;
+                h = new Helper(getApplicationContext());
 
                 String PACKAGE_NAME = getApplicationContext().getPackageName();
                 ApplicationInfo appInfo = getPackageManager().getApplicationInfo(PACKAGE_NAME, PackageManager.GET_META_DATA);
@@ -104,7 +111,6 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
                 ArrayList<Version> versions = api_ophalen.versions(appInfo);
 
                 ArrayList<FreeChamp> temp = api_ophalen.freechampRotation(appInfo);
-
                 if (champions != null) {
                     for (Champion c : champions) {
                         for (FreeChamp fc : temp) {
@@ -124,9 +130,8 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
                 else {
                     dc.add("Fail");
                 }
-
                 //Lijsten naar DB brengen
-
+                h.fillTablesV1(freeChamps, champions, items, leafs, runes, masteryTrees);
 
                 return dc;
             }
