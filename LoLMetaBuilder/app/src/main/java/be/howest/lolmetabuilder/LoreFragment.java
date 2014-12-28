@@ -18,6 +18,7 @@ import be.howest.lolmetabuilder.data.models.Champion;
 public class LoreFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    Champion champion;
 
     public static LoreFragment newInstance() {
         LoreFragment fragment = new LoreFragment();
@@ -44,7 +45,8 @@ public class LoreFragment extends Fragment {
 
         //get selected champion
         Bundle bundle = getArguments();
-        Champion champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
+        //champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
+        champion = MainActivity.currentChampion;
 
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.txtLoreTitle = (TextView) view.findViewById(R.id.txtVLoreTitle);

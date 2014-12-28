@@ -27,6 +27,7 @@ import be.howest.lolmetabuilder.data.models.Tip;
 public class ChampionOverviewFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    Champion champion;
 
 
     public static ChampionOverviewFragment newInstance() {
@@ -60,10 +61,8 @@ public class ChampionOverviewFragment extends Fragment {
 
         //get selected champion
         Bundle bundle = getArguments();
-        Champion champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
-
-        //TODO bij 2e keer krijg je verkeerde champ
-        Toast.makeText(getActivity().getBaseContext(), "3. " + champion.getName(), Toast.LENGTH_SHORT).show();
+        //Champion champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
+        champion = MainActivity.currentChampion;
 
         //layout elementen ophalen
         ViewHolder viewHolder = new ViewHolder();
@@ -97,6 +96,7 @@ public class ChampionOverviewFragment extends Fragment {
         viewHolder.txtDifficulty.setText("" + champion.getDifficulty());
         viewHolder.pbAttack.setProgress(champion.getAttack() * 10);
         viewHolder.pbDefense.setProgress(champion.getDefense() * 10);
+        //TODO magic bar is always 100%
         viewHolder.pbMagic.setProgress(champion.getMagic() * 10);
         viewHolder.pbDifficulty.setProgress(champion.getDifficulty() * 10);
 
