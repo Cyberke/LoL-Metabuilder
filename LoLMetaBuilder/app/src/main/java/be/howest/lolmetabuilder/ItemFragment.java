@@ -5,21 +5,29 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
 
 import be.howest.lolmetabuilder.data.models.Item;
 
 public class ItemFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
+    private Item selectedItem = null;
+    private int gridPosition;
 
     public static ItemFragment newInstance() {
         ItemFragment fragment = new ItemFragment();
@@ -52,7 +60,11 @@ public class ItemFragment extends Fragment {
 
         //gekozen champion ophalen
         Bundle bundle = getArguments();
+        gridPosition = bundle.getInt("GridPosition");
         Item item = new Gson().fromJson(bundle.getString("Item"), Item.class);
+        //TODO req & builds into id's ophalen en objecten ervan ophalen. Daarna in
+        String from = bundle.getString("From");
+        selectedItem = item;
 
         //layout elementen ophalen
         ViewHolder viewHolder = new ViewHolder();
@@ -62,6 +74,7 @@ public class ItemFragment extends Fragment {
         viewHolder.txtItemDescription = (TextView) view.findViewById(R.id.txtVItemDescription);
         viewHolder.gVRequires = (GridView) view.findViewById(R.id.gVRequires);
         viewHolder.gvBuildsInto = (GridView) view.findViewById(R.id.gVBuildsInto);
+        viewHolder.btnAddToBuild = (Button) view.findViewById(R.id.btnAddToBuild);
 
         //layout invullen
 
@@ -72,6 +85,38 @@ public class ItemFragment extends Fragment {
         viewHolder.txtItemName.setText(item.getName());
         viewHolder.txtItemPrice.setText(item.getTotalGold() + " gold");
         viewHolder.txtItemDescription.setText(item.getDescription());
+        if(from.equals("Items")) {
+            viewHolder.btnAddToBuild.setVisibility(View.GONE);
+        }
+        if(from.equals("Builds")){
+            viewHolder.btnAddToBuild.setVisibility(View.VISIBLE);
+
+            viewHolder.btnAddToBuild.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //gekozen item met de fragment meesturen
+                    Fragment fragment = GeneratedBuildFragment.newInstance();
+
+                    Bundle args = new Bundle();
+                    args.putString("Item", new Gson().toJson(selectedItem));
+
+                    fragment.setArguments(args);
+
+                    //Item in het build object steken
+                    Item[] buildItems = MainActivity.championBuild.getItems();
+                    buildItems[gridPosition] = selectedItem;
+                    MainActivity.championBuild.setItems(buildItems);
+                    Toast.makeText(getActivity().getBaseContext(), ""+gridPosition, Toast.LENGTH_SHORT).show();
+
+                    //openen fragment
+                    FragmentManager fragmentManager = getFragmentManager();
+                    fragmentManager.beginTransaction()
+                            .replace(R.id.container, fragment)
+                            .addToBackStack("GeneratedBuild")
+                            .commit();
+                }
+            });
+        }
 
         //TODO gridviews opvullen
 
@@ -119,5 +164,7 @@ public class ItemFragment extends Fragment {
         Button btnAddToBuild;
 
     }
+
+
 
 }

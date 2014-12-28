@@ -8,10 +8,12 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
@@ -19,6 +21,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
+import be.howest.lolmetabuilder.data.models.Build;
 import be.howest.lolmetabuilder.data.models.Champion;
 
 public class ChampionDetailFragment extends Fragment implements ActionBar.TabListener {
@@ -27,6 +30,7 @@ public class ChampionDetailFragment extends Fragment implements ActionBar.TabLis
     ActionBar actionBar;
     ViewPager viewPager;
     ChampionAdapterFragment ft;
+    private Champion selectedChampion;
 
     public static ChampionDetailFragment newInstance() {
         ChampionDetailFragment fragment = new ChampionDetailFragment();
@@ -52,6 +56,18 @@ public class ChampionDetailFragment extends Fragment implements ActionBar.TabLis
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        switch(item.getItemId()){
+            case R.id.action_add:
+                openGenerateBuild();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
@@ -62,11 +78,10 @@ public class ChampionDetailFragment extends Fragment implements ActionBar.TabLis
         //get selected champion
         Bundle bundle = getArguments();
         Champion champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
-
-        Toast.makeText(getActivity().getBaseContext(), "2. " + champion.getName(), Toast.LENGTH_SHORT).show();
+        selectedChampion = champion;
 
         viewPager = (ViewPager) view.findViewById(R.id.pager);
-        ft = new ChampionAdapterFragment(getActivity().getSupportFragmentManager(), bundle);
+        ft = new ChampionAdapterFragment(getChildFragmentManager());
 
         actionBar = getActivity().getActionBar();
         viewPager.setAdapter(ft);
@@ -84,10 +99,30 @@ public class ChampionDetailFragment extends Fragment implements ActionBar.TabLis
                 // When swiping between pages, select the
                 // corresponding tab.
                 actionBar.setSelectedNavigationItem(position);
+                viewPager.setCurrentItem(position);
             }
         });
 
         return view;
+    }
+
+    public void openGenerateBuild(){
+        //champion in build object steken
+        MainActivity.championBuild = new Build(selectedChampion);
+
+        //gekozen champion met de fragment meesturen
+        Fragment fragment = GeneratedBuildFragment.newInstance();
+        Bundle args = new Bundle();
+        args.putString("Champion", new Gson().toJson(selectedChampion));
+        args.putString("From", "Builds");
+        fragment.setArguments(args);
+
+        //openen fragment
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, fragment)
+                .addToBackStack("GenerateBuild")
+                .commit();
     }
 
     public void onButtonPressed(Uri uri) {

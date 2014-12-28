@@ -14,6 +14,7 @@ import android.widget.ArrayAdapter;
 import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -26,6 +27,8 @@ public class ItemsFragment extends Fragment {
     public GridView gvItems;
     private static Item item;
     private OnFragmentInteractionListener mListener;
+    private String from;
+    private int gridPosition;
 
     public static ItemsFragment newInstance() {
         ItemsFragment fragment = new ItemsFragment();
@@ -50,6 +53,10 @@ public class ItemsFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_items, container, false);
+
+        Bundle bundle = getArguments();
+        from = bundle.getString("From");
+        gridPosition = bundle.getInt("GridPosition");
 
         MainActivity.drawerList.setSelection(2);
         MainActivity.drawerList.setItemChecked(2, true);
@@ -132,7 +139,7 @@ public class ItemsFragment extends Fragment {
             viewHolder.txtItemPrice.setText("" + item2.getBaseGold());
             //TODO alle items in drawable steken
             //viewHolder.imgItem.setBackground(getDrawableResourceByName(item.getId()+""));
-            viewHolder.imgItem.setBackground(getDrawableResourceByName("i1001"));
+            viewHolder.imgItem.setBackground(getDrawableResourceByName("itemplaceholder"));
 
             convertView.setOnClickListener(new View.OnClickListener() {
 
@@ -146,6 +153,9 @@ public class ItemsFragment extends Fragment {
                     Fragment fragment = ItemFragment.newInstance();
                     Bundle args = new Bundle();
                     args.putString("Item", new Gson().toJson(item));
+                    args.putString("From", from);
+                    args.putInt("GridPosition",gridPosition);
+                            Toast.makeText(getActivity().getBaseContext(), ""+gridPosition, Toast.LENGTH_SHORT).show();
                     fragment.setArguments(args);
 
                     //openen fragment

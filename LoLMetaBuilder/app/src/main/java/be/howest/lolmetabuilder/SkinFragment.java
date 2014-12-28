@@ -53,7 +53,8 @@ public class SkinFragment extends Fragment {
 
         //get selected champion
         Bundle bundle = getArguments();
-        champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
+        //champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
+        champion = MainActivity.currentChampion;
 
         gvSkins = (GridView) view.findViewById(R.id.gvSkins);
         gvSkins.setAdapter(new SkinAdapter());

@@ -56,7 +56,8 @@ public class AbilitiesFragment extends Fragment {
 
         //get selected champion
         Bundle bundle = getArguments();
-        champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
+        //champion = new Gson().fromJson(bundle.getString("Champion"), Champion.class);
+        champion = MainActivity.currentChampion;
 
         gvSpells = (GridView) view.findViewById(R.id.gVAbilities);
         gvSpells.setAdapter(new SpellAdapter());
@@ -95,7 +96,7 @@ public class AbilitiesFragment extends Fragment {
     @Override
     public void onDestroy() {
 
-        AbilitiesFragment f = (AbilitiesFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
+        ChampionDetailFragment f = (ChampionDetailFragment) getActivity().getSupportFragmentManager().findFragmentById(R.id.container);
         if (f.isResumed()){
             getFragmentManager().beginTransaction().remove(f).commit();
         }
@@ -136,7 +137,7 @@ public class AbilitiesFragment extends Fragment {
         public View getView(final int position, View convertView, ViewGroup parent) {
             //View row = super.getView(position, convertView, parent);
             ViewHolder viewHolder = new ViewHolder();
-
+            //TODO passive ability
             final Spell spell = spells.get(position);
 
             if (convertView == null) {
@@ -188,7 +189,7 @@ public class AbilitiesFragment extends Fragment {
                 String championId = String.format("%04d", champion.getId());
                 String spellId = String.format("%02d", position+2);
                 String videoURL = baseVideoURL + championId + "_" + spellId + ".mp4";
-                Toast.makeText(getActivity().getBaseContext(), "" + videoURL, Toast.LENGTH_SHORT).show();
+
                 //put url in intent and start
                 intent.setDataAndType(Uri.parse(videoURL), "video/mp4");
                 startActivity(intent);

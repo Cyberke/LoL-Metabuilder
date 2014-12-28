@@ -17,10 +17,9 @@ public class ChampionAdapterFragment extends FragmentPagerAdapter {
 
     Bundle bundle;
 
-    public ChampionAdapterFragment(FragmentManager fm, Bundle bundle)
+    public ChampionAdapterFragment(FragmentManager fm)
     {
         super(fm);
-        this.bundle = bundle;
     }
 
     @Override

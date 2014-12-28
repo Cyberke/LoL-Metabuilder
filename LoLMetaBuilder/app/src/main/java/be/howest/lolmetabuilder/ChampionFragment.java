@@ -166,6 +166,7 @@ public class ChampionFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     champion = champ;
+                    MainActivity.currentChampion = champ;
                     loadChampionDetail(v);
                 }
             });
@@ -177,13 +178,12 @@ public class ChampionFragment extends Fragment {
         {
             //Openen champion detail met fragment
 
+
             //gekozen champion met de fragment meesturen
             Fragment fragment = ChampionDetailFragment.newInstance();
             Bundle args = new Bundle();
             args.putString("Champion", new Gson().toJson(champion));
             fragment.setArguments(args);
-
-            Toast.makeText(getContext(), "1. " + champion.getName(), Toast.LENGTH_SHORT).show();
 
             //openen fragment
             FragmentManager fragmentManager = getFragmentManager();

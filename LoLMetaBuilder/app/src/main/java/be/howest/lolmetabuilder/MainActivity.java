@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import be.howest.lolmetabuilder.DAL.Helper;
+import be.howest.lolmetabuilder.data.models.Build;
 import be.howest.lolmetabuilder.data.models.Champion;
 import be.howest.lolmetabuilder.data.models.FreeChamp;
 import be.howest.lolmetabuilder.data.models.Item;
@@ -55,7 +56,8 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
                                                     SkinFragment.OnFragmentInteractionListener,
                                                     LoreFragment.OnFragmentInteractionListener,
                                                     AbilitiesFragment.OnFragmentInteractionListener,
-                                                    ChampionDetailFragment.OnFragmentInteractionListener{
+                                                    ChampionDetailFragment.OnFragmentInteractionListener,
+                                                    GeneratedBuildFragment.OnFragmentInteractionListener{
     private ProgressDialog pDialog;
     private static Boolean isInGeladen = false;
     private DrawerLayout drawerLayout;
@@ -63,6 +65,9 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
     private String[] layers;
     private ActionBarDrawerToggle drawerToggle;
     private int currentFragment = 0;
+
+    public static Build championBuild;
+    public static Champion currentChampion;
 
     public static ArrayList<FreeChamp> freeChamps = new ArrayList<FreeChamp>();
 
@@ -294,6 +299,7 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
             Fragment fragment = null;
             FragmentManager fragmentManager = getSupportFragmentManager();
             currentFragment = position;
+            Bundle args = new Bundle();
 
             switch(position)
             {
@@ -306,6 +312,7 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
                     break;
                 case 2:
                     fragment = ItemsFragment.newInstance();
+                    args.putString("From", "Items");
                     break;
                 case 3:
                     fragment = BuildsFragment.newInstance();
@@ -324,7 +331,7 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
             {
 
                 fragmentManager.popBackStack("NavDrawer", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
+                fragment.setArguments(args);
                 FragmentTransaction trans = fragmentManager.beginTransaction();
                 trans.replace(R.id.container, fragment);
                 trans.addToBackStack("NavDrawer");

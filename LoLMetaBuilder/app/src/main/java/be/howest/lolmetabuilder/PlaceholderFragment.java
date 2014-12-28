@@ -99,6 +99,7 @@ public class PlaceholderFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     champion = champ;
+                    MainActivity.currentChampion = champ;
                     loadChampionDetail(v);
                 }
             });
@@ -116,8 +117,6 @@ public class PlaceholderFragment extends Fragment {
             Bundle args = new Bundle();
             args.putString("Champion", new Gson().toJson(champion));
             fragment.setArguments(args);
-
-            Toast.makeText(getContext(), "1. " + champion.getName(), Toast.LENGTH_SHORT).show();
 
             //openen fragment
             FragmentManager fragmentManager = getFragmentManager();
