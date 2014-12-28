@@ -10,7 +10,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import be.howest.lolmetabuilder.data.models.Champion;
-import be.howest.lolmetabuilder.data.models.CircularItem;
 import be.howest.lolmetabuilder.data.models.Skin;
 import be.howest.lolmetabuilder.data.models.Tag;
 import be.howest.lolmetabuilder.data.models.Description;
@@ -23,6 +22,7 @@ import be.howest.lolmetabuilder.data.models.Rune;
 import be.howest.lolmetabuilder.data.models.Spell;
 import be.howest.lolmetabuilder.data.models.Stat;
 import be.howest.lolmetabuilder.data.models.Tip;
+import be.howest.lolmetabuilder.data.models.Version;
 
 /**
  * Created by manuel on 11/19/14.
@@ -261,7 +261,8 @@ public class api_ophalen {
 
                             String spellName = "", spellDescription = "",
                                     spellTooltip = "", spellCooldown = "", spellRange = "",
-                                    spellImage = "", spellCost = "";
+                                    spellImage = "", spellCost = "", spellEffect = "";
+                            ArrayList<String> spellEffects = new ArrayList<String>();
 
                             while (reader.hasNext()) {
                                 reader.beginObject(); // {
@@ -302,6 +303,17 @@ public class api_ophalen {
                                     else if (key.equals("cooldownBurn")) {
                                         spellCooldown = reader.nextString();
                                     }
+                                    else if (key.equals("effectBurn")) {
+                                        reader.beginArray(); // [
+
+                                        while (reader.hasNext()) {
+                                            spellEffect = reader.nextString();
+
+                                            spellEffects.add(spellEffect);
+                                        }
+
+                                        reader.endArray(); // ]
+                                    }
                                     else if (key.equals("rangeBurn")) {
                                         spellRange = reader.nextString();
                                     }
@@ -313,7 +325,13 @@ public class api_ophalen {
                                 Spell spell = new Spell(spellName, spellDescription, spellTooltip,
                                         spellCooldown, spellRange, spellImage, spellCost);
 
+                                if (spellEffects.size() > 0) {
+                                    spell.setEffects(spellEffects);
+                                }
+
                                 championSpells.add(spell);
+
+                                spellEffects = new ArrayList<String>();
 
                                 reader.endObject(); // }
                             }
@@ -374,19 +392,8 @@ public class api_ophalen {
         return champions;
     }
 
-    private static CircularItem findItemById(int id, ArrayList<CircularItem> items) {
-        for (CircularItem i : items) {
-            if (id == i.getId()) {
-                return i;
-            }
-        }
-
-        return null;
-    }
-
     public static ArrayList<Item> items(ApplicationInfo appInfo) {
         ArrayList<Item> items = null;
-        ArrayList<CircularItem> circularItems = null;
 
         try {
             Bundle bundle = appInfo.metaData;
@@ -407,10 +414,8 @@ public class api_ophalen {
             ArrayList<Stat> statItems = new ArrayList<Stat>();
             ArrayList<Tag> itemTags = new ArrayList<Tag>();
             ArrayList<Effect> effects = new ArrayList<Effect>();
-            ArrayList<CircularItem> requires = new ArrayList<CircularItem>();
             ArrayList<Integer> requiresIds = new ArrayList<Integer>();
             ArrayList<Integer> buildIntoIds = new ArrayList<Integer>();
-            ArrayList<CircularItem> buildIntos = new ArrayList<CircularItem>();
 
             while (!itemName.equals("data")) {
                 reader.skipValue();
@@ -420,7 +425,6 @@ public class api_ophalen {
 
             if (itemName.equals("data")) {
                 items = new ArrayList<Item>();
-                circularItems = new ArrayList<CircularItem>();
                 reader.beginObject(); // {
 
                 while (reader.hasNext()) {
@@ -556,23 +560,17 @@ public class api_ophalen {
                     if (map != -1) {
                         Item item = new Item(id, totalGold, baseGold, purchasable, consumed, depth,
                                 specialRecipe, map, itemName, description, group, stacks, image);
-                        CircularItem circularItem = new CircularItem(id, totalGold, baseGold,
-                                purchasable, consumed, depth, specialRecipe, map, itemName,
-                                description, group, stacks, image);
 
                         if (itemTags.size() > 0) {
                             item.setTags(itemTags);
-                            circularItem.setTags(itemTags);
                         }
 
                         if (statItems.size() > 0) {
                             item.setStats(statItems);
-                            circularItem.setStats(statItems);
                         }
 
                         if (effects.size() > 0) {
                             item.setEffects(effects);
-                            circularItem.setEffects(effects);
                         }
 
                         if (requiresIds.size() > 0) {
@@ -584,7 +582,6 @@ public class api_ophalen {
                         }
 
                         items.add(item);
-                        circularItems.add(circularItem);
 
                         consumed = false;
 
@@ -596,26 +593,6 @@ public class api_ophalen {
                     }
 
                     reader.endObject(); // }
-                }
-
-                for (Item i : items) {
-                    for (int requiresId : i.getRequiresIds()) {
-                        CircularItem requiredItem = findItemById(requiresId, circularItems);
-
-                        requires.add(requiredItem);
-                    }
-
-                    for (int buildIntoId : i.getBuildIntoIds()) {
-                        CircularItem buildIntoItem = findItemById(buildIntoId, circularItems);
-
-                        buildIntos.add(buildIntoItem);
-                    }
-
-                    i.setRequires(requires);
-                    i.setBuildIntos(buildIntos);
-
-                    requires = new ArrayList<CircularItem>();
-                    buildIntos = new ArrayList<CircularItem>();
                 }
 
                 reader.endObject(); // }
@@ -985,5 +962,83 @@ public class api_ophalen {
         }
 
         return masteryTrees;
+    }
+
+    private static Version readVersion(JsonReader reader, String name) {
+        Version versionObj = null;
+
+        try {
+            reader.beginObject(); // {
+
+            String version = reader.nextName();
+
+            while (!version.equals("version")) {
+                reader.skipValue();
+
+                version = reader.nextName();
+            }
+
+            version = reader.nextString();
+
+            versionObj = new Version(name, version);
+
+            reader.endObject(); // }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return versionObj;
+    }
+
+    public static ArrayList<Version> versions(ApplicationInfo appInfo) {
+        ArrayList<Version> versions = null;
+
+        try {
+            Bundle bundle = appInfo.metaData;
+
+            String webservice = bundle.getString("webservice.static-data");
+            String apiKey = bundle.getString("auth.client_secret");
+
+            String paramChamp = "champion?locale=en_US&dataById=false&champData=altimages";
+            String paramItem = "item?local=en_US&itemListData=tags";
+            String paramMastery = "mastery?local=en_US&masteryListData=prereq";
+            String paramRune = "rune?local=en_US&runeListData=basic";
+
+            InputStream input = new URL(webservice + paramChamp + apiKey).openStream();
+            JsonReader reader = new JsonReader(new InputStreamReader(input, "UTF-8"));
+
+            Version champVersion = readVersion(reader, "champion");
+
+            input = new URL(webservice + paramItem + apiKey).openStream();
+            reader = new JsonReader(new InputStreamReader(input, "UTF-8"));
+
+            Version itemVersion = readVersion(reader, "item");
+
+            input = new URL(webservice + paramMastery + apiKey).openStream();
+            reader = new JsonReader(new InputStreamReader(input, "UTF-8"));
+
+            Version masteryVersion = readVersion(reader, "mastery");
+
+            input = new URL(webservice + paramRune + apiKey).openStream();
+            reader = new JsonReader(new InputStreamReader(input, "UTF-8"));
+
+            Version runeVersion = readVersion(reader, "rune");
+
+            versions = new ArrayList<Version>();
+
+            if (champVersion != null || itemVersion != null
+                    || masteryVersion != null || runeVersion != null) {
+                versions.add(champVersion);
+                versions.add(itemVersion);
+                versions.add(masteryVersion);
+                versions.add(runeVersion);
+            }
+        }
+        catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return versions;
     }
 }
