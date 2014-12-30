@@ -155,7 +155,7 @@ public class ItemsFragment extends Fragment {
                     args.putString("Item", new Gson().toJson(item));
                     args.putString("From", from);
                     args.putInt("GridPosition",gridPosition);
-                            Toast.makeText(getActivity().getBaseContext(), ""+gridPosition, Toast.LENGTH_SHORT).show();
+
                     fragment.setArguments(args);
 
                     //openen fragment

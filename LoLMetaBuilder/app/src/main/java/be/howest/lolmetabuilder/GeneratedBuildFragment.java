@@ -12,6 +12,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -66,14 +68,68 @@ public class GeneratedBuildFragment extends Fragment {
         actionBar.removeAllTabs();
         actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 
-        ViewHolder viewHolder = new ViewHolder();
+        final ViewHolder viewHolder = new ViewHolder();
 
         viewHolder.imgVChampAvatar = (ImageView) view.findViewById(R.id.imgVChampionAvatar);
         viewHolder.gvBuildItems = (GridView) view.findViewById(R.id.gvBuildItems);
+        viewHolder.txtLimitGold = (EditText) view.findViewById(R.id.txtLimitTotalGold);
+        viewHolder.btnGenerateBuild = (Button) view.findViewById(R.id.btnGenerateBuild);
+        viewHolder.cbAttack = (CheckBox) view.findViewById(R.id.cbAttack);
+        viewHolder.cbAbility = (CheckBox) view.findViewById(R.id.cbAbility);
+        viewHolder.cbArmor = (CheckBox) view.findViewById(R.id.cbArmor);
+        viewHolder.cbMagicResist = (CheckBox) view.findViewById(R.id.cbMagicResist);
+        viewHolder.cbLifesteal = (CheckBox) view.findViewById(R.id.cbLifesteal);
+        viewHolder.cbSpellVamp = (CheckBox) view.findViewById(R.id.cbSpellVamp);
 
         int champImageId = getResources().getIdentifier(champion.getImage().toLowerCase(), "drawable", getActivity().getPackageName());
         viewHolder.imgVChampAvatar.setImageResource(champImageId);
         viewHolder.gvBuildItems.setAdapter(new ItemAdapter());
+
+        //event on checkboxes
+        ArrayList<CheckBox> chkStats = new ArrayList<CheckBox>();
+
+        chkStats.add(viewHolder.cbAttack);
+        chkStats.add(viewHolder.cbAbility);
+        chkStats.add(viewHolder.cbArmor);
+        chkStats.add(viewHolder.cbMagicResist);
+        chkStats.add(viewHolder.cbLifesteal);
+        chkStats.add(viewHolder.cbSpellVamp);
+
+
+        for(CheckBox chkStat : chkStats) {
+            chkStat.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    CheckBox check = (CheckBox) view;
+                    if(check.isChecked())
+                    {
+                        MainActivity.championBuild.addPrioriteit(check.getTag().toString());
+                    }else{
+                        MainActivity.championBuild.removePrioriteit(check.getTag().toString());
+                    }
+                }
+            });
+        }
+
+        //when submitting build settings
+        viewHolder.btnGenerateBuild.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                //ingevulde waarden in build object steken
+                String slimitGold = viewHolder.txtLimitGold.getText().toString();
+                int limitGold = 0;
+                if(!slimitGold.equals(""))
+                {
+                    limitGold = Integer.parseInt(slimitGold);
+                }else{
+                    limitGold = 0;
+                }
+                MainActivity.championBuild.setLimitGold(limitGold);
+
+                //TODO Milan: hier is op de button geduwt en word de limitgold nog in het object gestoken. hierna mag het algoritme lopen (misch andere functie)
+            }
+        });
 
 
         return view;
@@ -85,6 +141,10 @@ public class GeneratedBuildFragment extends Fragment {
         GridView gvBuildItems;
 
         EditText txtLimitGold;
+
+        Button btnGenerateBuild;
+
+        CheckBox cbAttack, cbAbility, cbArmor, cbMagicResist, cbLifesteal, cbSpellVamp;
     }
 
     public void onButtonPressed(Uri uri) {
@@ -176,7 +236,6 @@ public class GeneratedBuildFragment extends Fragment {
                     args.putString("Item", new Gson().toJson(item));
                     args.putString("From", "Builds");
                     args.putInt("GridPosition", position);
-                    Toast.makeText(getActivity().getBaseContext(), ""+position, Toast.LENGTH_SHORT).show();
                     fragment.setArguments(args);
 
                     //openen fragment

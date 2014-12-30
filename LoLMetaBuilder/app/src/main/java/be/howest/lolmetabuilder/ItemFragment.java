@@ -106,7 +106,7 @@ public class ItemFragment extends Fragment {
                     Item[] buildItems = MainActivity.championBuild.getItems();
                     buildItems[gridPosition] = selectedItem;
                     MainActivity.championBuild.setItems(buildItems);
-                    Toast.makeText(getActivity().getBaseContext(), ""+gridPosition, Toast.LENGTH_SHORT).show();
+
 
                     //openen fragment
                     FragmentManager fragmentManager = getFragmentManager();

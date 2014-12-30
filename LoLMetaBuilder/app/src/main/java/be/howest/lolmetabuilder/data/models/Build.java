@@ -9,7 +9,7 @@ public class Build {
     private Champion champion;
     private Item[] items;
     private int limitGold;
-    private ArrayList<String> prioriteit;
+    private ArrayList<String> prioriteit = new ArrayList<String>();
 
     public Build(Champion champion){
         this.champion = champion;
@@ -45,4 +45,8 @@ public class Build {
     public void setPrioriteit(ArrayList<String> prioriteit) {
         this.prioriteit = prioriteit;
     }
+
+    public void addPrioriteit(String value) { this.prioriteit.add(value);}
+
+    public void removePrioriteit(String value) {this.prioriteit.remove(value);}
 }
