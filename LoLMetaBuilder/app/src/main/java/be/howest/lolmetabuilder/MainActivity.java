@@ -34,7 +34,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import be.howest.lolmetabuilder.DAL.DbHelper;
 import be.howest.lolmetabuilder.DAL.Helper;
+import be.howest.lolmetabuilder.DAL.champDB;
 import be.howest.lolmetabuilder.data.models.Build;
 import be.howest.lolmetabuilder.data.models.Champion;
 import be.howest.lolmetabuilder.data.models.FreeChamp;
@@ -96,11 +98,6 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
         @Override
         protected List<String> doInBackground(String... params) {
             try {
-                getApplicationContext().deleteDatabase("loldb");
-
-                Helper h;
-                h = new Helper(getApplicationContext());
-
                 String PACKAGE_NAME = getApplicationContext().getPackageName();
                 ApplicationInfo appInfo = getPackageManager().getApplicationInfo(PACKAGE_NAME, PackageManager.GET_META_DATA);
 
@@ -135,13 +132,11 @@ public class MainActivity extends FragmentActivity implements ChampionFragment.O
                 else {
                     dc.add("Fail");
                 }
-                //Lijsten naar DB brengen
-                h.fillTablesV1(freeChamps, champions, items, leafs, runes, masteryTrees);
 
                 return dc;
             }
             catch (Exception e) {
-                e.printStackTrace();
+                Log.d("Debug:", e.getMessage());
             }
 
             return null;

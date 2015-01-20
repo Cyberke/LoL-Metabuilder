@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import be.howest.lolmetabuilder.data.models.*;
 import android.util.Log;
 
+//TODO: dit is de oude helper, sommige code valt te hergebruiken
+
 /**
  * Created by Milan on 12/12/2014.
  */
@@ -204,95 +206,98 @@ public class Helper extends SQLiteOpenHelper {
     }
 
     public ArrayList<Champion> getChampions(){
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = getReadableDatabase();
         ArrayList<Champion> list = new ArrayList<Champion>();
 
         Cursor champs = db.rawQuery("SELECT * FROM Champion", new String[]{});
+        try {
+            if (champs.moveToFirst()) {
+                for (int i = 0; i < champs.getCount(); i++) {
+                    ArrayList<Tip> allyTips = new ArrayList<Tip>();
+                    ArrayList<Tip> enemyTips = new ArrayList<Tip>();
+                    ArrayList<Tag> tags = new ArrayList<Tag>();
+                    ArrayList<Stat> stats = new ArrayList<Stat>();
+                    ArrayList<Spell> spells = new ArrayList<Spell>();
+                    ArrayList<Skin> skins = new ArrayList<Skin>();
 
-        if(champs.moveToFirst()) {
-            for(int i = 0; i < champs.getCount(); i++) {
-                ArrayList<Tip> allyTips = new ArrayList<Tip>();
-                ArrayList<Tip> enemyTips = new ArrayList<Tip>();
-                ArrayList<Tag> tags = new ArrayList<Tag>();
-                ArrayList<Stat> stats = new ArrayList<Stat>();
-                ArrayList<Spell> spells = new ArrayList<Spell>();
-                ArrayList<Skin> skins = new ArrayList<Skin>();
-
-                //allytips
-                Cursor tips = db.rawQuery("SELECT Tip.id, Tip.content FROM Tip, Tip_Champion WHERE Tip.id = Tip_Champion.TipID AND Tip_Champion.ChampID = ? AND Tip.isAlly = 1", new String[]{""+champs.getInt(0)});
-                if(tips.moveToFirst()) {
-                    for(int j = 0; j < tips.getCount(); j++) {
-                        Tip t = new Tip(true, tips.getString(1));
-                        t.setId(tips.getInt(0));
-                        allyTips.add(t);
-                        tips.moveToNext();
-                    }
-                }
-
-                //enemyTips
-                tips = db.rawQuery("SELECT Tip.id, Tip.content FROM Tip, Tip_Champion WHERE Tip.id = Tip_Champion.TipID AND Tip_Champion.ChampID = ? AND Tip.isAlly = 1", new String[]{""+champs.getInt(0)});
-                if(tips.moveToFirst()) {
-                    for(int k = 0; k < tips.getCount(); k++) {
-                        Tip t = new Tip(false, tips.getString(1));
-                        t.setId(tips.getInt(0));
-                        enemyTips.add(t);
-                        tips.moveToNext();
-                    }
-                }
-
-                //Tags
-                Cursor curstags = db.rawQuery("SELECT Tag.id, Tag.name From Tag, Tag_Champion WHERE Tag.id=Tag_Champion.TagID AND Tag_Champion.champID=?",new String[]{""+champs.getInt(0)});
-                if(curstags.moveToFirst()){
-                    for(int l = 0; l < curstags.getCount(); l++) {
-                        Tag t = new Tag(curstags.getString(1));
-                        t.setId(curstags.getInt(0));
-                        tags.add(t);
-                        curstags.moveToNext();
-                    }
-                }
-
-                //Stats (id, name, value)
-                Cursor cursstats = db.rawQuery("SELECT Stat.id, Stat.name, Stat.value FROM Stat, Stat_Champion WHERE Stat.id = Stat_Champion.statID AND Stat_Champion.champID=?", new String[]{""+champs.getInt(0)});
-                if(cursstats.moveToFirst()){
-                    for(int m = 0; m < cursstats.getCount(); m++) {
-                        Stat s = new Stat(cursstats.getString(1), cursstats.getDouble(2));
-                        s.setId(cursstats.getInt(0));
-                        stats.add(s);
-                        cursstats.moveToNext();
-                    }
-                }
-
-                Cursor cursspells = db.rawQuery("SELECT Spell.id, Spell.name, Spell.description, Spell.tooltip, Spell.cooldown, Spell.range, Spell.image, spell.cost FROM Spell, Spell_Champion WHERE Spell.ID=Spell_Champion.SpellID AND Spell_Champion.ChampID=?", new String[]{""+champs.getInt(0)});
-                if(cursspells.moveToFirst()){
-                    for(int n = 0; n < cursspells.getCount(); n++){
-                        Spell s = new Spell(cursspells.getString(1), cursspells.getString(2), cursspells.getString(3), cursspells.getString(4), cursspells.getString(5), cursspells.getString(6), cursspells.getString(7));
-                        s.setId(cursspells.getInt(0));
-
-                        Cursor spelleffects = db.rawQuery("SELECT Spelleffect.value FROM Spelleffect, Spelleffect_Spell WHERE Spelleffect.id=spelleffect_spell.spelleffectID AND Spell.id=?", new String[]{""+cursspells.getInt(0)});
-                        ArrayList<String> effects = new ArrayList<String>();
-                        if(spelleffects.moveToFirst()){
-                            for(int o = 0; o < spelleffects.getCount(); o++){
-                                String effect = spelleffects.getString(0);
-                                effects.add(effect);
-                                spelleffects.moveToNext();
-                            }
-                            s.setEffects(effects);
+                    //allytips
+                    Cursor tips = db.rawQuery("SELECT Tip.id, Tip.content FROM Tip, Tip_Champion WHERE Tip.id = Tip_Champion.TipID AND Tip_Champion.ChampID = ? AND Tip.isAlly = 1", new String[]{"" + champs.getInt(0)});
+                    if (tips.moveToFirst()) {
+                        for (int j = 0; j < tips.getCount(); j++) {
+                            Tip t = new Tip(true, tips.getString(1));
+                            t.setId(tips.getInt(0));
+                            allyTips.add(t);
+                            tips.moveToNext();
                         }
-                        spells.add(s);
-                        cursspells.moveToNext();
                     }
-                }
 
-                Champion c = new Champion(champs.getInt(0), champs.getString(1), champs.getString(2), champs.getString(3), champs.getInt(4), champs.getInt(5), champs.getInt(6), champs.getInt(7), champs.getString(8), champs.getString(9), champs.getString(10), allyTips, enemyTips, tags, stats, spells, skins);
-                list.add(c);
-                champs.moveToNext();
+                    //enemyTips
+                    tips = db.rawQuery("SELECT Tip.id, Tip.content FROM Tip, Tip_Champion WHERE Tip.id = Tip_Champion.TipID AND Tip_Champion.ChampID = ? AND Tip.isAlly = 1", new String[]{"" + champs.getInt(0)});
+                    if (tips.moveToFirst()) {
+                        for (int k = 0; k < tips.getCount(); k++) {
+                            Tip t = new Tip(false, tips.getString(1));
+                            t.setId(tips.getInt(0));
+                            enemyTips.add(t);
+                            tips.moveToNext();
+                        }
+                    }
+
+                    //Tags
+                    Cursor curstags = db.rawQuery("SELECT Tag.id, Tag.name From Tag, Tag_Champion WHERE Tag.id=Tag_Champion.TagID AND Tag_Champion.champID=?", new String[]{"" + champs.getInt(0)});
+                    if (curstags.moveToFirst()) {
+                        for (int l = 0; l < curstags.getCount(); l++) {
+                            Tag t = new Tag(curstags.getString(1));
+                            t.setId(curstags.getInt(0));
+                            tags.add(t);
+                            curstags.moveToNext();
+                        }
+                    }
+
+                    //Stats (id, name, value)
+                    Cursor cursstats = db.rawQuery("SELECT Stat.id, Stat.name, Stat.value FROM Stat, Stat_Champion WHERE Stat.id = Stat_Champion.statID AND Stat_Champion.champID=?", new String[]{"" + champs.getInt(0)});
+                    if (cursstats.moveToFirst()) {
+                        for (int m = 0; m < cursstats.getCount(); m++) {
+                            Stat s = new Stat(cursstats.getString(1), cursstats.getDouble(2));
+                            s.setId(cursstats.getInt(0));
+                            stats.add(s);
+                            cursstats.moveToNext();
+                        }
+                    }
+
+                    Cursor cursspells = db.rawQuery("SELECT Spell.id, Spell.name, Spell.description, Spell.tooltip, Spell.cooldown, Spell.range, Spell.image, spell.cost FROM Spell, Spell_Champion WHERE Spell.ID=Spell_Champion.SpellID AND Spell_Champion.ChampID=?", new String[]{"" + champs.getInt(0)});
+                    if (cursspells.moveToFirst()) {
+                        for (int n = 0; n < cursspells.getCount(); n++) {
+                            Spell s = new Spell(cursspells.getString(1), cursspells.getString(2), cursspells.getString(3), cursspells.getString(4), cursspells.getString(5), cursspells.getString(6), cursspells.getString(7));
+                            s.setId(cursspells.getInt(0));
+
+                            Cursor spelleffects = db.rawQuery("SELECT Spelleffect.value FROM Spelleffect, Spelleffect_Spell WHERE Spelleffect.id=spelleffect_spell.spelleffectID AND Spell.id=?", new String[]{"" + cursspells.getInt(0)});
+                            ArrayList<String> effects = new ArrayList<String>();
+                            if (spelleffects.moveToFirst()) {
+                                for (int o = 0; o < spelleffects.getCount(); o++) {
+                                    String effect = spelleffects.getString(0);
+                                    effects.add(effect);
+                                    spelleffects.moveToNext();
+                                }
+                                s.setEffects(effects);
+                            }
+                            spells.add(s);
+                            cursspells.moveToNext();
+                        }
+                    }
+
+                    Champion c = new Champion(champs.getInt(0), champs.getString(1), champs.getString(2), champs.getString(3), champs.getInt(4), champs.getInt(5), champs.getInt(6), champs.getInt(7), champs.getString(8), champs.getString(9), champs.getString(10), allyTips, enemyTips, tags, stats, spells, skins);
+                    list.add(c);
+                    champs.moveToNext();
+                }
             }
+        }catch(Exception e) {
+            Log.d(TAG, e.getMessage());
         }
         return list;
     }
 
     public void fillTablesV1(ArrayList<FreeChamp> fc, ArrayList<Champion> c, ArrayList<Item> i, ArrayList<Leaf> l, ArrayList<Rune> r, ArrayList<MasteryTree> m) {
-        SQLiteDatabase db = this.getWritableDatabase();
+        SQLiteDatabase db = getWritableDatabase();
         try {
             //Freechamp
             for(FreeChamp fcs : fc) {
@@ -459,6 +464,7 @@ public class Helper extends SQLiteOpenHelper {
                 "    tipID   INTEGER NOT NULL" +
                 ");";
         db.execSQL(sql);
+
         Log.d(TAG,"Tip_Champion OK");
     }
 
