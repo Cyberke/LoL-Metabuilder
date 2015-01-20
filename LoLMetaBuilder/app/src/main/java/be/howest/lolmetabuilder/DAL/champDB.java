@@ -173,6 +173,7 @@ public class champDB {
                             allyTips.add(t);
                             tips.moveToNext();
                         }
+                        tips.close();
                     }
 
                     //enemyTips
@@ -184,6 +185,7 @@ public class champDB {
                             enemyTips.add(t);
                             tips.moveToNext();
                         }
+                        tips.close();
                     }
 
                     //Tags
@@ -195,6 +197,7 @@ public class champDB {
                             tags.add(t);
                             curstags.moveToNext();
                         }
+                        curstags.close();
                     }
 
                     //Stats (id, name, value)
@@ -206,6 +209,7 @@ public class champDB {
                             stats.add(s);
                             cursstats.moveToNext();
                         }
+                        cursstats.close();
                     }
 
                     Cursor cursspells = database.rawQuery("SELECT Spell.id, Spell.name, Spell.description, Spell.tooltip, Spell.cooldown, Spell.range, Spell.image, spell.cost FROM Spell, Champion_Spell WHERE Spell.ID=Champion_Spell.SpellID AND Champion_Spell.ChampID=?", new String[]{"" + champs.getInt(0)});
@@ -226,6 +230,8 @@ public class champDB {
                             }
                             spells.add(s);
                             cursspells.moveToNext();
+                            spelleffects.close();
+                            cursspells.close();
                         }
                     }
 
@@ -234,6 +240,7 @@ public class champDB {
                     Log.d("Debug:", c.getName());
                     champs.moveToNext();
                 }
+                champs.close();
             }
         }catch(Exception e) {
             Log.d("Debug:", e.getMessage());

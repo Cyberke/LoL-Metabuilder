@@ -72,7 +72,6 @@ public class Helper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //Drop all tables
-        //TODO: skins table
         //Tussentabellen
         Log.d(TAG, "BEGIN DROP TABLES");
 
@@ -193,7 +192,6 @@ public class Helper extends SQLiteOpenHelper {
                     }
                 }
 
-                //TODO: niet 100% zeker hoe ik skins moet implementeren, overleggen met het team
 
                 Champion c = new Champion(champs.getInt(0), champs.getString(1), champs.getString(2), champs.getString(3), champs.getInt(4), champs.getInt(5), champs.getInt(6), champs.getInt(7), champs.getString(8), champs.getString(9), champs.getString(10), allyTips, enemyTips, tags, stats, spells, skins);
                 freechamp.setChampion(c);
@@ -450,7 +448,6 @@ public class Helper extends SQLiteOpenHelper {
             }
 
         } catch(Exception e) {
-            //TODO: Error message die zegt dat je internet nodig hebt
             Log.d(TAG, e.getMessage());
         }
 

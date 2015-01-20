@@ -59,7 +59,6 @@ public class DbHelper extends SQLiteOpenHelper{
     {
         try
         {
-            /*
             database.execSQL("DROP TABLE IF EXISTS Spell");
             database.execSQL("DROP TABLE IF EXISTS Tip_Champion");
             database.execSQL("DROP TABLE IF EXISTS SpellEffect");
@@ -85,7 +84,6 @@ public class DbHelper extends SQLiteOpenHelper{
             database.execSQL("DROP TABLE IF EXISTS Tag_Rune");
             database.execSQL("DROP TABLE IF EXISTS MasteryTree_Leaf");
             onCreate(database);
-            */
         }
         catch(Exception e)
         {

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +28,14 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-import be.howest.lolmetabuilder.data.models.Champion;
-import be.howest.lolmetabuilder.data.models.Item;
+import be.howest.lolmetabuilder.data.models.*;
 
 public class GeneratedBuildFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
     private static Item item;
     private Champion champion;
+    private ArrayList<buildResult> results = new ArrayList<buildResult>();
 
     public static GeneratedBuildFragment newInstance() {
         GeneratedBuildFragment fragment = new GeneratedBuildFragment();
@@ -128,12 +129,87 @@ public class GeneratedBuildFragment extends Fragment {
                 MainActivity.championBuild.setLimitGold(limitGold);
 
                 //TODO Milan: hier is op de button geduwt en word de limitgold nog in het object gestoken. hierna mag het algoritme lopen (misch andere functie)
+                ArrayList<Item> filterItems = new ArrayList<Item>();
+                results = new ArrayList<buildResult>();
+                for(Item i : MainActivity.items)
+                {
+                    for(Stat s : i.getStats())
+                    {
+                        for(String p : MainActivity.championBuild.getPrioriteit())
+                        {
+                            if(p.equals("Attack"))
+                            {
+                                if(s.getName().equals("FlatPhysicalDamageMod") && !filterItems.contains(i))
+                                    filterItems.add(i);
+                            }
+                            else if(p.equals("Ability"))
+                            {
+                                if(s.getName().equals("FlatMagicDamageMod") && !filterItems.contains(i))
+                                    filterItems.add(i);
+                            }
+                            else if(p.equals("Armor"))
+                            {
+                                if(s.getName().equals("FlatArmorMod") && !filterItems.contains(i))
+                                    filterItems.add(i);
+                            }
+                            else if(p.equals("Magic Resist"))
+                            {
+                                if(s.getName().equals("FlatSpellBlockMod") && !filterItems.contains(i))
+                                    filterItems.add(i);
+                            }
+                            else if(p.equals("Lifesteal"))
+                            {
+                                if(s.getName().equals("PercentLifeStealMod") && !filterItems.contains(i))
+                                    filterItems.add(i);
+                            }
+                            else if(p.equals("Spell Vamp"))
+                            {
+                                if(s.getName().equals("PercentSpellVampMod") && !filterItems.contains(i))
+                                    filterItems.add(i);
+                            }
+                        }
+                    }
+                }
+                //generateAlgorithm(filterItems, 0, MainActivity.championBuild.getItems(), true);
+
+
+
             }
         });
 
-
         return view;
     }
+
+    public int generateAlgorithm(ArrayList<Item> itemlist, int position, ArrayList<Item> from, boolean debug)
+    {
+        int counter = 0;
+        if(itemlist.size() == 6)
+        {
+            if(debug)
+            {
+                String IDs = "";
+                for(int i = 0; i < itemlist.size(); i++)
+                {
+                    IDs += ""+itemlist.get(i).getId() +" ";
+                }
+                Log.d("Debug:", IDs);
+            }
+            buildResult result = buildResult.setBuildResult(itemlist);
+            if(result.getTotalGold() < MainActivity.championBuild.getLimitGold())
+                results.add(result);
+
+            return 1;
+        }
+        for(int i = position; i < from.size(); i++)
+        {
+            itemlist.add(from.get(i));
+            counter += generateAlgorithm(itemlist, i, from, debug);
+            itemlist.remove(itemlist.size()-1);
+        }
+        return counter;
+    }
+
+
 
     class ViewHolder {
         ImageView imgVChampAvatar;
