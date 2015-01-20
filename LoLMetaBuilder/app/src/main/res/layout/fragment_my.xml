@@ -21,7 +21,7 @@
 
     <GridView
         android:layout_width="wrap_content"
-        android:layout_height="125dp"
+        android:layout_height="200dp"
         android:id="@+id/gvFreeChamps"
         android:layout_below="@id/textView"
         android:layout_marginTop="10dp"
@@ -42,7 +42,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_below="@id/gvFreeChamps"
-        android:layout_marginTop="20dp"/>
+        android:layout_marginTop="40dp"/>
 
     <GridView
         android:layout_width="wrap_content"
@@ -53,26 +53,6 @@
         android:layout_alignStart="@+id/txtVPatchNote"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/game_patch_notes"
-        android:id="@+id/textView3"
-        android:layout_below="@+id/gVRecentBuilds"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Patch note CONTAINER"
-        android:id="@+id/txtVPatchNote"
-        android:layout_below="@+id/textView3"
-        android:layout_alignLeft="@+id/gvFreeChamps"
-        android:layout_alignStart="@+id/gvFreeChamps" />
 
 
 </RelativeLayout>

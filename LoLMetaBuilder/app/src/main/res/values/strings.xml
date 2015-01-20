@@ -10,6 +10,7 @@
 
     <!-- Appbar -->
     <string name="action_add">Add Build</string>
+    <string name="action_save">Save Build</string>
     <string name="action_settings">Settings</string>
     <string name="action_search">Search</string>
 
