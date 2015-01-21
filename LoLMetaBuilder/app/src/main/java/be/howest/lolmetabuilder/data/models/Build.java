@@ -28,7 +28,7 @@ public class Build {
         this.items = items;
     }
 
-    public void setItemAt(Item item, int position) {this.items[position] = item;}
+    public void setItemAt(Item item, int position) { this.items[position] = item; }
 
     public int getLimitGold() {
         return limitGold;

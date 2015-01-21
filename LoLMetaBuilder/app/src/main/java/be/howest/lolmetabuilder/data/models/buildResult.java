@@ -33,7 +33,7 @@ public class buildResult {
     public void setTotalSV(double value) {totalSV = value;}
     public void setTotalGold(int value) {totalGold = value;}
 
-    public static buildResult setBuildResult(ArrayList<Item> itemlist)
+    public static buildResult setBuildResult(ArrayList<Item> itemlist, ArrayList<String> criteria)
     {
         buildResult temp = new buildResult();
         temp.setItems(itemlist);
@@ -42,17 +42,17 @@ public class buildResult {
             temp.setTotalGold(temp.getTotalGold() + i.getTotalGold());
             for(Stat s : i.getStats())
             {
-                if(s.getName().equals("FlatPhysicalDamageMod"))
+                if(s.getName().equals("FlatPhysicalDamageMod") && criteria.contains("Attack"))
                     temp.setTotalATK(temp.getTotalATK() + s.getValue());
-                else if(s.getName().equals("FlatMagicDamageMod"))
+                else if(s.getName().equals("FlatMagicDamageMod") && criteria.contains("Ability"))
                     temp.setTotalAP(temp.getTotalAP() + s.getValue());
-                else if(s.getName().equals("FlatArmorMod"))
+                else if(s.getName().equals("FlatArmorMod") && criteria.contains("Armor"))
                     temp.setTotalARM(temp.getTotalARM() + s.getValue());
-                else if(s.getName().equals("FlatSpellBlockMod"))
+                else if(s.getName().equals("FlatSpellBlockMod") && criteria.contains("Magic Resist"))
                     temp.setTotalMR(temp.getTotalMR() + s.getValue());
-                else if(s.getName().equals("PercentLifeStealMod"))
+                else if(s.getName().equals("PercentLifeStealMod") && criteria.contains("Lifesteal"))
                     temp.setTotalLS(temp.getTotalLS() + s.getValue());
-                else if(s.getName().equals("PercentSpellVampMod"))
+                else if(s.getName().equals("PercentSpellVampMod") && criteria.contains("Spell Vamp"))
                     temp.setTotalSV(temp.getTotalSV() + s.getValue());
             }
         }

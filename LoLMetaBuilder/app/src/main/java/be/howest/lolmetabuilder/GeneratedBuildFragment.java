@@ -27,6 +27,8 @@ import com.google.gson.Gson;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import be.howest.lolmetabuilder.data.models.*;
 
@@ -36,6 +38,55 @@ public class GeneratedBuildFragment extends Fragment {
     private static Item item;
     private Champion champion;
     private ArrayList<buildResult> results = new ArrayList<buildResult>();
+
+    enum BuildComparator implements Comparator<buildResult> {
+        ATK_SORT {
+            public int compare(buildResult o1, buildResult o2) {
+                return Double.valueOf(o1.getTotalATK()).compareTo(o2.getTotalATK());
+            }},
+        AP_SORT {
+            public int compare(buildResult o1, buildResult o2){
+                return Double.valueOf(o1.getTotalAP()).compareTo(o2.getTotalAP());
+            }},
+        ARM_SORT {
+            public int compare(buildResult o1, buildResult o2){
+                return Double.valueOf(o1.getTotalARM()).compareTo(o2.getTotalARM());
+            }},
+        MR_SORT {
+            public int compare(buildResult o1, buildResult o2){
+                return Double.valueOf(o1.getTotalMR()).compareTo(o2.getTotalMR());
+            }},
+        LS_SORT {
+            public int compare(buildResult o1, buildResult o2){
+                return Double.valueOf(o1.getTotalLS()).compareTo(o2.getTotalLS());
+            }},
+        SV_SORT {
+            public int compare(buildResult o1, buildResult o2){
+                return Double.valueOf(o1.getTotalSV()).compareTo(o2.getTotalSV());
+            }};
+
+        public static Comparator<buildResult> decending(final Comparator<buildResult> other) {
+            return new Comparator<buildResult>() {
+                public int compare(buildResult o1, buildResult o2) {
+                    return -1 * other.compare(o1, o2);
+                }
+            };
+        }
+
+        public static Comparator<buildResult> getComparator(final BuildComparator... multipleOptions) {
+            return new Comparator<buildResult>() {
+                public int compare(buildResult o1, buildResult o2) {
+                    for (BuildComparator option : multipleOptions) {
+                        int result = option.compare(o1, o2);
+                        if(result != 0) {
+                            return result;
+                        }
+                    }
+                    return 0;
+                }
+            };
+        }
+    }
 
     public static GeneratedBuildFragment newInstance() {
         GeneratedBuildFragment fragment = new GeneratedBuildFragment();
@@ -128,7 +179,6 @@ public class GeneratedBuildFragment extends Fragment {
                 }
                 MainActivity.championBuild.setLimitGold(limitGold);
 
-                //TODO Milan: hier is op de button geduwt en word de limitgold nog in het object gestoken. hierna mag het algoritme lopen (misch andere functie)
                 ArrayList<Item> filterItems = new ArrayList<Item>();
                 results = new ArrayList<buildResult>();
                 for(Item i : MainActivity.items)
@@ -170,46 +220,58 @@ public class GeneratedBuildFragment extends Fragment {
                         }
                     }
                 }
-                //generateAlgorithm(filterItems, 0, MainActivity.championBuild.getItems(), true);
 
+                ArrayList<Item> from = new ArrayList<Item>();
+                Log.d("Debug:", "ALGORITHM HAS STARTED");
+                GenerateAlgorithm(filterItems, 6, from);
+                Log.d("Debug:", "ALGORITHM IS DONE!");
 
+                Log.d("Debug:", "Start sorting for best build!");
+                Collections.sort(results,BuildComparator.decending(BuildComparator.getComparator(BuildComparator.ATK_SORT, BuildComparator.AP_SORT, BuildComparator.ARM_SORT, BuildComparator.MR_SORT, BuildComparator.LS_SORT, BuildComparator.SV_SORT)));
+                Log.d("Debug:", "Sorting is over!");
 
+                Log.d("Debug:", "copy best build to championBuild");
+                for(int i = 0; i < 6; i++)
+                {
+                    MainActivity.championBuild.setItemAt(results.get(0).getItems().get(i), i);
+                    Log.d("Debug:", results.get(0).getItems().get(i).getName());
+                }
+                /*
+                Fragment fragment = GenerateBuildResultFragment.newInstance();
+                FragmentManager fragmentManager = getFragmentManager();
+                fragmentManager.beginTransaction()
+                        .replace(R.id.container, fragment)
+                        .addToBackStack("MakeMeABuild")
+                        .commit();
+                */
             }
         });
 
         return view;
     }
 
-    public int generateAlgorithm(ArrayList<Item> itemlist, int position, ArrayList<Item> from, boolean debug)
+    public void GenerateAlgorithm(ArrayList<Item> items, int cnt, ArrayList<Item> result)
     {
-        int counter = 0;
-        if(itemlist.size() == 6)
+        if(result.size() >= cnt)
         {
-            if(debug)
+            ArrayList<Item> temp = new ArrayList<Item>();
+            for(int i = result.size() - 6; i < result.size(); i++)
             {
-                String IDs = "";
-                for(int i = 0; i < itemlist.size(); i++)
-                {
-                    IDs += ""+itemlist.get(i).getId() +" ";
-                }
-                Log.d("Debug:", IDs);
+                temp.add(result.get(i));
             }
-            buildResult result = buildResult.setBuildResult(itemlist);
-            if(result.getTotalGold() < MainActivity.championBuild.getLimitGold())
-                results.add(result);
 
-            return 1;
+            results.add(buildResult.setBuildResult(temp, MainActivity.championBuild.getPrioriteit()));
+            Log.d("Debug:", "Added a possible build!");
         }
-        for(int i = position; i < from.size(); i++)
+        else
         {
-            itemlist.add(from.get(i));
-            counter += generateAlgorithm(itemlist, i, from, debug);
-            itemlist.remove(itemlist.size()-1);
+            for(Item i : items)
+            {
+                result.add(i);
+                GenerateAlgorithm(items, cnt, result);
+            }
         }
-        return counter;
     }
-
-
 
     class ViewHolder {
         ImageView imgVChampAvatar;
