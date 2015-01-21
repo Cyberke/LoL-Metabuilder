@@ -231,12 +231,13 @@ public class GeneratedBuildFragment extends Fragment {
                 Log.d("Debug:", "Sorting is over!");
 
                 Log.d("Debug:", "copy best build to championBuild");
+                /*
                 for(int i = 0; i < 6; i++)
                 {
                     MainActivity.championBuild.setItemAt(results.get(0).getItems().get(i), i);
                     Log.d("Debug:", results.get(0).getItems().get(i).getName());
                 }
-                /*
+
                 Fragment fragment = GenerateBuildResultFragment.newInstance();
                 FragmentManager fragmentManager = getFragmentManager();
                 fragmentManager.beginTransaction()
